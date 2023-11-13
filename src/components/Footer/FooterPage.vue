@@ -10,6 +10,3 @@
 
 
 <style src="./FooterPage.style.scss" lang="scss" scoped></style>
-<style scoped>
-
-</style>

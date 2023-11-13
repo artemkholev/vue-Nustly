@@ -9,6 +9,3 @@
 </script>
 
 <style src="./MainPage.style.scss" lang="scss" scoped></style>
-<style scoped>
-
-</style>

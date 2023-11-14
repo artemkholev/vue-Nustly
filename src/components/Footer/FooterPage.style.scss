@@ -1,11 +1,53 @@
 @import '../../assets/styles/vars';
 
 .container {
-  height: 150px;
+  height: 126px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
-  font-weight: 700;
+  gap: 135px;
+  border: 1px solid black;
+
+  & > .footerInfo {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    justify-content: center;
+
+    & > p {
+      font-family: Rubik;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 150%;
+    }
+  }
+
+  & > .connection {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 50px;
+    & > .messengers {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    & > .phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      & > p {
+        font-family: Rubik;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;
+      }
+    }
+  }
+ 
 }

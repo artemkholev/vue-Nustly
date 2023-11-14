@@ -31,11 +31,11 @@ const emitDataIsDark = ref<boolean>(false);
     'header'
     'content'
     'footer';
-  grid-template-rows: 60px auto 60px;
+  grid-template-rows: 70px auto 70px;
   width: 100vw;
   height: 100vh;
 
-  @media(max-width:770px) {
+  @media(max-width:768px) {
     grid-template-rows: 56px auto 108px;
   }
 }

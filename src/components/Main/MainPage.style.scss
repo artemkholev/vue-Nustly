@@ -1,8 +1,18 @@
 @import '../../assets/styles/vars';
 
 .container {
+  width: 100%;
   font-size: 32px;
   font-weight: 900;
-  padding: 2rem;
-  flex-grow: 1;
+  // padding-top: 2rem;
+  // flex-grow: 1;
+  & > .generalInfo {
+    height: 200px;
+    width: 100%;
+    background-image: url('../../assets/photo/fon.png');
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

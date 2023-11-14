@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    Main
+    <div class="generalInfo">
+      <img src="../../assets/photo/photoProduct.png" alt="фон" class="fon">
+      <p>Бесплатная доставка от 1000 рублей</p>
+    </div>
   </div>
   <!-- <ButtonElem
     :clName="null"

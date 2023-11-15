@@ -19,12 +19,14 @@
   </button>
 </template>
 
-<script setup lang="ts">
-// import {ref} from 'vue' 
+<script setup lang="ts"> 
 import type { ButtonPropsType } from './ButtonElem.types'
+
 const props = defineProps<ButtonPropsType>();
 
-// const name = ref('ButtonElem')
+defineOptions({
+    name: 'button-elem',
+})
 </script>
 
 <style src="./ButtonElem.style.scss" lang="scss" scoped></style>

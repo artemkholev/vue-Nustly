@@ -31,7 +31,7 @@ const emitDataIsDark = ref<boolean>(false);
     'header'
     'content'
     'footer';
-  grid-template-rows: 70px auto 70px;
+  grid-template-rows: 75px 650px 120px;
   width: 100vw;
   height: 100vh;
 

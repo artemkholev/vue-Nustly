@@ -77,8 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { defineEmits } from 'vue';
+import { ref, defineEmits } from 'vue'
 
 const userName = ref('Артем');
 const isDark = ref(false);

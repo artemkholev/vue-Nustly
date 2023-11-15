@@ -11,7 +11,7 @@ import router from './router'
 const app = createApp(App)
 
 components.forEach(component => {
-  app.component(component.__name ?? '', component)
+  app.component(component.name, component)
 })
 
 app.use(createPinia())

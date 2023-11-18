@@ -1,10 +1,6 @@
 <template>
   <div class="page_wrapper" >
-    <HeaderPage
-      @isDark="(value) => {
-        emitDataIsDark = value; 
-      }"
-    />
+    <HeaderPage/>
     <MainPage
       class="content"
     />
@@ -18,10 +14,6 @@ import FooterPage from './components/Footer/FooterPage.vue';
 import HeaderPage from './components/Header/HeaderPage.vue';
 import MainPage from './components/Main/MainPage.vue';
 
-import { ref } from 'vue';
-
-const emitDataIsDark = ref<boolean>(false);
-
 </script>
 
 <style lang="scss" scoped>
@@ -31,7 +23,7 @@ const emitDataIsDark = ref<boolean>(false);
     'header'
     'content'
     'footer';
-  grid-template-rows: 75px 650px 120px;
+  grid-template-rows: 75px 750px 120px;
   width: 100vw;
   height: 100vh;
 

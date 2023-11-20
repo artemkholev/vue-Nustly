@@ -2,8 +2,11 @@
 
 .container {
   width: 100%;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   // padding-top: 2rem;
   flex-grow: 1;
   & > .generalInfo {

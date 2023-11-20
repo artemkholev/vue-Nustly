@@ -31,9 +31,4 @@ import MainPage from './components/Main/MainPage.vue';
     grid-template-rows: 56px auto 108px;
   }
 }
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 </style>

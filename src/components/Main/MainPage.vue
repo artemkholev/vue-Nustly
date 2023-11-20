@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div class="container">
+  <div class="container">
       <div class="generalInfo">
         <img src="../../assets/photo/photoProduct.png" alt="фон" class="fon">
         <p>Бесплатная доставка от 1000 рублей</p>
       </div>
-    </div>
     <dialog-window v-model:show="dialogVisible">
       <button-elem
         :clName="null"

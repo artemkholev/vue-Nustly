@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import App from '../App.vue';
+import App from '@/App.vue';
 
 const FavoritesPage = { template: '<h2>FavoritesPage</h2>' }
 const OrdersPage = { template: '<h2>OrdersPage</h2>' }

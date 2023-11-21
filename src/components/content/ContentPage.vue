@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
+import { computed } from 'vue';
 import ContainerPage from '../Container/ContainerPage.vue';
 import { useMedia } from '@/composables/useMedia';
 

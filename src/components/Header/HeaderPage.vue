@@ -36,9 +36,15 @@
           </svg>
         </div>
         <p class="name">{{ userName }}</p>
-        <button>
-          <ArrowIcon/>
-        </button>
+        <div class="dropdown">
+          <button @click="dropdown" class="dropbtn">
+            <ArrowIcon/>
+          </button>
+          <div v-if="isDropdown" class="dropdown-content">
+            <p @click="">Вход</p>
+            <p @click="">Регистрация</p>
+          </div>
+        </div>
       </div>
     </div>
     <button 
@@ -51,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 import LogoIcon from '../../assets/svg/LogoIcon.vue';
 import BurgerIcon from '../../assets/svg/BurgerIcon.vue'
 import MagnifierIcon from '../../assets/svg/MagnifierIcon.vue'
@@ -62,8 +68,13 @@ import ThemeIcon from '../../assets/svg/ThemeIcon.vue'
 import ArrowIcon from '../../assets/svg/ArrowIcon.vue'
 
 
-const userName = ref('Артем');
+const userName = ref('none');
 const isDark = ref(false);
+const isDropdown = ref(false);
+
+const dropdown = () => {
+  isDropdown.value = !isDropdown.value;
+}
 
 const hendleThemeClick = () => {
   isDark.value = !isDark.value;

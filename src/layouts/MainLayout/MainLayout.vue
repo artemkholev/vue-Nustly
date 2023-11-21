@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import MainPage from '@/components/Main/MainPage.vue';
 import HeaderPage from '@/components/Header/HeaderPage.vue';
 import FooterPage from '@/components/Footer/FooterPage.vue';
 import ContentPage from '@/components/content/ContentPage.vue';

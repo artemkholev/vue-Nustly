@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: Links.ABOUT,
       name: PathNames.ABOUT,
-      component: () => import('@/views/About/AboutPage.vue'),
+      component: () => import('@/Pages/About/AboutPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'About'
@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: Links.BUCKET,
       name: PathNames.BUCKET,
-      component: () => import('@/views/BucketsPage/BucketsPage.vue'),
+      component: () => import('@/Pages/BucketsPage/BucketsPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Bucket'
@@ -36,7 +36,7 @@ const router = createRouter({
     {
       path: Links.ORDERS,
       name: PathNames.ORDERS,
-      component: () => import('@/views/OrdersPage/OrdersPage.vue'),
+      component: () => import('@/Pages/OrdersPage/OrdersPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Orders'
@@ -45,7 +45,7 @@ const router = createRouter({
     {
       path: Links.FAVORITES,
       name: PathNames.FAVORITES,
-      component: () => import('@/views/FavoritesPage/FavoritesPage.vue'),
+      component: () => import('@/Pages/FavoritesPage/FavoritesPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Favorites'

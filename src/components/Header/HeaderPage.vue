@@ -64,12 +64,10 @@ import ArrowIcon from '../../assets/svg/ArrowIcon.vue'
 
 const userName = ref('Артем');
 const isDark = ref(false);
-const emit = defineEmits(['isDark'])
 
 const hendleThemeClick = () => {
   isDark.value = !isDark.value;
   document.body.className =  isDark.value ? 'dark-theme' : 'light-theme';
-  emit('isDark', isDark.value)
 }
 
 

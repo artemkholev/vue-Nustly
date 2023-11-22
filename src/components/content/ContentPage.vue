@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="contentClasses">
     <ContainerPage :is-full-width="device === 'mobile' ? true : false" :width="deviceWidth">
       {{ $route.meta.title }}
       <!-- <v-divider v-if="$route.meta.title"></v-divider> -->
@@ -12,6 +12,12 @@
 import { computed } from 'vue';
 import ContainerPage from '../Container/ContainerPage.vue';
 import { useMedia } from '@/composables/useMedia';
+import store from '@/store';
+
+
+const contentClasses = computed(() => {
+  return { content: true, ['dark-content']: store.state.isDark };
+});
 
 const { device } = useMedia();
 

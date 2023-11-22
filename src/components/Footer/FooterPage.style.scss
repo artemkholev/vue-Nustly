@@ -1,6 +1,6 @@
 @import '../../assets/styles/vars';
 
-.container {
+.footer {
   display: flex;
   height: 120px;
   width: 100%;
@@ -50,4 +50,16 @@
     }
   }
  
+}
+
+.dark-footer {
+  background-color: $background-color-isDark;
+  color: $text-color-isDark;
+  transition: 0.3s;
+  svg > path {
+    fill: #fff;
+  }
+  a {
+    color: #fff;
+  }
 }

@@ -1,13 +1,16 @@
+@import '../../assets/styles/vars.scss';
+
 .content {
-  background-color: var(--dark-gray);
-  color: var(--light-black);
-  font-size: var(--title-fs);
-  font-weight: var(--bold-weight);
+  background-color: $background-color;
+  color: $text-color;
+  font-size: $text-size;
+  // font-weight: 
   padding: 2rem;
   overflow: hidden;
   flex-grow: 1;
 }
 .dark-content {
-  background-color: var(--grey);
-  color: var(--black);
+  background-color: $background-color-isDark;
+  color: $text-color-isDark;
+  transition: 0.3s;
 }

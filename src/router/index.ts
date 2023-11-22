@@ -41,7 +41,7 @@ const router = createRouter({
         layout: MainLayout,
         // title: 'Orders'
       }
-    },
+    }, 
     {
       path: Links.FAVORITES,
       name: PathNames.FAVORITES,
@@ -49,6 +49,33 @@ const router = createRouter({
       meta: {
         layout: MainLayout,
         // title: 'Favorites'
+      }
+    },
+    {
+      path: Links.VACANCY,
+      name: PathNames.VACANCY,
+      component: () => import('@/Pages/VacancyPage/VacancyPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Vacancy'
+      }
+    },
+    {
+      path: Links.ARTICLES,
+      name: PathNames.ARTICLES,
+      component: () => import('@/Pages/ArticlesPage/ArticlesPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Articles'
+      }
+    },
+    {
+      path: Links.POLITICS,
+      name: PathNames.POLITICS,
+      component: () => import('@/Pages/PoliticsPage/PoliticsPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Pjlitics'
       }
     },
   ]

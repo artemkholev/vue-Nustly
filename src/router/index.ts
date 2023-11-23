@@ -81,7 +81,7 @@ const router = createRouter({
     {
       path: Links.AUTH,
       name: PathNames.AUTH,
-      component: () => import('@/Pages/Auth/AuthPage.vue'),
+      component: () => import('@/Pages/AuthPage/AuthPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Auth'
@@ -90,7 +90,7 @@ const router = createRouter({
     {
       path: Links.REG,
       name: PathNames.REG,
-      component: () => import('@/Pages/Reg/RegPage.vue'),
+      component: () => import('@/Pages/RegistrPage/RegistrPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Reg'

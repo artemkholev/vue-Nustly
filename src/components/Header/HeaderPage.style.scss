@@ -1,7 +1,6 @@
 @import '../../assets/styles/vars';
 
 .header {
-  z-index: 1000;
   display: flex;
   width: 100%;
   height: 75px;
@@ -149,7 +148,7 @@
           }
         }
         & > .activeDropDown {
-          animation: rotate 2s;
+          animation: rotate 0.2s;
           transform: rotate(180deg);
           transform-origin: 50% 50%;
         }

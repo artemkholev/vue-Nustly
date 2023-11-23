@@ -5,24 +5,18 @@
         <p>Бесплатная доставка от 1000 рублей</p>
       </div>
     <dialog-window v-model:show="dialogVisible">
-      <button-elem
-        :clName="null"
-        :title="'Войти'"
-        :handler="handlerButton"
-        :width="'100%'"
-        :height="'48px'"
-        :background="'#70C05B'"
-        :textColor="null"
-        :fontSize="null"
-        :fontWeight="null"
-        :margin="'24px 0 0 0'"
-        :borderRadius="'0'"
-        :icon="null"
-      />
+      <div>
+        <p>Запросы можно посмотреть в разделе корзина</p>
+        <p>Авторизация находится в рядом с оранжевым кружком, стрелка вниз</p>
+        <input-elem    
+          v-model="firstName"
+        />
+        <p>{{ firstName }}</p>
+      </div>
     </dialog-window>
     <button-elem
       :clName="null"
-      :title="'Войти'"
+      :title="'Показать информацию'"
       :handler="handlerButtonShowDialog"
       :width="'100%'"
       :height="'48px'"
@@ -34,14 +28,7 @@
       :borderRadius="'0'"
       :icon="null"
     />
-    <div>
-      <p>Запросы можно посмотреть в разделе корзина</p>
-      <p>Авторизация находится в рядом с оранжевым кружком, стрелка вниз</p>
-      <input-elem    
-        v-model="firstName"
-      />
-      <p>{{ firstName }}</p>
-    </div>
+   
   </div>
 </template>
 

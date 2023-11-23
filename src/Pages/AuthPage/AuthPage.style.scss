@@ -1,0 +1,12 @@
+@import '../../assets/styles/vars.scss';
+
+.authContainer {
+  display: flex;
+  justify-content: center;
+  margin: 100px auto;
+
+  width: 40%;
+  border: 2px solid $main-color;
+  border-radius: 20px;
+  padding: 50px;
+}

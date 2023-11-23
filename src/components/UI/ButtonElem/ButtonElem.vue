@@ -1,6 +1,6 @@
 <template>
   <button
-    class="[style.wrapper, clName].join(' ')"
+    :class="{wrapper: true}"
     type="button"
     :style="{
       width: `${props.width}`,

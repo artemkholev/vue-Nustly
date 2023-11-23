@@ -25,7 +25,7 @@
       :fontSize="null"
       :fontWeight="null"
       :margin="'24px 0 0 0'"
-      :borderRadius="'0'"
+      :borderRadius="'10px'"
       :icon="null"
     />
    

@@ -34,6 +34,14 @@
       :borderRadius="'0'"
       :icon="null"
     />
+    <div>
+      <p>Запросы можно посмотреть в разделе корзина</p>
+      <p>Авторизация находится в рядом с оранжевым кружком, стрелка вниз</p>
+      <input-elem    
+        v-model="firstName"
+      />
+      <p>{{ firstName }}</p>
+    </div>
   </div>
 </template>
 
@@ -41,6 +49,7 @@
 import { ref } from 'vue';
 
 const dialogVisible = ref(false);
+const firstName = ref('');
 
 const handlerButton = () => {
   console.log("Click");

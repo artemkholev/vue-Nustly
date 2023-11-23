@@ -58,8 +58,8 @@
             </svg>
           </button>
           <div v-if="isDropdown" class="dropdown-content">
-            <p @click="">Вход</p>
-            <p @click="">Регистрация</p>
+            <router-link to="/auth" @click="">Вход</router-link>
+            <router-link to="/reg" @click="">Регистрация</router-link>
           </div>
         </div>
       </div>

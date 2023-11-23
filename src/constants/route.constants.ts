@@ -6,7 +6,9 @@ export enum Links {
   FAVORITES = '/favorites',
   VACANCY = '/vacancy',
   ARTICLES = '/articles',
-  POLITICS = '/politics'
+  POLITICS = '/politics',
+  AUTH = '/auth',
+  REG ='/reg'
 }
 
 export enum PathNames {
@@ -17,5 +19,7 @@ export enum PathNames {
   FAVORITES = 'favorites',
   VACANCY = 'vacancy',
   ARTICLES = 'articles',
-  POLITICS = 'politics'
+  POLITICS = 'politics',
+  AUTH = 'auth',
+  REG = 'reg'
 }

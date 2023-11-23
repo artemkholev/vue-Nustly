@@ -78,6 +78,24 @@ const router = createRouter({
         // title: 'Pjlitics'
       }
     },
+    {
+      path: Links.AUTH,
+      name: PathNames.AUTH,
+      component: () => import('@/Pages/Auth/AuthPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Auth'
+      }
+    },
+    {
+      path: Links.REG,
+      name: PathNames.REG,
+      component: () => import('@/Pages/Reg/RegPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Reg'
+      }
+    },
   ]
 });
 

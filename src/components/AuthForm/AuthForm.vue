@@ -1,20 +1,20 @@
 <template>
   <form @submit.prevent>
-    <h4>Вход</h4>
+    <h4 :style="{marginBottom: '20px'}">Вход</h4>
     <input-elem 
       v-model="loginInfo.email"
-      type="text"
-      placeholder="email"
+      :typeInput="'text'"
+      :placeholderInput="'email'"
     />
     <input-elem
       v-model="loginInfo.password"
-      type="text"
-      placeholder="пароль"
+      :typeInput="'password'"
+      :placeholderInput="'пароль'"
     />
     <input-elem
       v-model="password"
-      type="text"
-      placeholder="повторите пароль"
+      :typeInput="'password'"
+      :placeholderInput="'повторите пароль'"
     />
     <button-elem
       :clName="null"

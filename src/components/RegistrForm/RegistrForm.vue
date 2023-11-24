@@ -1,15 +1,15 @@
 <template>
   <form @submit.prevent>
-    <h4>Регистрация</h4>
+    <h4 :style="{marginBottom: '20px'}">Регистрация</h4>
     <input-elem 
       v-model="loginInfo.email"
-      type="text"
-      placeholder="email"
+      :typeInput="'text'"
+      :placeholderInput="'email'"
     />
     <input-elem
       v-model="loginInfo.password"
-      type="text"
-      placeholder="пароль"
+      :typeInput="'password'"
+      :placeholderInput="'пароль'"
     />
     <button-elem
       :clName="null"

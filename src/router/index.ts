@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { Links, PathNames } from '@/constants/route.constants';
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
-import MainPage from "@/components/Main/MainPage.vue";
+import MainPage from "@/widgets/Main/MainPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

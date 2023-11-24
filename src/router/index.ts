@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: Links.BUCKET,
       name: PathNames.BUCKET,
-      component: () => import('@/Pages/BucketsPage/BucketsPage.vue'),
+      component: () => import('@/Pages/BucketPage/BucketPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Bucket'

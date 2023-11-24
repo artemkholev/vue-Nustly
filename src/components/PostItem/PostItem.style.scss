@@ -1,0 +1,15 @@
+@import '../../assets/styles/vars';
+
+.post {
+  padding: 20px;
+  border: 2px solid $main-color;
+  border-radius: 10px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > div > div {
+    margin-bottom: 10px;
+  }
+}

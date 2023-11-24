@@ -1,0 +1,12 @@
+@import '../../assets/styles/vars.scss';
+
+.containerBucket {
+  display: flex;
+  flex-direction: column;
+  & > .sortOption {
+    margin: 15px 0;
+    margin-left: auto;
+    right: 0;
+    width: 200px;
+  }
+}

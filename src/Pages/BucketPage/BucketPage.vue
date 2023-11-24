@@ -1,21 +1,29 @@
 <template>
   <div class="containerBucket">
-    <!-- <button-elem
-      :clName="null"
-      :title="'Получить посты'"
-      :handler="fetchPosts"
-      :width="'100%'"
-      :height="'48px'"
-      :background="'#70C05B'"
-      :textColor="null"
-      :fontSize="null"
-      :fontWeight="null"
-      :margin="'24px 0 0 0'"
-      :borderRadius="'10px'"
-      :icon="null"
-    /> -->
-    <BucketList :posts="posts"/>
-    <p v-if="isLoading">Loading...</p>
+    <div class="sortOption">
+      <!-- <button-elem
+        :clName="null"
+        :title="'Сортировать'"
+        :handler="fetchPosts"
+        :width="'100%'"
+        :height="'48px'"
+        :background="'#70C05B'"
+        :textColor="null"
+        :fontSize="null"
+        :fontWeight="null"
+        :margin="'24px 0 0 0'"
+        :borderRadius="'10px'"
+        :icon="null"
+      /> -->
+      <select-elem
+        v-model="selected"
+        :options="selectOptions"
+      />
+    </div>
+    <div>
+      <BucketList :posts="posts"/>
+      <p v-if="isLoading">Loading...</p>
+    </div>
   </div>
 </template>
 
@@ -26,6 +34,13 @@ import { reactive, onMounted, ref } from 'vue';
 
 let posts = reactive([]);
 const isLoading = ref(false);
+const selected = ref('');
+const selectOptions = reactive([
+  {
+    name: 'Название',
+    value:  'title'
+  }
+]);
 
 const fetchPosts = async() => {
   try {
@@ -44,4 +59,4 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style src="./BucketPage.style.scss" lang="scss" scoped></style>

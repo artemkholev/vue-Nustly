@@ -1,12 +1,12 @@
 <template>
   <div v-if="posts.length > 0">
     <h3>Корзина</h3>
-    <transition-group name="bucket-list">
+    <div name="bucket-list">
       <PostItem v-for="post in posts"
         :post="post"
         :key="post.id"
       />
-    </transition-group>
+    </div>
   </div>
   <h2 v-else>
     Данных нет

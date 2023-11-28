@@ -4,12 +4,14 @@
   background-color: $background-color;
   color: $text-color;
   font-size: $text-size;
-  // font-weight: 
-  padding: 2rem;
+  padding: 5rem 0;
   flex-grow: 1;
 }
 .dark-content {
   background-color: $background-color-isDark;
   color: $text-color-isDark;
   transition: 0.3s;
+  a {
+    color: $text-color-isDark;
+  }
 }

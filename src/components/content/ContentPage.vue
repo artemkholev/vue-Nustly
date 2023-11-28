@@ -24,7 +24,7 @@ const { device } = useMedia();
 const deviceWidth = computed(() => {
   if (device.value === 'desktop') return 1200;
   if (device.value === 'tablet') return 700;
-  return 700;
+  return 360;
 });
 </script>
 

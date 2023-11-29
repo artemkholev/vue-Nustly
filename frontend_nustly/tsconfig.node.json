@@ -6,7 +6,7 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*"
-  ],
+, "frontend_nustly/vite.config.ts"  ],
   "compilerOptions": {
     "composite": true,
     "skipLibCheck": true,

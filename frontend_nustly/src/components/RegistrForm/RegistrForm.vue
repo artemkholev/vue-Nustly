@@ -30,6 +30,8 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
+import store from '@/store'
+import router from '@/router';
  
 const loginInfo = reactive({
   email: '',
@@ -42,6 +44,8 @@ const login = () => {
   emit('login', loginInfo);
   loginInfo.email = '';
   loginInfo.password = '';
+  store.commit('isAuthConvert')
+  router.push('/');
 }
 </script>
 

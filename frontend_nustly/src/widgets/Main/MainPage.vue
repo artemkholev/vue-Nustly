@@ -16,9 +16,9 @@
     </dialog-window>
     <button-elem
       :clName="null"
-      :title="'Показать информацию'"
+      :title="'Найти'"
       :handler="handlerButtonShowDialog"
-      :width="'100%'"
+      :width="'20vw'"
       :height="'48px'"
       :background="'#70C05B'"
       :textColor="null"

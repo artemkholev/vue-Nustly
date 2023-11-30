@@ -14,6 +14,9 @@ export default createStore({
     },
     toggleNav(state) {
       state.isNavOpen = !state.isNavOpen;
+    },
+    isAuthConvert(state) {
+      state.isAuth = !state.isAuth;
     }
   },
   modules: {

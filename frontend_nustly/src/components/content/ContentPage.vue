@@ -1,6 +1,7 @@
 <template>
   <div :class="contentClasses">
-    <ContainerPage :is-full-width="device === 'mobile' ? true : false" :width="deviceWidth">
+    <ContainerPage>
+      <!-- <ContainerPage :is-full-width="device === 'mobile' ? true : false" :width="deviceWidth"> -->
       {{ $route.meta.title }}
       <!-- <v-divider v-if="$route.meta.title"></v-divider> -->
       <slot></slot>
@@ -23,8 +24,8 @@ const { device } = useMedia();
 
 const deviceWidth = computed(() => {
   if (device.value === 'desktop') return 1200;
-  if (device.value === 'tablet') return 700;
-  return 360;
+  if (device.value === 'tablet') return 768;
+  return 400;
 });
 </script>
 

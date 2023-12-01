@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent>
-    <h4 :style="{marginBottom: '20px', display: 'flex', justifyContent: 'center'}">Регистрация</h4>
+    <h4 :style="{marginBottom: '20px', display: 'flex', justifyContent: 'center', fontSize: '2.2vw'}">Регистрация</h4>
     <input-elem 
       v-model="loginInfo.email"
       :typeInput="'email'"

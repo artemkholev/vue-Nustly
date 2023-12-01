@@ -8,7 +8,8 @@ export enum Links {
   ARTICLES = '/articles',
   POLITICS = '/politics',
   AUTH = '/auth',
-  REG ='/reg'
+  REG = '/reg',
+  AGREEMENT = '/agreement'
 }
 
 export enum PathNames {
@@ -21,5 +22,6 @@ export enum PathNames {
   ARTICLES = 'articles',
   POLITICS = 'politics',
   AUTH = 'auth',
-  REG = 'reg'
+  REG = 'reg',
+  AGREEMENT = 'agreement'
 }

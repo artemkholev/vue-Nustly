@@ -96,6 +96,15 @@ const router = createRouter({
         // title: 'Reg'
       }
     },
+    {
+      path: Links.AGREEMENT,
+      name: PathNames.AGREEMENT,
+      component: () => import('@/Pages/AgreementPage/AgreementPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Agreement'
+      }
+    },
   ]
 });
 

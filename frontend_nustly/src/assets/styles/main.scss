@@ -1,35 +1,6 @@
 @import 'normalize';
 @import 'vars';
 
-
-// body.light-theme {
-//   background-color: #ffffff;
-//   color: #000000;
-//   font-family: $text;
-//   font-size: $text-size;
-//   overflow-x: hidden;
-//   svg > path {
-//     fill: #000000;
-//   }
-//   a {
-//     color: #000000;
-//   }
-// }
-
-// body.dark-theme {
-//   background-color: #3d3c3c;
-//   color: #ffffff;
-//   font-family: $text;
-//   font-size: $text-size;
-//   overflow-x: hidden;
-//   svg > path {
-//     fill: #ffffff;
-//   }
-//   a {
-//     color: #ffffff;
-//   }
-// }
-
 body {
   color: $text-color;
   font-family: $text;

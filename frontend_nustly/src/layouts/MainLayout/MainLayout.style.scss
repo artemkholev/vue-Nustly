@@ -4,19 +4,19 @@
     'header'
     'content'
     'footer';
-  grid-template-rows: 75px auto 120px;
+  grid-template-rows: 80px auto 120px;
   width: 100vw;
   height: 100vh;
 
   @media(max-width:1000px) {
-    grid-template-rows: 100px auto 300px;
+    grid-template-rows: 80px auto 300px;
   }
 
   @media(max-width:768px) {
-    grid-template-rows: 200px auto 300px;
+    grid-template-rows: 80px auto 300px;
   }
 
   @media(max-width:400px) {
-    grid-template-rows: 250px auto 400px;
+    grid-template-rows: 80px auto 400px;
   }
 }

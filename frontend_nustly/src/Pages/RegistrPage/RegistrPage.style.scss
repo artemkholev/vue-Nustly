@@ -1,10 +1,12 @@
 @import '../../assets/styles/vars.scss';
 
 .registrContainer {
-  display: flex;
-  justify-content: center;
-  margin: 100px auto;
-  width: 80vw;
+  width: calc(300px + (364 - 288) * ((100vw - 320px) / (1920 - 320)));
+  margin-top: calc(24px + (40 - 24) * ((100vw - 320px) / (1920 - 320)));
+  margin-bottom: calc(16px + (264 - 16) * ((100vw - 320px) / (1920 - 320)));
+  margin-left: auto;
+  margin-right: auto;
+
   border: 2px solid $main-color;
   border-radius: 20px;
   padding: 30px;

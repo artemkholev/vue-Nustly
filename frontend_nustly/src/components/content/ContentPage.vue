@@ -1,7 +1,5 @@
 <template>
   <div :class="contentClasses">
-    <ContainerPage>
-
       <sidebar-elem>
         <h1
           :style="{display: 'flex', justifyContent: 'center', marginBottom: '30px', color: isDarkStyle}"
@@ -64,11 +62,9 @@
         </div>
       </sidebar-elem>
 
-      <!-- <ContainerPage :is-full-width="device === 'mobile' ? true : false" :width="deviceWidth"> -->
       {{ $route.meta.title }}
       <!-- <v-divider v-if="$route.meta.title"></v-divider> -->
       <slot></slot>
-    </ContainerPage>
   </div>
 </template>
 
@@ -84,12 +80,6 @@ const contentClasses = computed(() => {
 });
 
 const { device } = useMedia();
-
-const deviceWidth = computed(() => {
-  if (device.value === 'desktop') return 1200;
-  if (device.value === 'tablet') return 768;
-  return 400;
-});
 
 const closeSidebarPanel = () => {
   store.commit('toggleNav');

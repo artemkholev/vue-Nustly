@@ -6,7 +6,7 @@
         >Menu</h1>
 
         <div 
-          v-if="store.state.isAuth" 
+          v-if="isAuth" 
           class="forUser"
           :style="{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}"
         >
@@ -24,17 +24,17 @@
             @click="closeSidebarPanel" 
           >
             <li :style="{marginBottom: '5px'}">
-              <router-link to="/favorites" :style="{color: isDarkStyle}">
+              <router-link to="/user/favorites" :style="{color: isDarkStyle}">
                 Избранное
               </router-link>
             </li>
             <li :style="{marginBottom: '5px'}">
-              <router-link to="/orders" :style="{color: isDarkStyle}">
+              <router-link to="/user/orders" :style="{color: isDarkStyle}">
                 Заказы
               </router-link>
             </li>
             <li :style="{marginBottom: '5px'}">
-              <router-link to="/bucket" :style="{color: isDarkStyle}">
+              <router-link to="/user/bucket" :style="{color: isDarkStyle}">
                 Корзина
               </router-link>
             </li>
@@ -73,7 +73,12 @@ import { ref } from 'vue';
 import { useMedia } from '@/composables/useMedia';
 import store from '@/store';
 import { computed } from '@vue/reactivity';
+import { useAuthStore } from '@/store/auth';
+import { storeToRefs } from 'pinia';
 
+
+const authStore = useAuthStore();
+const { isAuth } = storeToRefs(authStore);
 
 const contentClasses = computed(() => {
   return { content: true, ['dark-content']: store.state.isDark };

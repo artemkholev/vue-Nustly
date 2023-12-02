@@ -89,8 +89,11 @@ import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
 import MagnifierIcon from '../../assets/svg/MagnifierIcon.vue';
 import store from '@/store';
 import router from '@/router';
+import { useAuthStore } from '@/store/auth';
+import { storeToRefs } from 'pinia';
 
-
+const authStore = useAuthStore();
+const { isAuth } = storeToRefs(authStore);
 const userName = ref('none');
 const isDropdown = ref(false);
 const findInfo = ref('');
@@ -107,10 +110,6 @@ const handleChangeIsAuth = () => {
   store.commit('isAuthConvert');
   router.push('/');
 }
-
-const isAuth = computed(() => {
-  return store.state.isAuth;
-});
 
 const headerClasses = computed(() => {
   return { header: true, ['dark-header']: store.state.isDark };

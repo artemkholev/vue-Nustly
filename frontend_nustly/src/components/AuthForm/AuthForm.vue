@@ -32,10 +32,14 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, computed } from 'vue'
 import store from '@/store'
 import router from '@/router';
- 
+import { useAuthStore } from '@/store/auth';
+import type { ILogin } from '@/shered/api/authApi/authApi.types';
+
+const authStore = useAuthStore();
+const { login } = authStore; 
 const isValid = ref(false); 
 const error = ref(''); 
 const loginInfo = reactive({
@@ -43,14 +47,18 @@ const loginInfo = reactive({
   password: '',
 });
 
-const emit = defineEmits(['login']);
+const userForm = computed<ILogin>(() => {
+  return {
+    login: loginInfo.email,
+    password: loginInfo.password
+  };
+});
 
-const login = () => {
-  emit('login', loginInfo);
+const loginAction = () => {
+  login(userForm.value)
+  store.commit('isAuthConvert');
   loginInfo.email = '';
   loginInfo.password = '';
-  store.commit('isAuthConvert');
-  router.push('/');
 }
 
 const setErrorMessage = (message: string) => {
@@ -59,7 +67,7 @@ const setErrorMessage = (message: string) => {
 
 const handlerButton = async () => {
   if (isValid.value) {
-    await login();
+    await loginAction();
   } else {
     setErrorMessage('Заполните обязательные поля!');
     setTimeout(() => setErrorMessage(''), 3000);
@@ -77,8 +85,6 @@ watch(loginInfo, (newValues) => {
     handlerIsValid(false);
   }
 })
-
-
 </script>
 
 <style scoped>

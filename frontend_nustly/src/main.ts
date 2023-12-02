@@ -3,6 +3,7 @@ import './assets/styles/vars.scss'
 import components from './components/UI';
 
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 
 import App from '@/App.vue';
 import router from '@/router';
@@ -16,6 +17,7 @@ components.forEach(component => {
 
 
 app
+  .use(createPinia())
   .use(router)
   .use(store)
   .mount('#app')

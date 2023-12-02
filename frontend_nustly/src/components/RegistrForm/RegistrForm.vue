@@ -51,10 +51,14 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, computed } from 'vue'
 import store from '@/store'
 import router from '@/router';
+import { useAuthStore } from '@/store/auth';
+import type { ILogin } from '@/shered/api/authApi/authApi.types';
 
+const authStore = useAuthStore();
+const { registration } = authStore; 
 const isValid = ref(false); 
 const passwordMatch = ref(true);
 const error = ref(''); 
@@ -66,14 +70,18 @@ const loginInfo = reactive({
   passwordRepeat: ''
 });
 
-const emit = defineEmits(['login']);
+const userForm = computed<ILogin>(() => {
+  return {
+    login: loginInfo.email,
+    password: loginInfo.password
+  };
+});
 
 const login = () => {
-  emit('login', loginInfo);
+  registration(userForm.value)
   loginInfo.email = '';
   loginInfo.password = '';
   store.commit('isAuthConvert');
-  router.push('/');
 }
 
 const setErrorMessage = (message: string) => {

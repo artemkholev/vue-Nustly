@@ -75,13 +75,17 @@ import store from '@/store';
 import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/store/auth';
 import { storeToRefs } from 'pinia';
+import { useThemeStore } from '@/store/theme';
 
 
 const authStore = useAuthStore();
 const { isAuth } = storeToRefs(authStore);
 
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
 const contentClasses = computed(() => {
-  return { content: true, ['dark-content']: store.state.isDark };
+  return { content: true, ['dark-content']: isDarkTheme.value };
 });
 
 const { device } = useMedia();

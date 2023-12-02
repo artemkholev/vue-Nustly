@@ -61,9 +61,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import store from '@/store';
+import { useThemeStore } from '@/store/theme';
+import { storeToRefs } from 'pinia';
+
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
 
 const footerClasses = computed(() => {
-  return { footer: true, ['dark-footer']: store.state.isDark };
+  return { footer: true, ['dark-footer']: isDarkTheme.value };
 });
 </script>
 

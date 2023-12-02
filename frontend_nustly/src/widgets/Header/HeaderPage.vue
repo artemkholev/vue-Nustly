@@ -91,19 +91,22 @@ import store from '@/store';
 import router from '@/router';
 import { useAuthStore } from '@/store/auth';
 import { storeToRefs } from 'pinia';
+import { useThemeStore } from '@/store/theme';
 
 const authStore = useAuthStore();
 const { isAuth } = storeToRefs(authStore);
 const userName = ref('none');
 const isDropdown = ref(false);
 const findInfo = ref('');
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
 
 const dropdown = () => {
   isDropdown.value = !isDropdown.value;
 };
 
 const hendleThemeClick = () => {
-  store.commit('changeTheme');
+  isDarkTheme.value = !isDarkTheme.value;
 };
 
 const handleChangeIsAuth = () => {
@@ -112,7 +115,7 @@ const handleChangeIsAuth = () => {
 }
 
 const headerClasses = computed(() => {
-  return { header: true, ['dark-header']: store.state.isDark };
+  return { header: true, ['dark-header']: isDarkTheme.value };
 });
 </script>
 

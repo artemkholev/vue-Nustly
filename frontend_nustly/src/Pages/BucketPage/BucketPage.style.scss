@@ -9,4 +9,20 @@
     right: 0;
     width: 200px;
   }
+
+  & > .page__wrapper {
+    display: flex;
+    margin-top: 30px;
+    & > .navigation-pages {
+      margin-right: 5px;
+      padding: 5px;
+      border: 1px solid $main-color;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    & > .carrent-page {
+      border: 3px solid #FF6633;
+    }
+  }
 }

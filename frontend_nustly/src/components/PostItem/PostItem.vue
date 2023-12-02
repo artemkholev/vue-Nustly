@@ -12,7 +12,7 @@
         :clName="'post__button'"
         :title="'Удалить'"
         :handler="deleteElem"
-        :width="'60px'"
+        :width="'100px'"
         :height="'48px'"
         :background="'#70C05B'"
         :textColor="null"

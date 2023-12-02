@@ -15,25 +15,25 @@
             :style="{marginBottom:'20px'}"
           >
             <svg width="40" height="40" viewBox="0 0 40 40" fill="#FF6633" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <circle cx="20" cy="20" r="20" fill="#FF6633"/>
-          </svg>
-          <p class="name">{{ userName }}</p>
+              <circle cx="20" cy="20" r="20" fill="#FF6633"/>
+            </svg>
+            <p class="name">{{ userName }}</p>
           </div>
           <ul 
             class="sidebar-panel-nav"
             @click="closeSidebarPanel" 
           >
-            <li>
+            <li :style="{marginBottom: '5px'}">
               <router-link to="/favorites" :style="{color: isDarkStyle}">
                 Избранное
               </router-link>
             </li>
-            <li>
+            <li :style="{marginBottom: '5px'}">
               <router-link to="/orders" :style="{color: isDarkStyle}">
                 Заказы
               </router-link>
             </li>
-            <li>
+            <li :style="{marginBottom: '5px'}">
               <router-link to="/bucket" :style="{color: isDarkStyle}">
                 Корзина
               </router-link>
@@ -57,8 +57,8 @@
           :style="{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}"
           @click="closeSidebarPanel"
         >
-            <router-link to="/auth" :style="{color: isDarkStyle}">Вход</router-link>
-            <router-link to="/reg" :style="{color: isDarkStyle}">Регистрация</router-link>
+            <router-link to="/auth" :style="{color: isDarkStyle, marginBottom: '10px'}">Вход</router-link>
+            <router-link to="/reg" :style="{color: isDarkStyle, marginBottom: '10px'}">Регистрация</router-link>
         </div>
       </sidebar-elem>
 

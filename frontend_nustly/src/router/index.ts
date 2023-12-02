@@ -109,6 +109,15 @@ const router = createRouter({
         // title: 'Agreement'
       }
     },
+    {
+      path: Links.CATALOG,
+      name: PathNames.CATALOG,
+      component: () => import('@/Pages/CatalogPage/CatalogPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Catalog'
+      }
+    },
   ]
 });
 

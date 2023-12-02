@@ -20,7 +20,8 @@
 </template>
 
 <script setup lang="ts"> 
-import type { ButtonPropsType } from './ButtonElem.types'
+import type { ButtonPropsType } from './ButtonElem.types';
+import { computed, ref } from 'vue';
 
 const props = defineProps<ButtonPropsType>();
 

@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import BucketList from '../../components/BucketList/BucketList.vue'
+import BucketList from '../../components/BucketList/BucketList.vue';
 import { reactive, onMounted, ref } from 'vue';
 
 let posts = reactive([]);

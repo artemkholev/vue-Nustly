@@ -69,9 +69,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useMedia } from '@/composables/useMedia';
 import store from '@/store';
+import { computed } from '@vue/reactivity';
 
 
 const contentClasses = computed(() => {

@@ -61,7 +61,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import store from '@/store';
-import LogoIcon from '../../assets/svg/LogoIcon.vue';
 
 const footerClasses = computed(() => {
   return { footer: true, ['dark-footer']: store.state.isDark };

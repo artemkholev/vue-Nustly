@@ -14,7 +14,6 @@
 <script setup lang="ts">
 import store from '@/store';
 import { computed } from '@vue/reactivity';
-import type {IBurger} from './BurgerElem.types'
 
 const isBurgerActive = computed(() => {
   return store.state.isNavOpen;

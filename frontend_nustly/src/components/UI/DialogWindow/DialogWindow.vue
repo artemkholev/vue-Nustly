@@ -7,10 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import type { DialogPropsType } from './DialogWindow.types'
 import { defineEmits } from 'vue';
 
-const props = defineProps<DialogPropsType>();
+const props = defineProps < {show: boolean} >();
 const emit = defineEmits(['update:show']);
 
 const hideDialog = () => {
@@ -18,7 +17,7 @@ const hideDialog = () => {
 }
 
 defineOptions({
-    name: 'dialog-window',
+  name: 'dialog-window',
 })
 </script>
 

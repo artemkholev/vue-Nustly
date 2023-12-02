@@ -8,17 +8,6 @@
   flex-grow: 1;
 }
 
-ul.sidebar-panel-nav {
-  list-style-type: none;
-}
-
-ul.sidebar-panel-nav > li > a {
-  // text-decoration: none;
-  font-size: 1.5rem;
-  display: block;
-  padding-bottom: 0.5em;
-}
-
 .dark-content {
   background-color: $background-color-isDark;
   color: $text-color-isDark;
@@ -44,7 +33,6 @@ ul.sidebar-panel-nav > li > a {
 
 @media (max-width: 768px) {
   .content {
-    font-size: 4.5vw;
     width: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -55,7 +43,6 @@ ul.sidebar-panel-nav > li > a {
 @media (max-width: 400px) {
   .content {
     width: 100%;
-    font-size: 6vw;
     width: 100vw;
   }
 }

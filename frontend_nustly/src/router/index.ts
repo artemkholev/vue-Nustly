@@ -3,6 +3,8 @@ import { Links, PathNames } from '@/constants/route.constants';
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
 import MainPage from "@/widgets/Main/MainPage.vue";
 import store from "@/store";
+import { useAuthStore } from "@/store/auth";
+import { storeToRefs } from "pinia";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -122,8 +124,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuth = store.state.isAuth;
-  if (to.meta.requiredAuth && !isAuth) {
+  const authStore = useAuthStore();
+  const { isAuth } = storeToRefs(authStore);
+  if (to.meta.requiredAuth && !isAuth.value) {
     alert('Нужна авторизация!');
     next({ name: PathNames.HOME });
   } else {

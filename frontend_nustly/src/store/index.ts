@@ -1,7 +1,5 @@
 import { createStore } from "vuex";
 
-import {postModule} from "@/store/postModule";
-
 export default createStore({
   state: {
     isAuth: false,
@@ -19,7 +17,4 @@ export default createStore({
       state.isAuth = !state.isAuth;
     }
   },
-  modules: {
-      post: postModule
-  }
 })

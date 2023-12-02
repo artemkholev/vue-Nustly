@@ -27,7 +27,6 @@
 import axios from 'axios';
 import BucketList from '../../components/BucketList/BucketList.vue';
 import { reactive, onMounted, ref, computed, watch } from 'vue';
-import type {BucketElem} from './BucketPage.types.ts'
 
 let posts = reactive([]);
 const isLoading = ref(false);

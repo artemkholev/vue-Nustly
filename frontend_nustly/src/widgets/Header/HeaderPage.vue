@@ -110,7 +110,7 @@ const hendleThemeClick = () => {
 };
 
 const handleChangeIsAuth = () => {
-  store.commit('isAuthConvert');
+  isAuth.value = !isAuth.value;
   router.push('/');
 }
 

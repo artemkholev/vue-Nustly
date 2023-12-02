@@ -9,7 +9,14 @@
   align-items: center;
   justify-content: space-between;
 
-  & > div > div {
-    margin-bottom: 10px;
+  & > .post__info {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    & > .post__info-elem {
+      display: flex;
+      flex-direction: column;
+      margin: 0 10px;
+    }
   }
 }

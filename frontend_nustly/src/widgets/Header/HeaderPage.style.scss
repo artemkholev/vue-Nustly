@@ -36,6 +36,7 @@
 
       &:focus:active {
         border: none;
+        background-color: #1f971f;
       }
       & > svg {
         display: flex;
@@ -178,6 +179,10 @@
           }
         }
       }
+      & > .logout {
+        display: flex;
+        justify-content: center;
+      }
     }
   }
   & > .burgerTheme {
@@ -220,13 +225,13 @@
 
 @media (max-width: 1200px) {
   .header {
-    width: 1000px;
+    width: 100%;
   }
 }
 
 @media (max-width: 1000px) {
   .header {
-    width: 768px;
+    width: 100%;
     & > .finctionsHeader {
       & > .catalogButton {
         display: none;
@@ -247,7 +252,7 @@
 
 @media (max-width: 768px) {
   .header {
-    width: 400px;
+    width: 100%;
     justify-content: space-between;
     & > .finctionsHeader {
       & > .catalogButton {
@@ -273,7 +278,7 @@
 @media (max-width: 400px) {
   .header {
     justify-content: space-between;
-    width: 100vw;
+    width: 100%;
     & > .finctionsHeader {
       & > .catalogButton {
         display: none;

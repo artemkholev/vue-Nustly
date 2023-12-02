@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { Links, PathNames } from '@/constants/route.constants';
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
 import MainPage from "@/widgets/Main/MainPage.vue";
+import store from "@/store";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,7 @@ const router = createRouter({
       component: () => import('@/Pages/BucketPage/BucketPage.vue'),
       meta: {
         layout: MainLayout,
+        requiredAuth: true,
         // title: 'Bucket'
       }
     },
@@ -39,6 +41,7 @@ const router = createRouter({
       component: () => import('@/Pages/OrdersPage/OrdersPage.vue'),
       meta: {
         layout: MainLayout,
+        requiredAuth: true,
         // title: 'Orders'
       }
     }, 
@@ -48,6 +51,7 @@ const router = createRouter({
       component: () => import('@/Pages/FavoritesPage/FavoritesPage.vue'),
       meta: {
         layout: MainLayout,
+        requiredAuth: true,
         // title: 'Favorites'
       }
     },
@@ -105,7 +109,26 @@ const router = createRouter({
         // title: 'Agreement'
       }
     },
+    {
+      path: Links.CATALOG,
+      name: PathNames.CATALOG,
+      component: () => import('@/Pages/CatalogPage/CatalogPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Catalog'
+      }
+    },
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuth = store.state.isAuth;
+  if (to.meta.requiredAuth && !isAuth) {
+    alert('Нужна авторизация!');
+    next({ name: PathNames.HOME });
+  } else {
+    next();
+  }
 });
 
 export default router;

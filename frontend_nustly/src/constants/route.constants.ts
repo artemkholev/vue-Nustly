@@ -1,15 +1,16 @@
 export enum Links {
   HOME = '/',
   ABOUT = '/about',
-  BUCKET = '/bucket',
-  ORDERS = '/orders',
-  FAVORITES = '/favorites',
+  BUCKET = '/user/bucket',
+  ORDERS = '/user/orders',
+  FAVORITES = '/user/favorites',
   VACANCY = '/vacancy',
   ARTICLES = '/articles',
   POLITICS = '/politics',
   AUTH = '/auth',
   REG = '/reg',
-  AGREEMENT = '/agreement'
+  AGREEMENT = '/agreement',
+  CATALOG = '/catalog'
 }
 
 export enum PathNames {
@@ -23,5 +24,6 @@ export enum PathNames {
   POLITICS = 'politics',
   AUTH = 'auth',
   REG = 'reg',
-  AGREEMENT = 'agreement'
+  AGREEMENT = 'agreement',
+  CATALOG = 'catalog'
 }

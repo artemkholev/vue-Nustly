@@ -6,17 +6,31 @@
       </div>
     <dialog-window v-model:show="dialogVisible">
       <div>
-        <p>Запросы можно посмотреть в разделе корзина</p>
-        <p>Авторизация находится в рядом с оранжевым кружком, стрелка вниз</p>
+        <p>Данный сайт находится на стадии разработки, извините, но функцианал ограничен.</p>
+        <p>Вы можете написать отзыв и отправить нам, пожелания и недочёты</p>
         <input-elem    
-          v-model="firstName"
+          v-model="info"
         />
-        <p>{{ firstName }}</p>
+        <p>{{ info }}</p>
+        <button-elem
+          :clName="null"
+          :title="'Отправить'"
+          :handler="handleSend"
+          :width="'20vw'"
+          :height="'48px'"
+          :background="'#70C05B'"
+          :textColor="null"
+          :fontSize="null"
+          :fontWeight="null"
+          :margin="'24px 0 0 0'"
+          :borderRadius="'10px'"
+          :icon="null"
+        />
       </div>
     </dialog-window>
     <button-elem
       :clName="null"
-      :title="'Найти'"
+      :title="'Показать информацию'"
       :handler="handlerButtonShowDialog"
       :width="'20vw'"
       :height="'48px'"
@@ -36,14 +50,15 @@
 import { ref } from 'vue';
 
 const dialogVisible = ref(false);
-const firstName = ref('');
-
-const handlerButton = () => {
-  console.log("Click");
-}
+const info = ref('');
 
 const handlerButtonShowDialog = () => {
   dialogVisible.value = true;
+}
+
+const handleSend = () => {
+  info.value = '';
+  dialogVisible.value = false;
 }
 </script>
 

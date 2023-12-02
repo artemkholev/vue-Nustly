@@ -88,6 +88,7 @@ import { ref, computed } from 'vue';
 import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
 import MagnifierIcon from '../../assets/svg/MagnifierIcon.vue';
 import store from '@/store';
+import router from '@/router';
 
 
 const userName = ref('none');
@@ -103,6 +104,7 @@ const hendleThemeClick = () => {
 
 const handleChangeIsAuth = () => {
   store.commit('isAuthConvert');
+  router.push('/');
 }
 
 const isAuth = computed(() => {

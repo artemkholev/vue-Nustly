@@ -70,7 +70,6 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import ContainerPage from '../Container/ContainerPage.vue';
 import { useMedia } from '@/composables/useMedia';
 import store from '@/store';
 

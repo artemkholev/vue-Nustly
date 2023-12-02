@@ -126,7 +126,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
   const { isAuth } = storeToRefs(authStore);
-  if (to.meta.requiredAuth && !isAuth) {
+  if (to.meta.requiredAuth && !isAuth.value) {
     alert('Нужна авторизация!');
     next({ name: PathNames.HOME });
   } else {

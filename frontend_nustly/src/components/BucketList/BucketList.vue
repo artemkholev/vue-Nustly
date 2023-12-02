@@ -16,11 +16,11 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import PostItem from '../PostItem/PostItem.vue';
-import type { postItem } from './BucketList.types'
+import type { IPost } from "@/shered/api/postsApi/postsApi.types";
 
 defineProps({
   posts: {
-    type: Array<postItem>,
+    type: Array<IPost>,
     required: true
   }
 })

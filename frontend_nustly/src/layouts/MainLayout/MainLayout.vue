@@ -1,7 +1,7 @@
 <template>
   <div class="page_wrapper" >
     <HeaderPage/>
-     <ContentPage>
+    <ContentPage>
       <slot></slot>
     </ContentPage>
     <FooterPage/>

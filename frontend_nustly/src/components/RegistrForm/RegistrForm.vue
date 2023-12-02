@@ -124,7 +124,6 @@ watch(loginInfo, (newValues) => {
     setPasswordMatch(true);
   }
 })
-
 </script>
 
 <style scoped>

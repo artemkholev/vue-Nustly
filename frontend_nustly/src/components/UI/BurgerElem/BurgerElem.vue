@@ -13,7 +13,12 @@
 
 <script setup lang="ts">
 import store from '@/store';
+import { useThemeStore } from '@/store/theme';
 import { computed } from '@vue/reactivity';
+import { storeToRefs } from 'pinia';
+
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
 
 const isBurgerActive = computed(() => {
   return store.state.isNavOpen;
@@ -24,7 +29,7 @@ const toggle = () => {
 };
 
 const isDarkStyle = computed(() => {
-  return store.state.isDark ? 'white' : 'black';
+  return isDarkTheme.value ? 'white' : 'black';
 });
 
 defineOptions({

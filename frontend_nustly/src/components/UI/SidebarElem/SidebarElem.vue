@@ -1,13 +1,11 @@
 <template>
-    <div class="sidebar">
-        <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen"></div>
-        <transition name="slide">
-            <div v-if="isPanelOpen"
-                 class="sidebar-panel" :style="{backgroundColor: isDarkStyle ? 'white' : '#444444'}">
-                <slot></slot>
-            </div>
-        </transition>
-    </div>
+    <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen"></div>
+    <transition name="slide">
+        <div v-if="isPanelOpen"
+                :class="contentClasses">
+            <slot></slot>
+        </div>
+    </transition>
 </template>
 
 <script setup lang="ts">
@@ -19,6 +17,9 @@ import { storeToRefs } from 'pinia';
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
 
+const contentClasses = computed(() => {
+  return { 'sidebar-panel': true, ['dark-sidebar']: isDarkTheme.value };
+});
 
 const closeSidebarPanel = () => {
     store.commit('toggleNav');

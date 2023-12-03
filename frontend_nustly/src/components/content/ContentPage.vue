@@ -1,75 +1,72 @@
 <template>
-  <div :class="contentClasses">
-      <sidebar-elem>
-        <h1
-          :style="{display: 'flex', justifyContent: 'center', marginBottom: '30px', color: isDarkStyle}"
-        >Menu</h1>
-
+  <sidebar-elem>
+    <div :class="sidebarClasses">
+      <h1>Menu</h1>
+      <div 
+        v-if="isAuth" 
+        class="forUser"
+      >
         <div 
-          v-if="isAuth" 
-          class="forUser"
-          :style="{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}"
+          class="user" 
         >
-          <div 
-            class="user" 
-            :style="{marginBottom:'20px'}"
-          >
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="#FF6633" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <circle cx="20" cy="20" r="20" fill="#FF6633"/>
-            </svg>
-            <p class="name">{{ userName }}</p>
-          </div>
-
-          <router-link to="/catalog" 
-            class="catalogButton"
-            @click="closeSidebarPanel" 
-          >
-                <BurgerIcon/>
-                <p>Каталог</p>
-          </router-link>
-          <ul 
-            class="sidebar-panel-nav"
-            @click="closeSidebarPanel" 
-          >
-            <li :style="{marginBottom: '5px'}">
-              <router-link to="/user/favorites" :style="{color: isDarkStyle}">
-                Избранное
-              </router-link>
-            </li>
-            <li :style="{marginBottom: '5px'}">
-              <router-link to="/user/orders" :style="{color: isDarkStyle}">
-                Заказы
-              </router-link>
-            </li>
-            <li :style="{marginBottom: '5px'}">
-              <router-link to="/user/bucket" :style="{color: isDarkStyle}">
-                Корзина
-              </router-link>
-            </li>
-          </ul>
-
-          <router-link 
-            to="/" 
-            @click="handleChangeIsAuth"
-            :style="{display: 'flex', justifyContent: 'flex-end', marginBottom: '30px', color: isDarkStyle, marginTop: '50vh'}"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 10.8333V15.8333C15 16.2754 14.8244 16.6993 14.5118 17.0118C14.1993 17.3244 13.7754 17.5 13.3333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V6.66667C2.5 6.22464 2.67559 5.80072 2.98816 5.48816C3.30072 5.17559 3.72464 5 4.16667 5H9.16667" stroke="#2A2F37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M12.5 2.5H17.5V7.5" stroke="#2A2F37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M8.33334 11.6667L17.5 2.5" stroke="#2A2F37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <p className={style.dropDownMenuText}>Выход</p>
-          </router-link>
-        </div> 
-        <div v-else
-          :style="{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}"
-          @click="closeSidebarPanel"
-        >
-            <router-link to="/auth" :style="{color: isDarkStyle, marginBottom: '10px'}">Вход</router-link>
-            <router-link to="/reg" :style="{color: isDarkStyle, marginBottom: '10px'}">Регистрация</router-link>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="#FF6633" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <circle cx="20" cy="20" r="20" fill="#FF6633"/>
+          </svg>
+          <p class="name">{{ userName }}</p>
         </div>
-      </sidebar-elem>
 
+        <router-link to="/catalog" 
+          class="catalog-button"
+          @click="closeSidebarPanel" 
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 12C2.5 11.7239 2.72386 11.5 3 11.5H21C21.2761 11.5 21.5 11.7239 21.5 12C21.5 12.2761 21.2761 12.5 21 12.5H3C2.72386 12.5 2.5 12.2761 2.5 12Z" fill="white"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 6C2.5 5.72386 2.72386 5.5 3 5.5H21C21.2761 5.5 21.5 5.72386 21.5 6C21.5 6.27614 21.2761 6.5 21 6.5H3C2.72386 6.5 2.5 6.27614 2.5 6Z" fill="white"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 18C2.5 17.7239 2.72386 17.5 3 17.5H21C21.2761 17.5 21.5 17.7239 21.5 18C21.5 18.2761 21.2761 18.5 21 18.5H3C2.72386 18.5 2.5 18.2761 2.5 18Z" fill="white"/>
+            </svg>
+            <p>Каталог</p>
+        </router-link>
+
+        <ul 
+          class="sidebar-panel-nav"
+          @click="closeSidebarPanel" 
+        >
+          <li>
+            <router-link to="/user/favorites">
+              Избранное
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/user/orders">
+              Заказы
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/user/bucket">
+              Корзина
+            </router-link>
+          </li>
+        </ul>
+
+        <router-link 
+          to="/" 
+          @click="handleChangeIsAuth"
+          class="logout"
+        >
+          <p className={style.dropDownMenuText}>Выход</p>
+        </router-link>
+      </div> 
+      <div v-else
+        class="login"
+        @click="closeSidebarPanel"
+      >
+          <router-link to="/auth" :style="{ marginBottom: '10px'}">Вход</router-link>
+          <router-link to="/reg" :style="{ marginBottom: '10px'}">Регистрация</router-link>
+      </div>
+    </div>
+  </sidebar-elem>
+
+  <div :class="contentClasses">
       {{ $route.meta.title }}
       <!-- <v-divider v-if="$route.meta.title"></v-divider> -->
       <slot></slot>
@@ -92,6 +89,10 @@ const { isDarkTheme } = storeToRefs(themeStore);
 
 const contentClasses = computed(() => {
   return { content: true, ['dark-content']: isDarkTheme.value };
+});
+
+const sidebarClasses = computed(() => {
+  return { sidebar: true, ['dark-sidebar']: isDarkTheme.value };
 });
 
 const { device } = useMedia();

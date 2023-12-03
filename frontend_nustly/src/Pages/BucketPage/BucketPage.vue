@@ -8,6 +8,7 @@
     </div>
     <BucketList :posts="selected === 'general' ? posts : sortedPost"/>
     <p v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
+    <p v-if="isError" :style="{margin: '10px', color: 'red'}">Ошибка: {{ isError }}</p>
     <div class="page__wrapper">
       <div 
         v-for="pagePath in totalPages" 
@@ -24,14 +25,13 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios';
 import BucketList from '../../components/BucketList/BucketList.vue';
-import { reactive, onMounted, ref, computed, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { usePostsStore } from '@/store/posts';
 import { storeToRefs } from 'pinia';
 
 const postsStore = usePostsStore();
-const { isError, isLoading, posts, page, limit, selected, totalPages, selectOptions, sortedPost } = storeToRefs(postsStore);
+const { isError, isLoading, posts, page, selected, totalPages, selectOptions, sortedPost } = storeToRefs(postsStore);
 const { getPosts } = postsStore;
 
 const changePage = (currentPage: number) => {

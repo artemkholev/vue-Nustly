@@ -42,7 +42,7 @@
 
           <router-link 
             to="/" 
-            @click="editStarusUser"
+            @click="handleChangeIsAuth"
             :style="{display: 'flex', justifyContent: 'flex-end', marginBottom: '30px', color: isDarkStyle, marginTop: '50vh'}"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,10 +76,7 @@ import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/store/auth';
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/store/theme';
-
-
-const authStore = useAuthStore();
-const { isAuth } = storeToRefs(authStore);
+import router from '@/router';
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
@@ -94,16 +91,20 @@ const closeSidebarPanel = () => {
   store.commit('toggleNav');
 };
 
-const editStarusUser = () => {
-  store.commit('isAuthConvert');
-  closeSidebarPanel();
-};
-
 const userName = ref('none');
 
 const isDarkStyle = computed(() => {
   return store.state.isDark ? 'black' : 'white';
 });
+
+const authStore = useAuthStore();
+const { isAuth } = storeToRefs(authStore);
+
+const handleChangeIsAuth = () => {
+  isAuth.value = !isAuth.value;
+  closeSidebarPanel();
+  router.push('/');
+}
 </script>
 
 <style src="./ContentPage.style.scss" lang="scss" scoped />

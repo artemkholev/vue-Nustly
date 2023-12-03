@@ -12,7 +12,12 @@
 
 <script setup lang="ts">
 import store from '@/store'
+import { useThemeStore } from '@/store/theme';
 import { computed } from '@vue/reactivity';
+import { storeToRefs } from 'pinia';
+
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
 
 
 const closeSidebarPanel = () => {
@@ -24,7 +29,7 @@ const isPanelOpen = computed(() => {
 });
 
 const isDarkStyle = computed(() => {
-  return store.state.isDark;
+  return isDarkTheme.value;
 });
 
 defineOptions({

@@ -8,39 +8,102 @@
   flex-grow: 1;
 }
 
-.catalogButton {
-  height:  40px;
-  display: flex;
-  width: 140px;
-  padding: 8px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0;
-
-  border-radius: 4px;
-  background: var(--main-secondary, $main-color); 
-  cursor: pointer;
-
-  &:focus:active {
-    border: none;
-    background-color: #1f971f;
-  }
-  & > svg {
+.sidebar {
+  h1 {
     display: flex;
     justify-content: center;
-    align-items: center;
+    color: white;
+    margin-bottom: 30px;
   }
-  & > p {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1 0 0;
-    text-align: center;
-    font-family: $text;
-    font-size: $text-size;
-    font-weight: 400;
-    line-height: 150%;
+
+  & > .forUser {
+    display: 'flex';
+    justify-content: 'flex-start';
+    flex-direction: 'column';
+    & > .user {
+      color: white;
+      margin: 20px;
+    }
+    a {
+      color: white;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      border: 1px solid $main-color;
+      border-radius: 5px;
+      padding: 5px;
+    }
+    & > .catalog-button {
+      display: flex;
+      padding: 8px;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0;
+
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:focus:active {
+        border: none;
+        background-color: #1f971f;
+      }
+      & > svg {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+      }
+      & > p {
+        display: flex;
+        justify-content: center;
+        flex: 1 0 0;
+        text-align: center;
+        font-family: $text;
+        font-size: $text-size;
+        font-weight: 400;
+        line-height: 150%;
+      }
+    }
+
+    & > .logout {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 30px;
+      margin-top: 40vh;
+    }
+  }
+  
+  & > .login {
+    color: white;
+    a {
+      color: white;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      border: 1px solid $main-color;
+      border-radius: 5px;
+      padding: 5px;
+    }
+  }
+}
+
+.dark-sidebar {
+  h1 {
+    color: black;
+  }
+  & > .forUser {
+    & > .user {
+      color: black;
+    }
+    & > .catalog-button {
+        & > svg > path {
+          fill: black;
+        }
+    }
+    a {
+      color: black;
+    }
   }
 }
 

@@ -23,10 +23,15 @@
 .sidebar-panel {
     overflow-y: auto;
     position: fixed;
+    background-color: #444444;
     left: 0;
     top: 0;
     height: 100%;
     z-index: 999;
     padding: 3rem 40px 2rem 40px;
     width: 300px;
+}
+
+.dark-sidebar {
+    background-color: #bebcbc;
 }

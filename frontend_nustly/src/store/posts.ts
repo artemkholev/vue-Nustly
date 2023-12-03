@@ -8,7 +8,7 @@ export const usePostsStore = defineStore('posts', () => {
   const isLoading = ref<boolean>(false);
   const isError = ref<boolean>(false);
 
-  const posts = ref<IPost[]>([]);
+  let posts = ref<IPost[]>([]);
   const post = ref<IPost>();
 
   const selected = ref<string>('');
@@ -36,6 +36,10 @@ export const usePostsStore = defineStore('posts', () => {
     return [...posts.value].sort((post1: any, post2: any) => post1[selected.value]?.localeCompare(post2[selected.value]))
   });
 
+  const removePost = (post: any) => {
+    posts.value = posts.value.filter(p => p.id !== post.id)
+  }
+
   const getPosts = async () => {
     isLoading.value = true;
     try {
@@ -45,8 +49,8 @@ export const usePostsStore = defineStore('posts', () => {
           _limit: limit.value
         }
       });
-      totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
       posts.value = responce.data;
+      totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
       isError.value = false;
     } catch (error) {
       isError.value = true;
@@ -55,5 +59,5 @@ export const usePostsStore = defineStore('posts', () => {
       isLoading.value = false;
     }
   };
-  return { getPosts, isError, isLoading, posts, page, limit, selected, totalPages, selectOptions, sortedPost };
+  return { getPosts, removePost, isError, isLoading, posts, page, limit, selected, totalPages, selectOptions, sortedPost };
 });

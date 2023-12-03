@@ -19,6 +19,14 @@
             </svg>
             <p class="name">{{ userName }}</p>
           </div>
+
+          <router-link to="/catalog" 
+            class="catalogButton"
+            @click="closeSidebarPanel" 
+          >
+                <BurgerIcon/>
+                <p>Каталог</p>
+          </router-link>
           <ul 
             class="sidebar-panel-nav"
             @click="closeSidebarPanel" 
@@ -77,6 +85,7 @@ import { useAuthStore } from '@/store/auth';
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/store/theme';
 import router from '@/router';
+import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);

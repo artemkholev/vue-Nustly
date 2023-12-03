@@ -7,11 +7,11 @@
         <p><strong>Описание:</strong> {{ post.body }}</p>
       </div>
     </div>
-    <div class="post__button">
+    <div class="post__button" @click="removePost(post)">
       <button-elem
         :clName="'post__button'"
         :title="'Удалить'"
-        :handler="deleteElem"
+        :handler="() => null"
         :width="'100px'"
         :height="'48px'"
         :background="'#70C05B'"
@@ -27,6 +27,8 @@
 </template>
 
 <script setup lang="ts">
+import { usePostsStore } from '@/store/posts';
+
 defineProps({
   post: {
     type: Object,
@@ -34,9 +36,9 @@ defineProps({
   }
 })
 
-const deleteElem = () => {
 
-}
+const postsStore = usePostsStore();
+const { removePost } = postsStore;
 </script>
 
 <style src="./PostItem.style.scss" lang="scss" scoped></style>

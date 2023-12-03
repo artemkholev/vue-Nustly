@@ -8,6 +8,42 @@
   flex-grow: 1;
 }
 
+.catalogButton {
+  height:  40px;
+  display: flex;
+  width: 140px;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+
+  border-radius: 4px;
+  background: var(--main-secondary, $main-color); 
+  cursor: pointer;
+
+  &:focus:active {
+    border: none;
+    background-color: #1f971f;
+  }
+  & > svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & > p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 0 0;
+    text-align: center;
+    font-family: $text;
+    font-size: $text-size;
+    font-weight: 400;
+    line-height: 150%;
+  }
+}
+
 .dark-content {
   background-color: $background-color-isDark;
   color: $text-color-isDark;

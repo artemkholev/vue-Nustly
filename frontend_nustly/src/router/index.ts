@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { Links, PathNames } from '@/constants/route.constants';
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
 import MainPage from "@/widgets/Main/MainPage.vue";
-import store from "@/store";
-import { useAuthStore } from "@/store/auth";
+import store from "@/shered/store";
+import { useAuthStore } from "@/shered/store/auth";
 import { storeToRefs } from "pinia";
 
 const router = createRouter({

@@ -75,14 +75,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useMedia } from '@/composables/useMedia';
-import store from '@/store';
+import store from '@/shered/store';
 import { computed } from '@vue/reactivity';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/shered/store/auth';
 import { storeToRefs } from 'pinia';
-import { useThemeStore } from '@/store/theme';
+import { useThemeStore } from '@/shered/store/theme';
 import router from '@/router';
-import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
@@ -95,17 +93,12 @@ const sidebarClasses = computed(() => {
   return { sidebar: true, ['dark-sidebar']: isDarkTheme.value };
 });
 
-const { device } = useMedia();
-
 const closeSidebarPanel = () => {
   store.commit('toggleNav');
 };
 
 const userName = ref('none');
 
-const isDarkStyle = computed(() => {
-  return store.state.isDark ? 'black' : 'white';
-});
 
 const authStore = useAuthStore();
 const { isAuth } = storeToRefs(authStore);

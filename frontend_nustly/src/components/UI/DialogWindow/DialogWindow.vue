@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/store/theme';
+import { useThemeStore } from '@/shered/store/theme';
 import { storeToRefs } from 'pinia';
 import { computed, defineEmits } from 'vue';
 

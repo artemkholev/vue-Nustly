@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import store from '@/store'
-import { useThemeStore } from '@/store/theme';
+import store from '@/shered/store'
+import { useThemeStore } from '@/shered/store/theme';
 import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 

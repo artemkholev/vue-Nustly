@@ -87,11 +87,10 @@
 import { ref, computed } from 'vue';
 import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
 import MagnifierIcon from '../../assets/svg/MagnifierIcon.vue';
-import store from '@/store';
 import router from '@/router';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/shered/store/auth';
 import { storeToRefs } from 'pinia';
-import { useThemeStore } from '@/store/theme';
+import { useThemeStore } from '@/shered/store/theme';
 
 const authStore = useAuthStore();
 const { isAuth } = storeToRefs(authStore);

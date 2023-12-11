@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/store/theme';
+import { useThemeStore } from '@/shered/store/theme';
 import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
 import { computed, type Ref } from 'vue';
 

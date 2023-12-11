@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { Links, PathNames } from '@/shered/constants/route.constants';
-import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
+import MainLayout from '@/widgets/MainLayout/MainLayout.vue';
 import MainPage from "@/pages/MainPage/MainPage.vue";
 import store from "@/shered/store";
 import { useAuthStore } from "@/shered/store/auth";

@@ -25,9 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import BucketList from '../../components/BucketList/BucketList.vue';
+import BucketList from '../../entities/BucketList/BucketList.vue';
 import { onMounted, watch } from 'vue';
-import { usePostsStore } from '@/store/posts';
+import { usePostsStore } from '@/shered/store/posts';
 import { storeToRefs } from 'pinia';
 
 const postsStore = usePostsStore();

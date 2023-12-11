@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import CatalogItem from '../../components/CatalogItem/CatalogItem.vue';
-import { useCatalogStore } from '@/store/catalog';
-import { useThemeStore } from '@/store/theme';
+import CatalogItem from '../../entities/CatalogItem/CatalogItem.vue';
+import { useCatalogStore } from '@/shered/store/catalog';
+import { useThemeStore } from '@/shered/store/theme';
 import { storeToRefs } from 'pinia';
 import { onMounted, computed } from 'vue';
 
@@ -41,4 +41,4 @@ onMounted(() => {
 });
 </script>
 
-<style src="./CatalogPage.style.scss" lang="scss" scoped></style>../../entities/CatalogItem/CatalogItem.vue
+<style src="./CatalogPage.style.scss" lang="scss" scoped></style>

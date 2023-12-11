@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Links, PathNames } from '@/constants/route.constants';
+import { Links, PathNames } from '@/shered/constants/route.constants';
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
 import MainPage from "@/widgets/Main/MainPage.vue";
 import store from "@/shered/store";
@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: Links.ABOUT,
       name: PathNames.ABOUT,
-      component: () => import('@/Pages/About/AboutPage.vue'),
+      component: () => import('@/pages/About/AboutPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'About'
@@ -30,7 +30,7 @@ const router = createRouter({
     {
       path: Links.BUCKET,
       name: PathNames.BUCKET,
-      component: () => import('@/Pages/BucketPage/BucketPage.vue'),
+      component: () => import('@/pages/BucketPage/BucketPage.vue'),
       meta: {
         layout: MainLayout,
         requiredAuth: true,
@@ -40,7 +40,7 @@ const router = createRouter({
     {
       path: Links.ORDERS,
       name: PathNames.ORDERS,
-      component: () => import('@/Pages/OrdersPage/OrdersPage.vue'),
+      component: () => import('@/pages/OrdersPage/OrdersPage.vue'),
       meta: {
         layout: MainLayout,
         requiredAuth: true,
@@ -50,7 +50,7 @@ const router = createRouter({
     {
       path: Links.FAVORITES,
       name: PathNames.FAVORITES,
-      component: () => import('@/Pages/FavoritesPage/FavoritesPage.vue'),
+      component: () => import('@/pages/FavoritesPage/FavoritesPage.vue'),
       meta: {
         layout: MainLayout,
         requiredAuth: true,
@@ -60,7 +60,7 @@ const router = createRouter({
     {
       path: Links.VACANCY,
       name: PathNames.VACANCY,
-      component: () => import('@/Pages/VacancyPage/VacancyPage.vue'),
+      component: () => import('@/pages/VacancyPage/VacancyPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Vacancy'
@@ -69,7 +69,7 @@ const router = createRouter({
     {
       path: Links.ARTICLES,
       name: PathNames.ARTICLES,
-      component: () => import('@/Pages/ArticlesPage/ArticlesPage.vue'),
+      component: () => import('@/pages/ArticlesPage/ArticlesPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Articles'
@@ -78,7 +78,7 @@ const router = createRouter({
     {
       path: Links.POLITICS,
       name: PathNames.POLITICS,
-      component: () => import('@/Pages/PoliticsPage/PoliticsPage.vue'),
+      component: () => import('@/pages/PoliticsPage/PoliticsPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Pjlitics'
@@ -87,7 +87,7 @@ const router = createRouter({
     {
       path: Links.AUTH,
       name: PathNames.AUTH,
-      component: () => import('@/Pages/AuthPage/AuthPage.vue'),
+      component: () => import('@/pages/AuthPage/AuthPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Auth'
@@ -96,7 +96,7 @@ const router = createRouter({
     {
       path: Links.REG,
       name: PathNames.REG,
-      component: () => import('@/Pages/RegistrPage/RegistrPage.vue'),
+      component: () => import('@/pages/RegistrPage/RegistrPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Reg'
@@ -105,7 +105,7 @@ const router = createRouter({
     {
       path: Links.AGREEMENT,
       name: PathNames.AGREEMENT,
-      component: () => import('@/Pages/AgreementPage/AgreementPage.vue'),
+      component: () => import('@/pages/AgreementPage/AgreementPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Agreement'
@@ -114,7 +114,7 @@ const router = createRouter({
     {
       path: Links.CATALOG,
       name: PathNames.CATALOG,
-      component: () => import('@/Pages/CatalogPage/CatalogPage.vue'),
+      component: () => import('@/pages/CatalogPage/CatalogPage.vue'),
       meta: {
         layout: MainLayout,
         // title: 'Catalog'

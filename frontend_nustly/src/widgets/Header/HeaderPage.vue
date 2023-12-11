@@ -87,7 +87,7 @@
 import { ref, computed } from 'vue';
 import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
 import MagnifierIcon from '../../assets/svg/MagnifierIcon.vue';
-import router from '@/router';
+import router from '@/pages/index';
 import { useAuthStore } from '@/shered/store/auth';
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/shered/store/theme';
@@ -118,4 +118,4 @@ const headerClasses = computed(() => {
 });
 </script>
 
-<style src="./HeaderPage.style.scss" lang="scss" scoped></style>
+<style src="./HeaderPage.style.scss" lang="scss" scoped></style>@/Pages

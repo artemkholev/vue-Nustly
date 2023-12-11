@@ -80,7 +80,7 @@ import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/shered/store/auth';
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/shered/store/theme';
-import router from '@/router';
+import router from '@/pages/index';
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
@@ -110,4 +110,4 @@ const handleChangeIsAuth = () => {
 }
 </script>
 
-<style src="./ContentPage.style.scss" lang="scss" scoped />
+<style src="./ContentPage.style.scss" lang="scss" scoped />@/Pages

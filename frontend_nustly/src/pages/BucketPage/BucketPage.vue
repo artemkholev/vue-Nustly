@@ -42,7 +42,6 @@ watch(page, () => {
   getPosts();
 });
 
-
 onMounted(() => {
   getPosts()
 });

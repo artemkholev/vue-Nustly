@@ -16,3 +16,18 @@
     margin: 0 auto;
   }
 }
+
+.dark-catalog {
+  h1 {
+    color: $text-color-isDark;
+  }
+  background-color: $background-color-isDark;
+  color: $text-color-isDark;
+  transition: 0.3s;
+  svg > path {
+    fill: #fff;
+  }
+  a {
+    color: #fff;
+  }
+}

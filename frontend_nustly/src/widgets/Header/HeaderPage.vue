@@ -85,8 +85,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
-import MagnifierIcon from '../../assets/svg/MagnifierIcon.vue';
+import BurgerIcon from '../../app/assets/svg/BurgerIcon.vue';
+import MagnifierIcon from '../../app/assets/svg/MagnifierIcon.vue';
 import router from '@/pages/index';
 import { useAuthStore } from '@/shered/store/auth';
 import { storeToRefs } from 'pinia';

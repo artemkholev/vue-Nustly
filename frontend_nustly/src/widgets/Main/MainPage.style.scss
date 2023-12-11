@@ -1,4 +1,4 @@
-@import '../../assets/styles/vars';
+@import '../../app/assets/styles/vars';
 
 .container {
   width: 100%;
@@ -13,7 +13,7 @@
     height: 20vh;
     width: 100%;
     margin: 0 auto;
-    background-image: url('../../assets/photo/fon.png');
+    background-image: url('../../app/assets/photo/fon.png');
 
     display: flex;
     align-items: center;

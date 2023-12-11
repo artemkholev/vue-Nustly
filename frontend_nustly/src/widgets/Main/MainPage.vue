@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <div class="generalInfo">
-        <img src="../../assets/photo/photoProduct.png" alt="фон" class="fon">
+        <img src="../../app/assets/photo/photoProduct.png" alt="фон" class="fon">
         <p>Бесплатная доставка от 1000 рублей</p>
       </div>
     <dialog-window v-model:show="dialogVisible">

@@ -1,5 +1,5 @@
-import type { IPost } from '@/shered/api/postsApi/postsApi.types';
-import { apiAxios } from '@/shered/api';
+import type { IPost } from '../api/postsApi/postsApi.types';
+import { apiAxios } from '../api';
 import { defineStore } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';

@@ -36,7 +36,6 @@ defineProps({
   }
 })
 
-
 const postsStore = usePostsStore();
 const { removePost } = postsStore;
 </script>

@@ -48,4 +48,4 @@ onMounted(() => {
 });
 </script>
 
-<style src="./BucketPage.style.scss" lang="scss" scoped></style>
+<style src="./BucketPage.style.scss" lang="scss" scoped></style>../../entities/BucketList/BucketList.vue

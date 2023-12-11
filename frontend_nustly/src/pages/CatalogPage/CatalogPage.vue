@@ -41,4 +41,4 @@ onMounted(() => {
 });
 </script>
 
-<style src="./CatalogPage.style.scss" lang="scss" scoped></style>
+<style src="./CatalogPage.style.scss" lang="scss" scoped></style>../../entities/CatalogItem/CatalogItem.vue

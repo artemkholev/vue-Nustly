@@ -8,4 +8,4 @@
 import AuthForm from '@/components/AuthForm/AuthForm.vue';
 </script>
 
-<style src="./AuthPage.style.scss" lang="scss" scoped></style>
+<style src="./AuthPage.style.scss" lang="scss" scoped></style>@/entities/AuthForm/AuthForm.vue

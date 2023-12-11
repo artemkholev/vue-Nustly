@@ -8,4 +8,4 @@
 import RegistrForm from '../../components/RegistrForm/RegistrForm.vue';
 </script>
 
-<style src="./RegistrPage.style.scss" lang="scss" scoped></style>
+<style src="./RegistrPage.style.scss" lang="scss" scoped></style>../../entities/RegistrForm/RegistrForm.vue

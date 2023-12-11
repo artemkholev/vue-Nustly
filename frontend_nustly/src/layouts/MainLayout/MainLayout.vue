@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import HeaderPage from '@/widgets/Header/HeaderPage.vue';
 import FooterPage from '@/widgets/Footer/FooterPage.vue';
-import ContentPage from '@/components/content/ContentPage.vue';
+import ContentPage from '@/widgets/content/ContentPage.vue';
 </script>
 
 <style src="./MainLayout.style.scss" lang="scss" scoped></style>

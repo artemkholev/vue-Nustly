@@ -1,13 +1,13 @@
-import './assets/styles/main.scss'
-import './assets/styles/vars.scss'
-import components from './components/UI';
+import './app/assets/styles/main.scss'
+import './app/assets/styles/vars.scss'
+import components from './shered/UI';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
-import App from '@/App.vue';
-import router from '@/router';
-import store from '@/store';
+import App from '@/app/App.vue';
+import router from '@/pages';
+import store from '@/shered/store';
 
 const app = createApp(App)
 

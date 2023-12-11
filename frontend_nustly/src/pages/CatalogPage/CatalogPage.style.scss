@@ -1,0 +1,33 @@
+@import '../../app/assets/styles/vars.scss';
+
+.catalog {
+  h1 {
+    margin-bottom: 50px;
+  }
+  & > .catalog__cards {
+    display: grid;
+    grid-template-columns: repeat( 400px);
+    width: 100%;
+    max-width: 1000px; 
+    justify-content: center;
+    justify-items: center; 
+    column-gap: 30px; 
+    row-gap: 40px; 
+    margin: 0 auto;
+  }
+}
+
+.dark-catalog {
+  h1 {
+    color: $text-color-isDark;
+  }
+  background-color: $background-color-isDark;
+  color: $text-color-isDark;
+  transition: 0.3s;
+  svg > path {
+    fill: #fff;
+  }
+  a {
+    color: #fff;
+  }
+}

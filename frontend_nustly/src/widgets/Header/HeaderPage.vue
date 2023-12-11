@@ -85,13 +85,12 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import BurgerIcon from '../../assets/svg/BurgerIcon.vue';
-import MagnifierIcon from '../../assets/svg/MagnifierIcon.vue';
-import store from '@/store';
-import router from '@/router';
-import { useAuthStore } from '@/store/auth';
+import BurgerIcon from '../../app/assets/svg/BurgerIcon.vue';
+import MagnifierIcon from '../../app/assets/svg/MagnifierIcon.vue';
+import router from '@/pages/index';
+import { useAuthStore } from '@/shered/store/auth';
 import { storeToRefs } from 'pinia';
-import { useThemeStore } from '@/store/theme';
+import { useThemeStore } from '@/shered/store/theme';
 
 const authStore = useAuthStore();
 const { isAuth } = storeToRefs(authStore);
@@ -119,4 +118,4 @@ const headerClasses = computed(() => {
 });
 </script>
 
-<style src="./HeaderPage.style.scss" lang="scss" scoped></style>
+<style src="./HeaderPage.style.scss" lang="scss" scoped></style>@/Pages

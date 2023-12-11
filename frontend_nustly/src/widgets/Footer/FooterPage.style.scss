@@ -1,53 +1,61 @@
 @import '../../app/assets/styles/vars';
 
 .footer {
-  display: flex;
   height: 200px;
   width: 100%;
+  display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 50px;
   border-top: 2px solid black;
-
-  & > .footer-links {
+  & > .footer-info {
     display: flex;
-    align-items: center;
-    gap: 20px;
-
-    & > p {
-      font-family: $text;
-      font-size: $text-size;
-      font-weight: 400;
-      line-height: 150%;
-    }
-  }
-
-  & > .connection {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px;
-    & > .messengers {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-    }
-
-    & > .phone {
+    gap: 50px;
+    margin-bottom: 50px;
+    & > .footer-links {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 20px;
 
       & > p {
         font-family: $text;
         font-size: $text-size;
-        font-style: normal;
         font-weight: 400;
         line-height: 150%;
       }
     }
+
+    & > .footer__contacts {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+      & > .messengers {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      & > .phone {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        & > p {
+          font-family: $text;
+          font-size: $text-size;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 150%;
+        }
+      }
+    }
+  } 
+  & > .footer__name-company {
+    align-items: center;
+    font-family: $text;
+    font-size: 12px;
   }
- 
 }
 
 .dark-footer {

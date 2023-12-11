@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :class="cardClasses">
     <div class="card__top">
       <div class="card__image">
         <img
@@ -11,7 +11,7 @@
     </div>
     <div class="card__bottom">
       <div class="card__prices">
-        <div class="card__price card__price--discount">{{ elemCatalog.price - elemCatalog.price / 100 * elemCatalog.discountPercentage  }}</div>
+        <div class="card__price card__price--discount">{{ (elemCatalog.price - elemCatalog.price / 100 * elemCatalog.discountPercentage).toFixed(2) }}</div>
         <div class="card__price card__price--common">{{elemCatalog.price}}</div>
       </div>
       <!-- Ссылка-название товара -->
@@ -37,6 +37,9 @@
 </template>
 
 <script setup lang="ts">
+import { useThemeStore } from '@/store/theme';
+import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
+import { computed, type Ref } from 'vue';
 
 defineProps({
   elemCatalog: {
@@ -45,6 +48,12 @@ defineProps({
   }
 })
 
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
+const cardClasses = computed(() => {
+  return { card: true, ['dark-card']: isDarkTheme.value };
+});
 </script>
 
 <style src="./CatalogItem.style.scss" lang="scss" scoped></style>

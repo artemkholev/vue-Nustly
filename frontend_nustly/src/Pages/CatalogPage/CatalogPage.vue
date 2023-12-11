@@ -1,5 +1,5 @@
 <template>
-  <div class="catalog">
+  <div :class="catalogClasses">
     <h1>Каталог</h1>
     <div class="catalog__cards" 
       v-if="catalogElems.length > 0"
@@ -21,12 +21,20 @@
 <script setup lang="ts">
 import CatalogItem from '../../components/CatalogItem/CatalogItem.vue';
 import { useCatalogStore } from '@/store/catalog';
+import { useThemeStore } from '@/store/theme';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 
 const catalogStore = useCatalogStore();
 const { isLoading, isError, catalogElems  } = storeToRefs(catalogStore);
 const { getCatalog } = catalogStore;
+
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
+const catalogClasses = computed(() => {
+  return { catalog: true, ['dark-catalog']: isDarkTheme.value };
+});
 
 onMounted(() => {
   getCatalog()

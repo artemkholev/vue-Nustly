@@ -25,10 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import BucketList from '../../entities/BucketList/BucketList.vue';
+
 import { onMounted, watch } from 'vue';
-import { usePostsStore } from '@/shered/store/posts';
 import { storeToRefs } from 'pinia';
+import BucketList from '@/entities/BucketList/BucketList.vue';
+import { usePostsStore } from '@/shered/store/posts';
 
 const postsStore = usePostsStore();
 const { isError, isLoading, posts, page, selected, totalPages, selectOptions, sortedPost } = storeToRefs(postsStore);
@@ -41,7 +42,6 @@ const changePage = (currentPage: number) => {
 watch(page, () => {
   getPosts();
 });
-
 
 onMounted(() => {
   getPosts()

@@ -110,4 +110,4 @@ const handleChangeIsAuth = () => {
 }
 </script>
 
-<style src="./ContentPage.style.scss" lang="scss" scoped />@/Pages
+<style src="./ContentPage.style.scss" lang="scss" scoped />

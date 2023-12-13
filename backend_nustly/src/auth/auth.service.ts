@@ -1,5 +1,10 @@
 import { UsersService } from './../users/users.service';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
@@ -13,7 +18,8 @@ export class AuthService {
   ) {}
 
   async login(userDto: CreateUserDto) {
-    return userDto;
+    const user = await this.validateUser(userDto);
+    return this.generateToken(user);
   }
 
   async registration(userDto: CreateUserDto) {
@@ -32,10 +38,24 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  async generateToken(user: User) {
+  private async generateToken(user: User) {
     const payload = { email: user.email, id: user.id, roles: user.roles };
     return {
       token: this.jwtService.sign(payload),
     };
+  }
+
+  private async validateUser(userDto: CreateUserDto) {
+    const user = await this.userService.getUserByEmail(userDto.email);
+    const passwordEquals = await bcrypt.compare(
+      userDto.password,
+      user.password,
+    );
+    if (user && passwordEquals) {
+      return user;
+    }
+    throw new UnauthorizedException({
+      message: 'Некорректный пароль или email',
+    });
   }
 }

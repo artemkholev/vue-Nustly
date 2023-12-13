@@ -1,7 +1,12 @@
-// eslint-disable-next-line prettier/prettier
-import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'src/users/users.model';
+import { User } from '../users/users.model';
 import { UserRoles } from './user-role.model';
 
 interface RoleCreationAttrs {
@@ -11,7 +16,7 @@ interface RoleCreationAttrs {
 
 @Table({ tableName: 'roles' })
 export class Role extends Model<Role, RoleCreationAttrs> {
-  @ApiProperty({ example: '1', description: 'Уникальный индификатор' })
+  @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -19,18 +24,13 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     primaryKey: true,
   })
   id: number;
-  @ApiProperty({ example: 'ADMIN', description: 'Значение роли пользователя' })
-  @Column({
-    type: DataType.STRING,
-    unique: true,
-    allowNull: false,
-  })
+
+  @ApiProperty({ example: 'ADMIN', description: 'Уникальное Значение роли ' })
+  @Column({ type: DataType.STRING, unique: true, allowNull: false })
   value: string;
+
   @ApiProperty({ example: 'Администратор', description: 'Описание роли' })
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
+  @Column({ type: DataType.STRING, allowNull: false })
   description: string;
 
   @BelongsToMany(() => User, () => UserRoles)

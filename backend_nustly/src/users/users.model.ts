@@ -38,6 +38,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   password: string;
 
-  @BelongsToMany(() => User, () => UserRoles)
+  @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
 }

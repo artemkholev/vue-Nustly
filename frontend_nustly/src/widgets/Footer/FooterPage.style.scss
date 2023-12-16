@@ -115,6 +115,8 @@
     height: 100%;
     padding: 20%;
     & > .footer-info {
+      display: flex;
+      flex-direction: column;
       & > .footer-links {
         display: flex;
         flex-direction: column;

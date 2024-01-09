@@ -28,7 +28,7 @@
 
 import { onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
-import BucketList from '@/entities/BucketList/BucketList.vue';
+import BucketList from '@/features/BucketList/BucketList.vue';
 import { usePostsStore } from '@/shered/store/posts';
 
 const postsStore = usePostsStore();

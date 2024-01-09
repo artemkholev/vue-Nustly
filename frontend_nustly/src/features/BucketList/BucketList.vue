@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import PostItem from '../PostItem/PostItem.vue';
+import PostItem from '../../entities/PostItem/PostItem.vue';
 import type { IPost } from "@/shered/api/postsApi/postsApi.types";
 
 defineProps({

@@ -1,5 +1,5 @@
 <template>
-  <div class="containerInput">
+  <div :class="inputClasses">
     <input 
       :type="isVisible ? 'text' : typeInput"
       :value="modelValue"
@@ -53,7 +53,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useThemeStore } from '@/shered/store/theme';
+import { storeToRefs } from 'pinia';
+import { computed, ref } from 'vue';
+
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
+const inputClasses = computed(() => {
+  return { containerInput: true, ['dark-containerInput']: isDarkTheme.value };
+});
 
 const isVisible = ref(false);
 

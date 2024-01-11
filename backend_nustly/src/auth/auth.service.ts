@@ -3,6 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { IAuthResponse } from './common/interfaces';
 import { TokensService } from 'src/tokens/tokens.service';
+import { Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -12,14 +13,40 @@ export class AuthService {
     private tokensService: TokensService,
   ) {}
 
-  async login(userDto: CreateUserDto) {
-    //: Promise<IAuthResponse>
-    // const user = await this.validateUser(userDto);
-    // return this.generateToken(user);
-    return userDto;
+  async login(
+    userDto: CreateUserDto,
+    response: Response,
+  ): Promise<IAuthResponse> {
+    const user = await this.userService.getUserByEmail(userDto.email);
+    if (!user) {
+      throw new BadRequestException('Пользователь с таким email не найден');
+    }
+
+    const isPasswordEquals = await bcrypt.compare(
+      userDto.password,
+      user.password,
+    );
+
+    if (!isPasswordEquals) {
+      throw new BadRequestException('Некорректный пароль');
+    }
+
+    const tokens = await this.tokensService.generateTokens({ ...user });
+    await this.tokensService.saveToken(user.id, tokens.refreshToken);
+
+    response.cookie('refreshToken', tokens.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      // samiSite: 'strict',
+    });
+
+    return { accessToken: tokens.accessToken };
   }
 
-  async registration(userDto: CreateUserDto): Promise<IAuthResponse> {
+  async registration(
+    userDto: CreateUserDto,
+    response: Response,
+  ): Promise<IAuthResponse> {
     const candidate = await this.userService.getUserByEmail(userDto.email);
     if (candidate) {
       throw new BadRequestException('Пользователь с таким email существует');
@@ -33,11 +60,11 @@ export class AuthService {
     const tokens = await this.tokensService.generateTokens({ ...user });
     await this.tokensService.saveToken(user.id, tokens.refreshToken);
 
-    // context.res.cookie('refreshToken', tokens.refreshToken, {
-    //   maxAge: 30 * 24 * 60 * 60 * 1000,
-    //   httpOnly: true,
-    //   samiSite: 'strict',
-    // });
+    response.cookie('refreshToken', tokens.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      // samiSite: 'strict',
+    });
 
     return { accessToken: tokens.accessToken };
   }

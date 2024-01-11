@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (data: ILogin) => {
     try {
-      const response = await apiAxios.post<ILogin>('/posts', data);
+      const response = await apiAxios.post<ILogin>('/auth/login', data);
       if (response) isAuth.value = true;
       router.push({ name: PathNames.HOME });
       isError.value = false;

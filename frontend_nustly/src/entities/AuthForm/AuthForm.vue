@@ -36,9 +36,12 @@ import { reactive, ref, watch, computed } from 'vue'
 import store from '@/shered/store'
 import { useAuthStore } from '@/shered/store/auth';
 import type { ILogin } from '@/shered/api/authApi/authApi.types';
+import { storeToRefs } from 'pinia';
 
 const authStore = useAuthStore();
+const { isError } = storeToRefs(authStore);
 const { login } = authStore; 
+
 const isValid = ref(false); 
 const error = ref(''); 
 const loginInfo = reactive({
@@ -48,16 +51,20 @@ const loginInfo = reactive({
 
 const userForm = computed<ILogin>(() => {
   return {
-    login: loginInfo.email,
+    email: loginInfo.email,
     password: loginInfo.password
   };
 });
 
 const loginAction = () => {
-  login(userForm.value)
-  store.commit('isAuthConvert');
-  loginInfo.email = '';
-  loginInfo.password = '';
+  login(userForm.value);
+  if (!isError.value) {
+    loginInfo.email = '';
+    loginInfo.password = '';
+  } else {
+    setErrorMessage('Error');
+    setTimeout(() => setErrorMessage(''), 3000);
+  }
 }
 
 const setErrorMessage = (message: string) => {

@@ -3,6 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { IAuthResponse } from './common/interfaces';
 import { TokensService } from 'src/tokens/tokens.service';
+import User from '../users/dto/user.dto';
 import { Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 
@@ -18,6 +19,7 @@ export class AuthService {
     response: Response,
   ): Promise<IAuthResponse> {
     const user = await this.userService.getUserByEmail(userDto.email);
+
     if (!user) {
       throw new BadRequestException('Пользователь с таким email не найден');
     }
@@ -31,8 +33,11 @@ export class AuthService {
       throw new BadRequestException('Некорректный пароль');
     }
 
-    const tokens = await this.tokensService.generateTokens({ ...user });
-    await this.tokensService.saveToken(user.id, tokens.refreshToken);
+    const userObject = new User(user);
+    const tokens = await this.tokensService.generateTokens({ ...userObject });
+    console.log('\n\n\n', tokens, '\n\n\n');
+
+    await this.tokensService.saveToken(userObject.id, tokens.refreshToken);
 
     response.cookie('refreshToken', tokens.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -57,8 +62,9 @@ export class AuthService {
       password: hashPassword,
     });
 
-    const tokens = await this.tokensService.generateTokens({ ...user });
-    await this.tokensService.saveToken(user.id, tokens.refreshToken);
+    const userObject = new User(user);
+    const tokens = await this.tokensService.generateTokens({ ...userObject });
+    await this.tokensService.saveToken(userObject.id, tokens.refreshToken);
 
     response.cookie('refreshToken', tokens.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,

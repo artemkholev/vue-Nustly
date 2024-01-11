@@ -46,5 +46,5 @@ export class User extends Model<User, UserCreationAttrs> {
   roles: Role[];
 
   @HasOne(() => Tokens)
-  tokens: Tokens[];
+  tokens: Tokens;
 }

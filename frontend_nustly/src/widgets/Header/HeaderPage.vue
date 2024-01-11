@@ -4,7 +4,7 @@
       <svg width="40" height="32" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
         <path d="M384 64.01v384c0 13.47-8.438 25.5-21.09 30.09C359.3 479.4 355.7 480 352 480c-9.312 0-18.38-4.078-24.59-11.52L64 152.4v295.6c0 17.67-14.31 32-32 32s-32-14.33-32-32v-384c0-13.47 8.438-25.5 21.09-30.09c12.62-4.516 26.84-.75 35.5 9.609L320 359.6v-295.6c0-17.67 14.31-32 32-32S384 46.34 384 64.01z"/>
       </svg>
-      <p :style="{borderLeft: '1px solid black', paddingLeft: '10px'}">Nustly</p>
+      <p class="nameCompany">Nustly</p>
     </router-link>
     <div class="finctionsHeader">
       <router-link to="/catalog" class="catalogButton">
@@ -51,7 +51,7 @@
         <p class="name">{{ userName }}</p>
         <div v-if="!isAuth" class="dropdown">
           <button @click="dropdown" :class="{dropbtn: true, ['activeDropDown']: isDropdown}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M5.64645 8.64645C5.84171 8.45118 6.15829 8.45118 6.35355 8.64645L12 14.2929L17.6464 8.64645C17.8417 8.45118 18.1583 8.45118 18.3536 8.64645C18.5488 8.84171 18.5488 9.15829 18.3536 9.35355L12.3536 15.3536C12.1583 15.5488 11.8417 15.5488 11.6464 15.3536L5.64645 9.35355C5.45118 9.15829 5.45118 8.84171 5.64645 8.64645Z" fill="#414141"/>
             </svg>
           </button>

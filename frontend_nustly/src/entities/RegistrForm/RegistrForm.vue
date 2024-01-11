@@ -1,6 +1,6 @@
 <template>
-  <form @submit.prevent>
-    <h4 :style="{marginBottom: '20px', display: 'flex', justifyContent: 'center', fontSize: '2.2vw'}">Регистрация</h4>
+  <form @submit.prevent :class="formClasses">
+    <h1 :style="{marginBottom: '20px', display: 'flex', justifyContent: 'center', fontSize: '2.2vw'}">Регистрация</h1>
     <input-elem 
       v-model="loginInfo.email"
       :typeInput="'email'"
@@ -55,9 +55,24 @@ import { reactive, ref, watch, computed } from 'vue'
 import store from '@/shered/store'
 import { useAuthStore } from '@/shered/store/auth';
 import type { ILogin } from '@/shered/api/authApi/authApi.types';
+import { useThemeStore } from '@/shered/store/theme';
+import { storeToRefs } from 'pinia';
+import { useCatalogStore } from '@/shered/store/catalog';
 
+//white or dark theme
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
+const formClasses = computed(() => {
+  return { containerForm: true, ['dark-containerForm']: isDarkTheme.value };
+});
+
+//login function from pinia 
 const authStore = useAuthStore();
+const { isError, errorMessage } = storeToRefs(authStore);
 const { registration } = authStore; 
+
+// send request to server
 const isValid = ref(false); 
 const passwordMatch = ref(true);
 const error = ref(''); 
@@ -71,16 +86,22 @@ const loginInfo = reactive({
 
 const userForm = computed<ILogin>(() => {
   return {
-    login: loginInfo.email,
+    email: loginInfo.email,
     password: loginInfo.password
   };
 });
 
-const login = () => {
-  registration(userForm.value)
-  loginInfo.email = '';
-  loginInfo.password = '';
-  store.commit('isAuthConvert');
+const loginUser = async () => {
+  await registration(userForm.value);
+  if (!isError.value) {
+    loginInfo.email = '';
+    loginInfo.password = '';
+  } else {
+    setErrorMessage(errorMessage.value);
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 5000);
+  }
 }
 
 const setErrorMessage = (message: string) => {
@@ -97,7 +118,7 @@ const setPasswordMatch = (value: boolean) => {
 
 const handlerButton = async () => {
   if (isValid.value && statusAgreement.value && loginInfo.email) {
-    await login();
+    await loginUser();
   } else {
     setErrorMessage('Заполните обязательные поля!');
     setTimeout(() => setErrorMessage(''), 3000);

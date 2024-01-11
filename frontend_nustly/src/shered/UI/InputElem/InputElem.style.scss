@@ -32,3 +32,9 @@
     }
   }
 }
+
+.dark-containerInput {
+  & > .inputText {
+    background-color: white;
+  }
+}

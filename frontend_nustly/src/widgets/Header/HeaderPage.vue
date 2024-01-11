@@ -4,7 +4,7 @@
       <svg width="40" height="32" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
         <path d="M384 64.01v384c0 13.47-8.438 25.5-21.09 30.09C359.3 479.4 355.7 480 352 480c-9.312 0-18.38-4.078-24.59-11.52L64 152.4v295.6c0 17.67-14.31 32-32 32s-32-14.33-32-32v-384c0-13.47 8.438-25.5 21.09-30.09c12.62-4.516 26.84-.75 35.5 9.609L320 359.6v-295.6c0-17.67 14.31-32 32-32S384 46.34 384 64.01z"/>
       </svg>
-      <p :style="{borderLeft: '1px solid black', paddingLeft: '10px'}">Nustly</p>
+      <p class="nameCompany">Nustly</p>
     </router-link>
     <div class="finctionsHeader">
       <router-link to="/catalog" class="catalogButton">
@@ -51,13 +51,14 @@
         <p class="name">{{ userName }}</p>
         <div v-if="!isAuth" class="dropdown">
           <button @click="dropdown" :class="{dropbtn: true, ['activeDropDown']: isDropdown}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M5.64645 8.64645C5.84171 8.45118 6.15829 8.45118 6.35355 8.64645L12 14.2929L17.6464 8.64645C17.8417 8.45118 18.1583 8.45118 18.3536 8.64645C18.5488 8.84171 18.5488 9.15829 18.3536 9.35355L12.3536 15.3536C12.1583 15.5488 11.8417 15.5488 11.6464 15.3536L5.64645 9.35355C5.45118 9.15829 5.45118 8.84171 5.64645 8.64645Z" fill="#414141"/>
             </svg>
           </button>
           <div v-if="isDropdown" @click="isDropdown = !isDropdown" class="dropdown-content">
-            <router-link to="/auth" @click="">Вход</router-link>
-            <router-link to="/reg" @click="">Регистрация</router-link>
+            <router-link v-if="!isAuth" to="/auth">Вход</router-link>
+            <router-link v-if="!isAuth" to="/reg">Регистрация</router-link>
+            <p v-if="isAuth" @click="">выход</p>
           </div>
         </div>
         <div v-else class="logout" @click="handleChangeIsAuth">
@@ -70,7 +71,7 @@
     <div class="burgerTheme">
       <button 
         class="isDark" 
-        @click="hendleThemeClick"
+        @click="toggleTheme"
       >
         <svg enable-background="new 0 0 512 512" height="30px" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <path d="M256,144c-61.75,0-112,50.25-112,112s50.25,112,112,112s112-50.25,112-112S317.75,144,256,144z M256,336    c-44.188,0-80-35.812-80-80c0-44.188,35.812-80,80-80c44.188,0,80,35.812,80,80C336,300.188,300.188,336,256,336z M256,112    c8.833,0,16-7.167,16-16V64c0-8.833-7.167-16-16-16s-16,7.167-16,16v32C240,104.833,247.167,112,256,112z M256,400    c-8.833,0-16,7.167-16,16v32c0,8.833,7.167,16,16,16s16-7.167,16-16v-32C272,407.167,264.833,400,256,400z M380.438,154.167    l22.625-22.625c6.25-6.25,6.25-16.375,0-22.625s-16.375-6.25-22.625,0l-22.625,22.625c-6.25,6.25-6.25,16.375,0,22.625    S374.188,160.417,380.438,154.167z M131.562,357.834l-22.625,22.625c-6.25,6.249-6.25,16.374,0,22.624s16.375,6.25,22.625,0    l22.625-22.624c6.25-6.271,6.25-16.376,0-22.625C147.938,351.583,137.812,351.562,131.562,357.834z M112,256    c0-8.833-7.167-16-16-16H64c-8.833,0-16,7.167-16,16s7.167,16,16,16h32C104.833,272,112,264.833,112,256z M448,240h-32    c-8.833,0-16,7.167-16,16s7.167,16,16,16h32c8.833,0,16-7.167,16-16S456.833,240,448,240z M131.541,154.167    c6.251,6.25,16.376,6.25,22.625,0c6.251-6.25,6.251-16.375,0-22.625l-22.625-22.625c-6.25-6.25-16.374-6.25-22.625,0    c-6.25,6.25-6.25,16.375,0,22.625L131.541,154.167z M380.459,357.812c-6.271-6.25-16.376-6.25-22.625,0    c-6.251,6.25-6.271,16.375,0,22.625l22.625,22.625c6.249,6.25,16.374,6.25,22.624,0s6.25-16.375,0-22.625L380.459,357.812z" fill='#000'/>
@@ -93,17 +94,16 @@ import { useThemeStore } from '@/shered/store/theme';
 const authStore = useAuthStore();
 const { isAuth } = storeToRefs(authStore);
 const userName = ref('none');
+
 const isDropdown = ref(false);
 const findInfo = ref('');
+
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
+const { toggleTheme } = themeStore;
 
 const dropdown = () => {
   isDropdown.value = !isDropdown.value;
-};
-
-const hendleThemeClick = () => {
-  isDarkTheme.value = !isDarkTheme.value;
 };
 
 const handleChangeIsAuth = () => {
@@ -116,4 +116,4 @@ const headerClasses = computed(() => {
 });
 </script>
 
-<style src="./HeaderPage.style.scss" lang="scss" scoped></style>@/Pages
+<style src="./HeaderPage.style.scss" lang="scss" scoped></style>

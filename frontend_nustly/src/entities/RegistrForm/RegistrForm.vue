@@ -69,7 +69,7 @@ const formClasses = computed(() => {
 
 //login function from pinia 
 const authStore = useAuthStore();
-const { isError } = storeToRefs(authStore);
+const { isError, errorMessage } = storeToRefs(authStore);
 const { registration } = authStore; 
 
 // send request to server
@@ -91,14 +91,16 @@ const userForm = computed<ILogin>(() => {
   };
 });
 
-const loginUser = () => {
-  registration(userForm.value);
+const loginUser = async () => {
+  await registration(userForm.value);
   if (!isError.value) {
     loginInfo.email = '';
     loginInfo.password = '';
   } else {
-    setErrorMessage('Error');
-    setTimeout(() => setErrorMessage(''), 3000);
+    setErrorMessage(errorMessage.value);
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 5000);
   }
 }
 

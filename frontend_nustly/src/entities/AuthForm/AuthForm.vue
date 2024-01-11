@@ -39,7 +39,7 @@ import type { ILogin } from '@/shered/api/authApi/authApi.types';
 import { storeToRefs } from 'pinia';
 
 const authStore = useAuthStore();
-const { isError } = storeToRefs(authStore);
+const { isError, errorMessage } = storeToRefs(authStore);
 const { login } = authStore; 
 
 const isValid = ref(false); 
@@ -56,14 +56,17 @@ const userForm = computed<ILogin>(() => {
   };
 });
 
-const loginAction = () => {
-  login(userForm.value);
+const loginAction = async () => {
+  await login(userForm.value);
+
   if (!isError.value) {
     loginInfo.email = '';
     loginInfo.password = '';
   } else {
-    setErrorMessage('Error');
-    setTimeout(() => setErrorMessage(''), 3000);
+    setErrorMessage(errorMessage.value);
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 5000);
   }
 }
 

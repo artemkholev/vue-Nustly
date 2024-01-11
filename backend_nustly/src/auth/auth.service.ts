@@ -35,8 +35,6 @@ export class AuthService {
 
     const userObject = new User(user);
     const tokens = await this.tokensService.generateTokens({ ...userObject });
-    console.log('\n\n\n', tokens, '\n\n\n');
-
     await this.tokensService.saveToken(userObject.id, tokens.refreshToken);
 
     response.cookie('refreshToken', tokens.refreshToken, {

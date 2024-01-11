@@ -56,8 +56,9 @@
             </svg>
           </button>
           <div v-if="isDropdown" @click="isDropdown = !isDropdown" class="dropdown-content">
-            <router-link to="/auth" @click="">Вход</router-link>
-            <router-link to="/reg" @click="">Регистрация</router-link>
+            <router-link v-if="!isAuth" to="/auth">Вход</router-link>
+            <router-link v-if="!isAuth" to="/reg">Регистрация</router-link>
+            <p v-if="isAuth" @click="">выход</p>
           </div>
         </div>
         <div v-else class="logout" @click="handleChangeIsAuth">

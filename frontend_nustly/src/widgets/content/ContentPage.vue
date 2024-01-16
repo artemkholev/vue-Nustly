@@ -60,8 +60,9 @@
         class="login"
         @click="closeSidebarPanel"
       >
-          <router-link to="/auth" :style="{ marginBottom: '10px'}">Вход</router-link>
-          <router-link to="/reg" :style="{ marginBottom: '10px'}">Регистрация</router-link>
+        <router-link to="/catalog" :style="{ marginBottom: '10px'}">Каталог</router-link>
+        <router-link to="/auth" :style="{ marginBottom: '10px'}">Вход</router-link>
+        <router-link to="/reg" :style="{ marginBottom: '10px'}">Регистрация</router-link>
       </div>
     </div>
   </sidebar-elem>
@@ -82,6 +83,7 @@ import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/shered/store/theme';
 import router from '@/pages/index';
 
+//theme
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
 
@@ -93,20 +95,19 @@ const sidebarClasses = computed(() => {
   return { sidebar: true, ['dark-sidebar']: isDarkTheme.value };
 });
 
+//sidebar
 const closeSidebarPanel = () => {
   store.commit('toggleNav');
 };
 
-const userName = ref('none');
-
-
+//auth
 const authStore = useAuthStore();
-const { isAuth } = storeToRefs(authStore);
+const { isAuth, userName } = storeToRefs(authStore);
+const { logout } = authStore
 
 const handleChangeIsAuth = () => {
-  isAuth.value = !isAuth.value;
   closeSidebarPanel();
-  router.push('/');
+  logout();
 }
 </script>
 

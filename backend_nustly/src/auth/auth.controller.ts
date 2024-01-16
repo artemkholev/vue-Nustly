@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
-// import { Context } from '@nestjs/graphql';
+import { GetCurrentUserId } from './common/decorators/get-current-user-id';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -27,8 +27,11 @@ export class AuthController {
   }
 
   @Post('/logout')
-  logout() {
-    return this.authService.logout();
+  logout(
+    @GetCurrentUserId() userId: number,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return this.authService.logoutUser(userId, response);
   }
 
   @Post('/refresh')

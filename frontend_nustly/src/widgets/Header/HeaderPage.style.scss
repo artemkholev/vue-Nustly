@@ -123,19 +123,18 @@
     }
 
     & > .userMenu {
-      width: 100%;
+      min-width: 130px;
       display: flex;
       position: relative;
       padding: 5px;
       align-items: center;
       border: 1px solid $main-color;
       border-radius: 20px;
-      gap: 10px;
+      justify-content: space-between;
 
       & > .dropdown {
         display: flex;
         flex-direction: column;
-        gap: 10px;
         & > button {
           flex-direction: column;
           justify-content: center;
@@ -241,13 +240,13 @@
 
 @media (max-width: 1200px) {
   .header {
-    width: 100%;
+    
   }
 }
 
 @media (max-width: 1000px) {
   .header {
-    width: 100%;
+    justify-content: space-between;
     & > .finctionsHeader {
       & > .catalogButton {
         display: none;
@@ -268,7 +267,6 @@
 
 @media (max-width: 768px) {
   .header {
-    width: 100%;
     justify-content: space-between;
     & > .finctionsHeader {
       & > .catalogButton {
@@ -294,7 +292,6 @@
 @media (max-width: 400px) {
   .header {
     justify-content: space-between;
-    width: 100%;
     & > .finctionsHeader {
       & > .catalogButton {
         display: none;

@@ -77,28 +77,12 @@ export class AuthService {
     return null;
   }
 
-  async logout(): Promise<boolean> {
-    return true;
+  async logoutUser(id: number, response: Response): Promise<boolean> {
+    try {
+      await this.tokensService.removeToken(id, response);
+      return true;
+    } catch {
+      throw new Error('Не удалось выйти из аккаунта');
+    }
   }
-
-  // private async generateToken(user: User) {
-  //   const payload = { email: user.email, id: user.id, roles: user.roles };
-  //   return {
-  //     token: this.jwtService.sign(payload),
-  //   };
-  // }
-
-  // private async validateUser(userDto: CreateUserDto) {
-  //   const user = await this.userService.getUserByEmail(userDto.email);
-  //   const passwordEquals = await bcrypt.compare(
-  //     userDto.password,
-  //     user.password,
-  //   );
-  //   if (user && passwordEquals) {
-  //     return user;
-  //   }
-  //   throw new UnauthorizedException({
-  //     message: 'Некорректный пароль или email',
-  //   });
-  // }
 }

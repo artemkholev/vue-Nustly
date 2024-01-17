@@ -1,3 +1,4 @@
 export enum LocalStorageConstants {
-  THEME = 'theme'
+  THEME = 'theme',
+  ISAUTH = 'isAuth',
 }

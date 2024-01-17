@@ -1,11 +1,11 @@
 import jwtDecode from "jwt-decode";
 
-type DescribableFunction = {
+type DecodeFunction = {
     id: number;
     email: string;
 };
 
 export const decodeJwt = (accessToken: string) => {
-    const decoded: DescribableFunction = jwtDecode(accessToken);
+    const decoded: DecodeFunction = jwtDecode(accessToken);
     return decoded;
 }

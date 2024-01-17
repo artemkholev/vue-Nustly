@@ -11,6 +11,20 @@ export class TokensService {
     @InjectModel(Tokens) private tokensRepository: typeof Tokens,
   ) {}
 
+  verifyToken = (artifact: string, secret: string) => {
+    try {
+      this.jwtService.verify(artifact, {
+        secret,
+      });
+      return { isValid: true };
+    } catch (err) {
+      return {
+        isValid: false,
+        error: err.message,
+      };
+    }
+  };
+
   async generateTokens(payload) {
     try {
       const accessToken = await this.jwtService.signAsync(payload, {
@@ -34,7 +48,7 @@ export class TokensService {
     const tokenData = await this.tokensRepository.findOne({
       where: { userId: id },
     });
-    if (tokenData.dataValues.refreshToken) {
+    if (tokenData?.dataValues.refreshToken) {
       tokenData.dataValues.refreshToken = refreshToken;
       return await tokenData.save();
     }
@@ -53,5 +67,24 @@ export class TokensService {
     response.clearCookie('refreshToken');
 
     return tokenData;
+  }
+
+  async validateAccessToken(token: string) {
+    try {
+      const decodedToken = await this.jwtService.decode(token);
+
+      const userData = this.verifyToken(
+        decodedToken,
+        process.env.PRIVATE_KEY_ACSSES,
+      );
+
+      if (!userData.isValid) {
+        throw new UnauthorizedException(userData.error);
+      }
+
+      return userData.isValid;
+    } catch (e) {
+      throw new UnauthorizedException(e.message);
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { apiAxios } from '../api';
+import apiAxios from '../api';
 import type { ILogin, IResponseLogin } from '@/shered/api/authApi/authApi.types';
 import { useRouter } from 'vue-router';
 import { PathNames } from '@/shered/constants/route.constants';

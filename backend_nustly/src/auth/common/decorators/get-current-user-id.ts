@@ -1,10 +1,12 @@
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
-import { Request } from 'express';
+import { decode } from 'jsonwebtoken';
 
 export const GetCurrentUserId = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
-    console.log(ctx.switchToHttp().getRequest());
-    const request = ctx.switchToHttp().getRequest();
-    return request;
+    const authorizationHeader = ctx.switchToHttp().getRequest()
+      .headers.authorization;
+    const accessToken = authorizationHeader.split(' ')[1];
+    const userData: any = decode(accessToken);
+    return userData.id;
   },
 );

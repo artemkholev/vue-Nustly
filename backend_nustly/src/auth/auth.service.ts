@@ -78,10 +78,11 @@ export class AuthService {
   }
 
   async logoutUser(id: number, response: Response): Promise<boolean> {
-    const token = await this.tokensService.removeToken(id, response);
-    if (token) {
+    try {
+      await this.tokensService.removeToken(id, response);
+      return true;
+    } catch {
       throw new Error('Не удалось выйти из аккаунта');
     }
-    return true;
   }
 }

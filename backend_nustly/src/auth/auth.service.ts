@@ -101,6 +101,7 @@ export class AuthService {
     }
 
     const userObject = new User(tokenFromDb);
+
     const tokens = await this.tokensService.generateTokens({ ...userObject });
     await this.tokensService.saveToken(userObject.id, tokens.refreshToken);
 

@@ -105,11 +105,12 @@ export class TokensService {
     }
   }
 
-  async findToken(refreshToken) {
+  async findToken(refreshToken: string) {
     const tokenData = await this.tokensRepository.findOne({
       where: { refreshToken },
+      include: 'user',
     });
 
-    return tokenData;
+    return tokenData.user.dataValues;
   }
 }

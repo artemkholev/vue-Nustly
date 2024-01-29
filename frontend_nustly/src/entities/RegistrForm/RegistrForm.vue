@@ -97,7 +97,7 @@ const loginUser = async () => {
     loginInfo.email = '';
     loginInfo.password = '';
   } else {
-    setErrorMessage(errorMessage.value);
+    setErrorMessage(errorMessage.value[0]);
     setTimeout(() => {
       setErrorMessage('');
     }, 5000);

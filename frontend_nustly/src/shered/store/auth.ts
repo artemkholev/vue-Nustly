@@ -16,7 +16,7 @@ interface ValidationErrors {
 
 export const useAuthStore = defineStore('auth', () => {
   const userName = ref<string>('')
-  const isAuth = ref(getBooleanValueFromLs(LocalStorageConstants.THEME) || false);
+  const isAuth = ref(getBooleanValueFromLs(LocalStorageConstants.ISAUTH) || false);
   const isError = ref<boolean>(false);
   const errorMessage = ref<string>('');
   const router = useRouter();
@@ -93,8 +93,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   const toggleIsAuth = () => {
     isAuth.value = !isAuth.value;
-    setBooleanValueFromLs(LocalStorageConstants.THEME, isAuth.value);
+    setBooleanValueFromLs(LocalStorageConstants.ISAUTH, isAuth.value);
   };
 
-  return { isAuth, isError, errorMessage, userName, login, registration, logout };
+  return { isAuth, isError, errorMessage, userName, login, registration, logout, toggleIsAuth };
 });

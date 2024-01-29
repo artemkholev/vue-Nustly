@@ -20,6 +20,8 @@ apiAxios.interceptors.request.use((config: AxiosRequestConfig | any) => {
 
 apiAxios.interceptors.response.use((config) => config, async (error) => {
   const originalRequest = error.config;
+  const authStore = useAuthStore();
+  const { toggleIsAuth } = authStore;
 
   if (error.response.status === 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;
@@ -32,7 +34,8 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
       userName.value = decodeJwt(response.data.accessToken).email;
 
       return apiAxios.request(originalRequest);
-    } catch (e:any) {
+    } catch (e: any) {
+      toggleIsAuth()
       console.log(e.message);
     }
   }

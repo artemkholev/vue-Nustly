@@ -28,7 +28,7 @@ export class TokensService {
   async generateTokens(payload) {
     try {
       const accessToken = await this.jwtService.signAsync(payload, {
-        secret: process.env.PRIVATE_KEY_ACSSES,
+        secret: process.env.PRIVATE_KEY_ACCESS,
         expiresIn: '30m',
       });
       const refreshToken = await this.jwtService.signAsync(payload, {
@@ -73,18 +73,44 @@ export class TokensService {
     try {
       const decodedToken = await this.jwtService.decode(token);
 
-      const userData = this.verifyToken(
+      const user = this.verifyToken(
         decodedToken,
-        process.env.PRIVATE_KEY_ACSSES,
+        process.env.PRIVATE_KEY_ACCESS,
       );
 
-      if (!userData.isValid) {
-        throw new UnauthorizedException(userData.error);
+      if (!user.isValid) {
+        throw new UnauthorizedException(user.error);
       }
 
-      return userData.isValid;
+      return user.isValid;
     } catch (e) {
       throw new UnauthorizedException(e.message);
     }
+  }
+
+  async validateRefreshToken(token: string) {
+    try {
+      const user = await this.verifyToken(
+        token,
+        process.env.PRIVATE_KEY_REFRESH,
+      );
+
+      if (!user.isValid) {
+        throw new UnauthorizedException(user.error);
+      }
+
+      return user.isValid;
+    } catch (e) {
+      throw new UnauthorizedException(e.message);
+    }
+  }
+
+  async findToken(refreshToken: string) {
+    const tokenData = await this.tokensRepository.findOne({
+      where: { refreshToken },
+      include: 'user',
+    });
+
+    return tokenData.user.dataValues;
   }
 }

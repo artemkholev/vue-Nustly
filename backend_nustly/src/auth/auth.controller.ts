@@ -1,5 +1,5 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Post, Res, Req } from '@nestjs/common';
+import { Response, Request } from 'express';
 import { GetCurrentUserId } from './common/decorators/get-current-user-id';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
@@ -35,7 +35,10 @@ export class AuthController {
   }
 
   @Post('/refresh')
-  refreshToken() {
-    return this.authService.refreshToken();
+  refreshToken(
+    @Res({ passthrough: true }) response: Response,
+    @Req() request: Request,
+  ) {
+    return this.authService.refreshToken(response, request);
   }
 }

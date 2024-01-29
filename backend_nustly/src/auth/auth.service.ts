@@ -1,10 +1,14 @@
 import { UsersService } from './../users/users.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { IAuthResponse } from './common/interfaces';
 import { TokensService } from 'src/tokens/tokens.service';
 import User from '../users/dto/user.dto';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -73,8 +77,39 @@ export class AuthService {
     return { accessToken: tokens.accessToken };
   }
 
-  async refreshToken(): Promise<IAuthResponse> {
-    return null;
+  async refreshToken(
+    response: Response,
+    request: Request,
+  ): Promise<IAuthResponse> {
+    const refreshToken = request.headers.cookie
+      .split(';')
+      .find((el: string) => el.includes('refreshToken='))
+      ?.split(';')
+      .find((el: string) => el.includes('refreshToken='))
+      ?.split('=')
+      .at(-1);
+
+    if (!refreshToken) {
+      throw new UnauthorizedException('Пользователь не авторизован');
+    }
+    const userIsValid =
+      await this.tokensService.validateRefreshToken(refreshToken);
+    const tokenFromDb = await this.tokensService.findToken(refreshToken);
+
+    if (!userIsValid || !tokenFromDb) {
+      throw new UnauthorizedException('Пользователь не авторизован');
+    }
+
+    const userObject = new User(tokenFromDb);
+
+    const tokens = await this.tokensService.generateTokens({ ...userObject });
+    await this.tokensService.saveToken(userObject.id, tokens.refreshToken);
+
+    response.cookie('refreshToken', tokens.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    });
+    return { accessToken: tokens.accessToken };
   }
 
   async logoutUser(id: number, response: Response): Promise<boolean> {

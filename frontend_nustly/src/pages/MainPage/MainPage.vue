@@ -47,13 +47,15 @@
 </template>
 
 <script setup lang="ts">
+import apiAxios from '@/shered/api';
 import { ref } from 'vue';
 
 const dialogVisible = ref(false);
 const info = ref('');
 
-const handlerButtonShowDialog = () => {
-  dialogVisible.value = true;
+const handlerButtonShowDialog = async () => {
+  await apiAxios.post('/auth/refresh')
+  // dialogVisible.value = true;
 }
 
 const handleSend = () => {

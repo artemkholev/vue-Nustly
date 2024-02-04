@@ -11,6 +11,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Role } from 'src/roles/roles.model';
 import { UserRoles } from 'src/roles/user-role.model';
 import { Tokens } from 'src/tokens/tokens.model';
+import { randomUUID } from 'crypto';
 
 interface UserCreationAttrs {
   email: string;
@@ -22,12 +23,11 @@ export class User extends Model<User, UserCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Уникальный индификатор' })
   @PrimaryKey
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     unique: true,
-    autoIncrement: true,
     primaryKey: true,
   })
-  id: number;
+  id: string = randomUUID();
   @ApiProperty({ example: 'user@gmail.com', description: 'Почтовый адрес' })
   @Column({
     type: DataType.STRING,

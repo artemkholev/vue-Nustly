@@ -44,7 +44,7 @@ export class TokensService {
     }
   }
 
-  async saveToken(id: number, refreshToken: string) {
+  async saveToken(id: string, refreshToken: string) {
     const tokenData = await this.tokensRepository.findOne({
       where: { userId: id },
     });

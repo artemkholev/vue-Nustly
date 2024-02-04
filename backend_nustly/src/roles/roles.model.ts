@@ -8,6 +8,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../users/users.model';
 import { UserRoles } from './user-role.model';
+import { randomUUID } from 'crypto';
 
 interface RoleCreationAttrs {
   value: string;
@@ -18,12 +19,11 @@ interface RoleCreationAttrs {
 export class Role extends Model<Role, RoleCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     unique: true,
-    autoIncrement: true,
     primaryKey: true,
   })
-  id: number;
+  id: string = randomUUID();
 
   @ApiProperty({ example: 'ADMIN', description: 'Уникальное Значение роли ' })
   @Column({ type: DataType.STRING, unique: true, allowNull: false })

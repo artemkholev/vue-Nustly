@@ -2,10 +2,10 @@ import { Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from 'src/users/users.model';
-import { Tokens } from 'src/tokens/tokens.model';
-import { TokensService } from 'src/tokens/tokens.service';
-import { UsersModule } from 'src/users/users.module';
+import { User } from 'src/modules/users/users.model';
+import { Tokens } from 'src/modules/tokens/tokens.model';
+import { TokensService } from 'src/modules/tokens/tokens.service';
+import { UsersModule } from 'src/modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthController } from './auth.controller';
 

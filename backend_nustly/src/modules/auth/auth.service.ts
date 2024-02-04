@@ -1,12 +1,12 @@
-import { UsersService } from './../users/users.service';
+import { UsersService } from '../users/users.service';
 import {
   BadRequestException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { IAuthResponse } from './common/interfaces';
-import { TokensService } from 'src/tokens/tokens.service';
+import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
+import { IAuthResponse } from '../../common/interfaces';
+import { TokensService } from 'src/modules/tokens/tokens.service';
 import User from '../users/dto/user.dto';
 import { Response, Request } from 'express';
 import * as bcrypt from 'bcryptjs';

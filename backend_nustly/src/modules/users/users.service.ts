@@ -1,4 +1,4 @@
-import { RolesService } from './../roles/roles.service';
+import { RolesService } from '../roles/roles.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';

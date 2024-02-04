@@ -1,8 +1,8 @@
 import { Body, Controller, Post, Res, Req } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { GetCurrentUserId } from './common/decorators/get-current-user-id';
+import { GetCurrentUserId } from '../../common/decorators/get-current-user-id';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 
 @ApiTags('Авторизация')

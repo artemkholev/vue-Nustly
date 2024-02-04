@@ -14,7 +14,6 @@
         <div class="card__price card__price--discount">{{ (elemCatalog.price - elemCatalog.price / 100 * elemCatalog.discountPercentage).toFixed(2) }}</div>
         <div class="card__price card__price--common">{{elemCatalog.price}}</div>
       </div>
-      <!-- Ссылка-название товара -->
       <p class="card__title">
         {{ elemCatalog.title }}
       </p>

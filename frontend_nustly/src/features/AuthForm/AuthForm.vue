@@ -33,7 +33,6 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch, computed } from 'vue'
-import store from '@/shered/store'
 import { useAuthStore } from '@/shered/store/auth';
 import type { ILogin } from '@/shered/api/authApi/authApi.types';
 import { storeToRefs } from 'pinia';

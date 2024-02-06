@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Categories } from './categories.model';
 import { InjectModel } from '@nestjs/sequelize';
+import { CreateCategoryDto } from './dto/create-category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -16,7 +17,8 @@ export class CategoriesService {
     return categories;
   }
 
-  async createCategories() {
-    return null;
+  async createCategories(categoryDto: CreateCategoryDto): Promise<boolean> {
+    console.log(categoryDto);
+    return true;
   }
 }

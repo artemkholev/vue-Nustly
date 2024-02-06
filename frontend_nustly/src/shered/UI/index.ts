@@ -4,7 +4,8 @@ import InputElem from "./InputElem/InputElem.vue";
 import SelectElem from "./SelectElem/SelectElem.vue";
 import BurgerElem from "./BurgerElem/BurgerElem.vue";
 import SidebarElem from "./SidebarElem/SidebarElem.vue";
-import CheckboxElem from "./CheckboxElem/CheckboxElem.vue"
+import CheckboxElem from "./CheckboxElem/CheckboxElem.vue";
+import IconElem from "./IconElem/IconElem.vue";
 
 export default [
   ButtonElem,
@@ -13,5 +14,6 @@ export default [
   SelectElem,
   BurgerElem,
   SidebarElem,
-  CheckboxElem
+  CheckboxElem,
+  IconElem,
 ]

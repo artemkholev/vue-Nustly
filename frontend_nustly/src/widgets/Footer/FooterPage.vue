@@ -1,11 +1,9 @@
 <template>
   <div :class="footerClasses">
-    <div class="footer-info">
-      <div class="footer-links">
+    <div class="footer-container__info">
+      <div class="footer-container__info__links">
         <router-link to="/" class="logo">
-          <svg width="40" height="32" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
-            <path d="M384 64.01v384c0 13.47-8.438 25.5-21.09 30.09C359.3 479.4 355.7 480 352 480c-9.312 0-18.38-4.078-24.59-11.52L64 152.4v295.6c0 17.67-14.31 32-32 32s-32-14.33-32-32v-384c0-13.47 8.438-25.5 21.09-30.09c12.62-4.516 26.84-.75 35.5 9.609L320 359.6v-295.6c0-17.67 14.31-32 32-32S384 46.34 384 64.01z"/>
-          </svg>
+          <icon-base><logo-icon/></icon-base>
         </router-link>
 
         <router-link to="/about">О компании</router-link>
@@ -13,44 +11,51 @@
         <router-link to="/articles">Статьи</router-link>
         <router-link to="/politics">Моё резюме</router-link>
       </div>
-      <div class="footer__contacts">
-        <div class="messengers">
+      <div class="footer-container__info__contacts">
+        <div class="footer-container__info__contacts__messengers">
           <a href="https://t.me/ArtKholev"  target="_blank">
-            <svg height="30px" version="1.1" viewBox="0 0 512 512" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="_x33_35-telegram"><g><g>
-              <path d="M484.689,98.231l-69.417,327.37c-5.237,23.105-18.895,28.854-38.304,17.972L271.2,365.631     l-51.034,49.086c-5.646,5.647-10.371,10.372-21.256,10.372l7.598-107.722L402.539,140.23c8.523-7.598-1.848-11.809-13.247-4.21     L146.95,288.614L42.619,255.96c-22.694-7.086-23.104-22.695,4.723-33.579L455.423,65.166     C474.316,58.081,490.85,69.375,484.689,98.231z" style="fill:#20A0E1;"/></g></g></g><g id="Layer_1"/>
-            </svg>
+            <icon-base  width="30" height="30"><tg-icon/></icon-base>
           </a>
-
           <a href="https://vk.com/idart_k"  target="_blank">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.786 17.3635H12.9811C12.9811 17.3635 13.3424 17.3234 13.5261 17.1247C13.6961 16.9422 13.6899 16.5996 13.6899 16.5996C13.6899 16.5996 13.6661 14.9958 14.4112 14.7595C15.145 14.527 16.0876 16.3096 17.0864 16.9959C17.8414 17.5147 18.4152 17.401 18.4152 17.401L21.0867 17.3635C21.0867 17.3635 22.4843 17.2772 21.8217 16.1784C21.768 16.0884 21.4355 15.3658 19.8353 13.8807C18.1602 12.3256 18.3852 12.5781 20.4029 9.88915C21.6317 8.25152 22.123 7.25145 21.9692 6.82392C21.823 6.41639 20.9192 6.52389 20.9192 6.52389L17.9139 6.5414C17.9139 6.5414 17.6914 6.51139 17.5252 6.61015C17.3639 6.70766 17.2601 6.93268 17.2601 6.93268C17.2601 6.93268 16.7839 8.20027 16.1488 9.27785C14.81 11.5518 14.2737 11.6718 14.0549 11.5305C13.5461 11.2017 13.6736 10.2079 13.6736 9.50287C13.6736 7.29895 14.0074 6.38013 13.0223 6.14262C12.6948 6.06386 12.4548 6.01136 11.6185 6.00261C10.5459 5.99136 9.63709 6.00636 9.1233 6.25763C8.78078 6.42514 8.51701 6.79892 8.67827 6.82017C8.87703 6.84642 9.32707 6.94143 9.56583 7.26645C9.87461 7.68523 9.86336 8.6278 9.86336 8.6278C9.86336 8.6278 10.0409 11.2217 9.44958 11.5443C9.0433 11.7655 8.487 11.3143 7.29317 9.25035C6.68187 8.19402 6.21934 7.02518 6.21934 7.02518C6.21934 7.02518 6.13058 6.80767 5.97182 6.69141C5.77931 6.55015 5.50929 6.50514 5.50929 6.50514L2.65158 6.52264C2.65158 6.52264 2.2228 6.53515 2.06528 6.72141C1.92527 6.88767 2.05403 7.2302 2.05403 7.2302C2.05403 7.2302 4.2917 12.4643 6.82438 15.1033C9.1483 17.5222 11.786 17.3635 11.786 17.3635Z" style="fill:#20A0E1"/>
-            </svg>
+            <icon-base  width="30" height="30"><vk-icon/></icon-base>
           </a>
         </div>
-        <div class="phone">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.530549 5.62795C0.29859 3.78205 1.87862 2.5 3.57554 2.5H7.1672C7.89213 2.5 8.51333 3.01844 8.64301 3.73167L9.24935 7.06653C9.43046 8.06268 9.17133 9.08845 8.53884 9.87906L7.81545 10.7833C7.68654 10.9444 7.67475 11.1581 7.77434 11.3205C8.2439 12.0862 9.08857 13.3797 9.85533 14.1464C10.6221 14.9132 11.9156 15.7579 12.6813 16.2274C12.8437 16.327 13.0573 16.3152 13.2185 16.1863L14.1227 15.4629C14.9133 14.8304 15.9391 14.5713 16.9352 14.7524L20.2701 15.3588C20.9833 15.4885 21.5018 16.1096 21.5018 16.8346V20.1816C21.5018 22.0032 20.0508 23.624 18.1171 23.313C14.8045 22.7803 10.0694 21.0768 6.13538 16.8402C2.31033 12.7209 0.893311 8.51475 0.530549 5.62795ZM3.57554 3.5C2.31103 3.5 1.38547 4.41084 1.52275 5.50326C1.86104 8.19537 3.19444 12.2034 6.86818 16.1598C10.6177 20.1977 15.1307 21.8199 18.2758 22.3257C19.4703 22.5178 20.5018 21.5285 20.5018 20.1816V16.8346C20.5018 16.5929 20.329 16.3859 20.0912 16.3426L16.7564 15.7363C16.0448 15.6069 15.3121 15.792 14.7474 16.2438L13.8432 16.9672C13.3653 17.3495 12.6937 17.4081 12.1585 17.0799C11.3953 16.6119 10.008 15.7133 9.14823 14.8536C8.28849 13.9938 7.3899 12.6064 6.92187 11.8433C6.59367 11.3081 6.65231 10.6364 7.03458 10.1586L7.75797 9.25437C8.20975 8.68964 8.39485 7.95695 8.26548 7.24541L7.65914 3.91056C7.61591 3.67281 7.40885 3.5 7.1672 3.5H3.57554Z" fill="#414141"/>
-          </svg>
+        <div class="footer-container__info__contacts__phone">
+          <icon-base  width="30" height="30"><phone-icon/></icon-base>
           <p>8 800 777 33 33</p>
         </div>
       </div> 
     </div>
     
-    <p class="footer__name-company">© Nustly, {{ new Date().getFullYear()  }}</p>
+    <p class="footer-container__name-company">© Nustly, {{ getYear }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
+import { computed, defineComponent } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/shered/store/theme';
+import LogoIcon from '@/app/assets/images/icons/LogoIcon.vue';
+import TgIcon from '@/app/assets/images/icons/TgIcon.vue';
+import VkIcon from '@/app/assets/images/icons/VkIcon.vue';
+import PhoneIcon from '@/app/assets/images/icons/PhoneIcon.vue'
+
+defineComponent({
+  LogoIcon,
+  TgIcon,
+  VkIcon,
+  PhoneIcon,
+})
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
 
+const getYear = computed(() => {
+  return new Date().getFullYear();
+});
+
 const footerClasses = computed(() => {
-  return { footer: true, ['dark-footer']: isDarkTheme.value };
+  return { "footer-container": true, ['footer-container_dark']: isDarkTheme.value };
 });
 </script>
 

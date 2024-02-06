@@ -117,4 +117,4 @@ const headerClasses = computed(() => {
 });
 </script>
 
-<style src="./HeaderPage.style.scss" lang="scss" scoped></style>../../app/assets/icons/BurgerIcon.vue../../app/assets/icons/MagnifierIcon.vue
+<style src="./HeaderPage.style.scss" lang="scss" scoped></style>

@@ -4,8 +4,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { User } from './users.model';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/auth/roles-auth.decorator';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/modules/auth/roles-auth.decorator';
+import { RolesGuard } from 'src/modules/auth/roles.guard';
 import { AddRoleDto } from './dto/add-role.dto';
 
 @ApiTags('Пользователи')

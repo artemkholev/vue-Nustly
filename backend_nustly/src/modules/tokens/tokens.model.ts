@@ -9,28 +9,28 @@ import {
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../users/users.model';
+import { randomUUID } from 'crypto';
 
 @Table({ tableName: 'tokens', createdAt: false, updatedAt: false })
 export class Tokens extends Model<Tokens> {
   @ApiProperty({ example: '1', description: 'Уникальный индификатор' })
   @PrimaryKey
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     unique: true,
-    autoIncrement: true,
     primaryKey: true,
   })
-  id: number;
+  id: string = randomUUID();
   @ApiProperty({ example: '123', description: 'Токен пользователя' })
   @Column({
-    type: DataType.TEXT,
+    type: DataType.STRING,
     allowNull: false,
   })
   refreshToken: string;
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.INTEGER })
-  userId: number;
+  @Column({ type: DataType.UUID })
+  userId: string;
 
   @BelongsTo(() => User)
   user: User;

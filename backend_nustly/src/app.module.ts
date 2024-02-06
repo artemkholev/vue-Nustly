@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { User } from './users/users.model';
-import { Role } from './roles/roles.model';
-import { UserRoles } from './roles/user-role.model';
-import { AuthModule } from './auth/auth.module';
-import { RolesModule } from './roles/roles.module';
-import { Tokens } from './tokens/tokens.model';
+import { User } from './modules/users/users.model';
+import { Role } from './modules/roles/roles.model';
+import { UserRoles } from './modules/roles/user-role.model';
+import { AuthModule } from './modules/auth/auth.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { Tokens } from './modules/tokens/tokens.model';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { Categories } from './modules/categories/categories.model';
 
 @Module({
   controllers: [],
@@ -23,12 +25,13 @@ import { Tokens } from './tokens/tokens.model';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      models: [User, Role, UserRoles, Tokens],
+      models: [User, Role, UserRoles, Tokens, Categories],
       autoLoadModels: true,
     }),
     UsersModule,
     AuthModule,
     RolesModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}

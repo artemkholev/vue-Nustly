@@ -7,22 +7,22 @@ import {
 } from 'sequelize-typescript';
 import { User } from '../users/users.model';
 import { Role } from './roles.model';
+import { randomUUID } from 'crypto';
 
 @Table({ tableName: 'user_roles', createdAt: false, updatedAt: false })
 export class UserRoles extends Model<UserRoles> {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     unique: true,
-    autoIncrement: true,
     primaryKey: true,
   })
-  id: number;
+  id: string = randomUUID();
 
   @ForeignKey(() => Role)
-  @Column({ type: DataType.INTEGER })
-  roleId: number;
+  @Column({ type: DataType.UUID })
+  roleId: string;
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.INTEGER })
-  userId: number;
+  @Column({ type: DataType.UUID })
+  userId: string;
 }

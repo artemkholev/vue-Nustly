@@ -1,0 +1,11 @@
+<template>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 188 128 C 188 161.142857 161.142857 188 128 188 C 94.857143 188 68 161.142857 68 128 C 68 94.857143 94.857143 68 128 68 C 161.142857 68 188 94.857143 188 128 Z M 188 128 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 128 36 L 128 16 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 62.914286 62.914286 L 48.8 48.8 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 36 128 L 16 128 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 62.914286 193.085714 L 48.8 207.2 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 128 220 L 128 240 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 193.085714 193.085714 L 207.2 207.2 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 220 128 L 240 128 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+  <path style="fill:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(255, 255, 255);stroke-opacity:1;stroke-miterlimit:4;" d="M 193.085714 62.914286 L 207.2 48.8 " transform="matrix(0.136719,0,0,0.136719,0,0)"/>
+</template>

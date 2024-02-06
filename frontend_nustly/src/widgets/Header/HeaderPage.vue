@@ -1,94 +1,97 @@
 <template>
   <div :class="headerClasses">
-    <router-link to="/" class="logo">
-      <svg width="40" height="32" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
-        <path d="M384 64.01v384c0 13.47-8.438 25.5-21.09 30.09C359.3 479.4 355.7 480 352 480c-9.312 0-18.38-4.078-24.59-11.52L64 152.4v295.6c0 17.67-14.31 32-32 32s-32-14.33-32-32v-384c0-13.47 8.438-25.5 21.09-30.09c12.62-4.516 26.84-.75 35.5 9.609L320 359.6v-295.6c0-17.67 14.31-32 32-32S384 46.34 384 64.01z"/>
-      </svg>
+    <router-link to="/" class="header-container__logo">
+      <icon-base><logo-icon/></icon-base>
       <p class="nameCompany">Nustly</p>
     </router-link>
-    <div class="finctionsHeader">
-      <router-link to="/catalog" class="catalogButton">
-        <BurgerIcon/>
+
+    <div class="header-container__functional">
+      <router-link to="/catalog" class="header-container__functional__catalog">
+        <icon-base  width="30" height="30" iconName="catalog"><catalog-icon/></icon-base>
         <p>Каталог</p>
       </router-link>
-      <div v-if="$route.path === '/catalog'" class="search">
+      <div v-if="$route.path === '/catalog'" class="header-container__functional__search">
         <input type="text" placeholder="Найти товар..." v-model="findInfo"> 
         <button>
-          <MagnifierIcon/>
+          <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
         </button>
       </div>
     </div>
-    <nav class="generalInfo">
-      <router-link to="/user/favorites" class="favorites">
-         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2046 4.25644C14.3299 3.13067 15.8564 2.49817 17.4482 2.49817C19.0399 2.49817 20.5664 3.13063 21.6916 4.25636C22.8174 5.38164 23.45 6.90829 23.45 8.49999C23.45 10.0917 22.8175 11.6183 21.6917 12.7435C21.6917 12.7436 21.6917 12.7435 21.6917 12.7435L12.8517 21.5835C12.6565 21.7788 12.3399 21.7788 12.1446 21.5835L3.30461 12.7435C0.960963 10.3999 0.960963 6.60009 3.30461 4.25644C5.64826 1.91279 9.44807 1.91279 11.7917 4.25644L12.4982 4.96289L13.2046 4.25644C13.2046 4.25641 13.2046 4.25647 13.2046 4.25644ZM17.4482 3.49817C16.1217 3.49817 14.8496 4.02528 13.9118 4.96346L12.8517 6.02355C12.758 6.11732 12.6308 6.16999 12.4982 6.16999C12.3656 6.16999 12.2384 6.11732 12.1446 6.02355L11.0846 4.96355C9.13149 3.01042 5.96484 3.01042 4.01172 4.96355C2.05859 6.91667 2.05859 10.0833 4.01172 12.0364L12.4982 20.5229L20.9846 12.0364C21.9228 11.0987 22.45 9.82648 22.45 8.49999C22.45 7.17351 21.9229 5.90138 20.9847 4.96363C20.0469 4.02544 18.7747 3.49817 17.4482 3.49817Z" fill="#414141"/>
-        </svg>
+
+    <nav class="header-container__navigation">
+      <router-link to="/user/favorites" class="navigation-container">
+        <icon-base width="35" height="35"><favorites-icon/></icon-base>
         <p>Избранное</p>
       </router-link>
-      <router-link to="/user/orders" class="orders">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3325 1.89776C11.3324 1.89785 11.3327 1.89767 11.3325 1.89776L3.33366 5.89721L3.33255 5.89776C2.82288 6.15102 2.50045 6.67089 2.50005 7.24V16.7635C2.49608 17.3334 2.81541 17.8563 3.32416 18.113C3.32387 18.1129 3.32445 18.1132 3.32416 18.113L11.3237 22.1128C11.7462 22.3242 12.2438 22.3243 12.6663 22.1129L20.6664 18.1128L20.6675 18.1122C21.1773 17.8589 21.4997 17.3389 21.5 16.7697V7.24026C21.4997 6.67105 21.1773 6.15106 20.6675 5.89776L20.6664 5.89721L12.6675 1.89776C12.6674 1.89767 12.6677 1.89786 12.6675 1.89776C12.2474 1.6892 11.7527 1.68919 11.3325 1.89776ZM10.8875 1.00223C11.5883 0.654 12.4118 0.654 13.1125 1.00223L13.1137 1.00278L21.1125 5.00223C21.1124 5.00215 21.1127 5.00231 21.1125 5.00223C21.9618 5.42448 22.4995 6.29123 22.5 7.23973V16.77C22.4995 17.7184 21.9624 18.5852 21.1132 19.0074C21.113 19.0075 21.1134 19.0073 21.1132 19.0074L13.1138 23.0071C13.1138 23.0072 13.1138 23.0071 13.1138 23.0071C12.4097 23.3594 11.5806 23.3595 10.8764 23.0072C10.8764 23.0072 10.8765 23.0072 10.8764 23.0072L2.87644 19.0072L2.87506 19.0065C2.02685 18.5791 1.49413 17.708 1.50005 16.7584V7.24C1.50055 6.29154 2.03772 5.4248 2.88695 5.00253C2.88675 5.00263 2.88715 5.00243 2.88695 5.00253L10.8864 1.00278L10.8875 1.00223Z" fill="#414141"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M1.87321 5.93638C1.9967 5.6894 2.29704 5.58928 2.54403 5.71278L12.0004 10.441L21.4568 5.71278C21.7038 5.58928 22.0041 5.6894 22.1276 5.93638C22.2511 6.18337 22.151 6.48371 21.904 6.6072L12.224 11.4472C12.0833 11.5176 11.9176 11.5176 11.7768 11.4472L2.09682 6.6072C1.84983 6.48371 1.74971 6.18337 1.87321 5.93638Z" fill="#414141"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 10.5C12.2761 10.5 12.5 10.7239 12.5 11V22.76C12.5 23.0361 12.2761 23.26 12 23.26C11.7239 23.26 11.5 23.0361 11.5 22.76V11C11.5 10.7239 11.7239 10.5 12 10.5Z" fill="#414141"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M6.5529 3.27638C6.67639 3.02939 6.97673 2.92928 7.22372 3.05277L17.2237 8.05277C17.4707 8.17627 17.5708 8.4766 17.4473 8.72359C17.3238 8.97058 17.0235 9.0707 16.7765 8.9472L6.7765 3.9472C6.52951 3.82371 6.4294 3.52337 6.5529 3.27638Z" fill="#414141"/>
-        </svg>
+      <router-link to="/user/orders" class="navigation-container">
+        <icon-base width="35" height="35"><orders-icon/></icon-base>
         <p>Заказы</p>
       </router-link>
-      <router-link to="/user/bucket" class="bucket">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 21C5.5 19.6193 6.61929 18.5 8 18.5C9.38071 18.5 10.5 19.6193 10.5 21C10.5 22.3807 9.38071 23.5 8 23.5C6.61929 23.5 5.5 22.3807 5.5 21ZM8 19.5C7.17157 19.5 6.5 20.1716 6.5 21C6.5 21.8284 7.17157 22.5 8 22.5C8.82843 22.5 9.5 21.8284 9.5 21C9.5 20.1716 8.82843 19.5 8 19.5Z" fill="#414141"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 21C17.5 19.6193 18.6193 18.5 20 18.5C21.3807 18.5 22.5 19.6193 22.5 21C22.5 22.3807 21.3807 23.5 20 23.5C18.6193 23.5 17.5 22.3807 17.5 21ZM20 19.5C19.1716 19.5 18.5 20.1716 18.5 21C18.5 21.8284 19.1716 22.5 20 22.5C20.8284 22.5 21.5 21.8284 21.5 21C21.5 20.1716 20.8284 19.5 20 19.5Z" fill="#414141"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M1 0.5C0.723858 0.5 0.5 0.723858 0.5 1C0.5 1.27614 0.723858 1.5 1 1.5H4.58051C5.33783 5.79147 6.10333 10.0643 6.74931 14.3709C6.93288 15.5947 7.98416 16.5 9.22165 16.5H19.3597C20.5514 16.5 21.5774 15.6588 21.8111 14.4903L23.2503 7.29417C23.436 6.36599 22.726 5.5 21.7795 5.5H7.16046C6.8575 5.5 6.57797 5.58901 6.34436 5.74093L5.49239 0.913107C5.45023 0.674179 5.24262 0.5 5 0.5H1ZM6.666 7.07417C6.62065 6.77187 6.85478 6.5 7.16046 6.5H21.7795C22.095 6.5 22.3316 6.78866 22.2698 7.09806L20.8305 14.2942C20.6903 14.9953 20.0747 15.5 19.3597 15.5H9.22165C8.47916 15.5 7.84839 14.9568 7.73825 14.2225L6.666 7.07417Z" fill="#414141"/>
-        </svg>
+      <router-link to="/user/bucket" class="navigation-container">
+        <icon-base width="35" height="35"><bucket-icon/></icon-base>
         <p>Корзина</p>
       </router-link>
-      <div class="userMenu">
-        <div class="photo">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="#FF6633" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <circle cx="20" cy="20" r="20" fill="#FF6633"/>
-          </svg>
+
+      <div class="navigation-container__user-menu user-menu">
+        <div class="user-menu__photo">
         </div>
-        <p class="name">{{ userName }}</p>
-        <div v-if="!isAuth" class="dropdown">
-          <button @click="dropdown" :class="{dropbtn: true, ['activeDropDown']: isDropdown}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M5.64645 8.64645C5.84171 8.45118 6.15829 8.45118 6.35355 8.64645L12 14.2929L17.6464 8.64645C17.8417 8.45118 18.1583 8.45118 18.3536 8.64645C18.5488 8.84171 18.5488 9.15829 18.3536 9.35355L12.3536 15.3536C12.1583 15.5488 11.8417 15.5488 11.6464 15.3536L5.64645 9.35355C5.45118 9.15829 5.45118 8.84171 5.64645 8.64645Z" fill="#414141"/>
-            </svg>
+        <p class="user-menu__name">{{ userName }}</p>
+        <div v-if="!isAuth" class="user-menu__dropdown">
+          <button @click="dropdown" :class="{['user-menu__dropdown_active']: isDropdown}">
+            <icon-base width="30" height="30" iconName="menu"><arrow-icon/></icon-base>
           </button>
-          <div v-if="isDropdown" @click="isDropdown = !isDropdown" class="dropdown-content">
+          <div v-if="isDropdown" @click="isDropdown = !isDropdown" class="user-menu__dropdown__content">
             <router-link to="/auth">Вход</router-link>
             <router-link to="/reg">Регистрация</router-link>
           </div>
         </div>
         <div v-else class="logout" @click="logout">
-          <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" d="M3 3C2.44772 3 2 3.44772 2 4V16C2 16.5523 2.44772 17 3 17C3.55228 17 4 16.5523 4 16V4C4 3.44772 3.55228 3 3 3ZM13.2929 12.2929C12.9024 12.6834 12.9024 13.3166 13.2929 13.7071C13.6834 14.0976 14.3166 14.0976 14.7071 13.7071L17.7071 10.7071C17.8946 10.5196 18 10.2652 18 10C18 9.73478 17.8946 9.48043 17.7071 9.29289L14.7071 6.29289C14.3166 5.90237 13.6834 5.90237 13.2929 6.29289C12.9024 6.68342 12.9024 7.31658 13.2929 7.70711L14.5858 9L7 9C6.44771 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H14.5858L13.2929 12.2929Z" fill="black" fill-rule="evenodd"/>
-          </svg>
+           <icon-base width="30" height="30"><logout-icon/></icon-base>
         </div>
       </div>
     </nav>
-    <div class="burgerTheme">
+    <div class="header-container__burger-theme">
       <button 
-        class="isDark" 
+        class="header-container__burger-theme__theme" 
         @click="toggleTheme"
       >
-        <svg enable-background="new 0 0 512 512" height="30px" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <path d="M256,144c-61.75,0-112,50.25-112,112s50.25,112,112,112s112-50.25,112-112S317.75,144,256,144z M256,336    c-44.188,0-80-35.812-80-80c0-44.188,35.812-80,80-80c44.188,0,80,35.812,80,80C336,300.188,300.188,336,256,336z M256,112    c8.833,0,16-7.167,16-16V64c0-8.833-7.167-16-16-16s-16,7.167-16,16v32C240,104.833,247.167,112,256,112z M256,400    c-8.833,0-16,7.167-16,16v32c0,8.833,7.167,16,16,16s16-7.167,16-16v-32C272,407.167,264.833,400,256,400z M380.438,154.167    l22.625-22.625c6.25-6.25,6.25-16.375,0-22.625s-16.375-6.25-22.625,0l-22.625,22.625c-6.25,6.25-6.25,16.375,0,22.625    S374.188,160.417,380.438,154.167z M131.562,357.834l-22.625,22.625c-6.25,6.249-6.25,16.374,0,22.624s16.375,6.25,22.625,0    l22.625-22.624c6.25-6.271,6.25-16.376,0-22.625C147.938,351.583,137.812,351.562,131.562,357.834z M112,256    c0-8.833-7.167-16-16-16H64c-8.833,0-16,7.167-16,16s7.167,16,16,16h32C104.833,272,112,264.833,112,256z M448,240h-32    c-8.833,0-16,7.167-16,16s7.167,16,16,16h32c8.833,0,16-7.167,16-16S456.833,240,448,240z M131.541,154.167    c6.251,6.25,16.376,6.25,22.625,0c6.251-6.25,6.251-16.375,0-22.625l-22.625-22.625c-6.25-6.25-16.374-6.25-22.625,0    c-6.25,6.25-6.25,16.375,0,22.625L131.541,154.167z M380.459,357.812c-6.271-6.25-16.376-6.25-22.625,0    c-6.251,6.25-6.271,16.375,0,22.625l22.625,22.625c6.249,6.25,16.374,6.25,22.624,0s6.25-16.375,0-22.625L380.459,357.812z" fill='#000'/>
-        </svg>
+        <icon-base v-if="!isDarkTheme" width="35" height="35"><theme_night-icon/></icon-base>
+        <icon-base v-else width="35" height="35" iconColor="white"><theme_day-icon/></icon-base>
       </button>
-      <burger-elem class="burger"/>
+      <burger-elem class="header-container__burger-theme__burger"/>
     </div> 
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import BurgerIcon from '../../app/assets/svg/BurgerIcon.vue';
-import MagnifierIcon from '../../app/assets/svg/MagnifierIcon.vue';
-import router from '@/pages/index';
+import { ref, computed, defineComponent } from 'vue';
 import { useAuthStore } from '@/shered/store/auth';
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/shered/store/theme';
+
+import LogoIcon from '@/app/assets/images/icons/LogoIcon.vue';
+import CatalogIcon from '@/app/assets/images/icons/CatalogIcon.vue';
+import MagnifierIcon from '@/app/assets/images/icons/MagnifierIcon.vue';
+import Theme_nightIcon from '@/app/assets/images/icons/Theme_nightIcon.vue';
+import Theme_dayIcon from '@/app/assets/images/icons/Theme_dayIcon.vue';
+import FavoritesIcon from '@/app/assets/images/icons/FavoritesIcon.vue';
+import OrdersIcon from '@/app/assets/images/icons/OrdersIcon.vue';
+import BucketIcon from '@/app/assets/images/icons/BucketIcon.vue';
+import LogoutIcon from '@/app/assets/images/icons/LogoutIcon.vue';
+import ArrowIcon from '@/app/assets/images/icons/ArrowIcon.vue';
+
+defineComponent({
+  LogoIcon,
+  CatalogIcon,
+  MagnifierIcon,
+  Theme_nightIcon,
+  Theme_dayIcon,
+  FavoritesIcon,
+  OrdersIcon,
+  BucketIcon,
+  LogoutIcon,
+  ArrowIcon,
+})
 
 //auth
 const authStore = useAuthStore();
@@ -110,7 +113,7 @@ const { isDarkTheme } = storeToRefs(themeStore);
 const { toggleTheme } = themeStore;
 
 const headerClasses = computed(() => {
-  return { header: true, ['dark-header']: isDarkTheme.value };
+  return { 'header-container': true, ['header-container_dark']: isDarkTheme.value };
 });
 </script>
 

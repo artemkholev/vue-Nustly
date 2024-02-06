@@ -75,7 +75,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import store from '@/shered/store';
 import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/shered/store/auth';

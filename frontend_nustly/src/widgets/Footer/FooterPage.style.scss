@@ -1,6 +1,6 @@
 @import '../../app/assets/styles/vars';
 
-.footer {
+.footer-container {
   height: 200px;
   width: 100%;
   display: flex;
@@ -8,15 +8,14 @@
   flex-direction: column;
   align-items: center;
   border-top: 2px solid black;
-  & > .footer-info {
+  &__info {
     display: flex;
     gap: 50px;
     margin-bottom: 50px;
-    & > .footer-links {
+    &__links {
       display: flex;
       align-items: center;
       gap: 20px;
-
       & > p {
         font-family: $text;
         font-size: $text-size;
@@ -25,18 +24,18 @@
       }
     }
 
-    & > .footer__contacts {
+    &__contacts {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       gap: 20px;
-      & > .messengers {
+      &__messengers {
         display: flex;
         align-items: flex-start;
         gap: 16px;
       }
 
-      & > .phone {
+      &__phone {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -51,38 +50,39 @@
       }
     }
   } 
-  & > .footer__name-company {
+  & > .footer-container__name-company {
     align-items: center;
     font-family: $text;
     font-size: 12px;
   }
 }
 
-.dark-footer {
+.footer-container_dark {
   background-color: $background-color-isDark;
   color: $text-color-isDark;
   transition: 0.3s;
-  svg > path {
-    fill: #fff;
-  }
   a {
     color: #fff;
+  }
+
+  svg > g > path {
+    fill: #fff;
   }
 }
 
 @media (max-width: 1200px) {
-  .footer {
+  .footer-container {
     width: 100%;
     height: 100%;
   }
 }
 
 @media (max-width: 1000px) {
-  .footer {
+  .footer-container {
     width: 100%;
     height: 100%;
-    & > .footer-info {
-      & > .footer-links {
+    &__info {
+      &__links {
         display: flex;
         flex-direction: column;
       } 
@@ -91,17 +91,17 @@
 }
 
 @media (max-width: 768px) {
-  .footer {
+  .footer-container {
     width: 100%;
     height: 100%;
     padding: 20%;
-    & > .footer-info {
-      & > .footer-links {
+    &__info {
+      &__links {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
       }  
-      & > .footer__contacts {
+      &__contacts {
         display: flex;
         flex-direction: column;
       }
@@ -110,19 +110,19 @@
 }
 
 @media (max-width: 400px) {
-  .footer {
+  .footer-container {
     width: 100%;
     height: 100%;
     padding: 20%;
-    & > .footer-info {
+    &__info {
       display: flex;
       flex-direction: column;
-      & > .footer-links {
+      &__links {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
       }  
-      & > .footer__contacts {
+      &__contacts {
         display: flex;
         flex-direction: column;
       }

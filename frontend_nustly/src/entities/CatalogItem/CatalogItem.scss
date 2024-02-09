@@ -1,0 +1,14 @@
+@import '../../app/assets/styles/vars.scss';
+
+.card {
+  width: 270px;
+  min-height: 300px;
+  border: 1px solid $main-color;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; 
+  border-radius: 10px;
+  transition: 0.2s;
+  position: relative;
+  margin: 20px;
+}

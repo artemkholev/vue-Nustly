@@ -16,65 +16,55 @@
     margin-bottom: 30px;
   }
 
-  & > .forUser {
-    display: 'flex';
-    justify-content: 'flex-start';
-    flex-direction: 'column';
+  &__for-user {
+    a {
+      border: 1px solid $main-color;
+      border-radius: 5px;
+      padding: 5px;
+      color: white;
+    }
     & > .user {
       color: white;
       margin: 20px;
     }
-    a {
-      color: white;
+    &__catalog-button {
       display: flex;
-      flex-direction: column;
-      margin-bottom: 20px;
-      border: 1px solid $main-color;
-      border-radius: 5px;
-      padding: 5px;
-    }
-    & > .catalog-button {
-      display: flex;
-      padding: 8px;
-      flex-direction: row;
       align-items: center;
       gap: 8px;
-      margin: 20px 0;
-
-      border-radius: 4px;
+      margin: 40px 0;
+      width: 100%;
       cursor: pointer;
-
+      p {
+        display: flex;
+        justify-content: center;
+        flex: 1 0 0;
+        font-family: $text;
+        font-size: $text-size;
+        font-weight: 400;
+      }
       &:focus:active {
         border: none;
         background-color: #1f971f;
       }
-      & > svg {
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
+    }
+    &__nav {
+      a {
+        display: block;
       }
-      & > p {
-        display: flex;
-        justify-content: center;
-        flex: 1 0 0;
-        text-align: center;
-        font-family: $text;
-        font-size: $text-size;
-        font-weight: 400;
-        line-height: 150%;
+      li {
+        margin-bottom: 30px;
+        list-style-type: none;
       }
     }
 
     & > .logout {
-      display: flex;
+      display: inline-flex;
       justify-content: flex-end;
-      margin-bottom: 30px;
-      margin-top: 40vh;
+      margin: 40vh 0 30px 70%;
     }
   }
   
-  & > .login {
+  &__login {
     color: white;
     a {
       color: white;
@@ -88,15 +78,15 @@
   }
 }
 
-.dark-sidebar {
+.sidebar_dark {
   h1 {
     color: black;
   }
-  & > .forUser {
+  &__for-user {
     & > .user {
       color: black;
     }
-    & > .catalog-button {
+    &__catalog-button {
         & > svg > path {
           fill: black;
         }
@@ -107,7 +97,7 @@
   }
 }
 
-.dark-content {
+.content_dark {
   background-color: $background-color-isDark;
   color: $text-color-isDark;
   transition: 0.3s;
@@ -118,21 +108,18 @@
 
 @media (max-width: 1200px) {
   .content {
-    width: 100%;
     grid-template-columns: 1fr 280px;
   }
 }
 
 @media (max-width: 1000px) {
   .content {
-    width: 100%;
     grid-template-columns: 1fr 250px;
   }
 }
 
 @media (max-width: 768px) {
   .content {
-    width: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     grid-auto-rows: 100px;
@@ -141,7 +128,5 @@
 
 @media (max-width: 400px) {
   .content {
-    width: 100%;
-    width: 100vw;
   }
 }

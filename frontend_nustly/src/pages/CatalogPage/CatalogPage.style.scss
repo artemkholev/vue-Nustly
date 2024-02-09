@@ -4,7 +4,13 @@
   h1 {
     margin-bottom: 50px;
   }
-  & > .catalog__cards {
+  &__error {
+    display: flex;
+    justify-content: center;
+    width: 40vw;
+    margin: 0 auto;
+  }
+  &__cards {
     display: grid;
     grid-template-columns: repeat( 400px);
     width: 100%;
@@ -17,13 +23,12 @@
   }
 }
 
-.dark-catalog {
-  h1 {
+.catalog_dark {
+  transition: 0.3s;
+  h1, h2 {
     color: $text-color-isDark;
   }
-  background-color: $background-color-isDark;
   color: $text-color-isDark;
-  transition: 0.3s;
   svg > path {
     fill: #fff;
   }

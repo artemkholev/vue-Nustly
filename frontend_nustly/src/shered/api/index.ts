@@ -22,23 +22,32 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
   const originalRequest = error.config;
   const authStore = useAuthStore();
   const { toggleIsAuth } = authStore;
+  const { userName, role } = storeToRefs(authStore);
 
   if (error.response.status === 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;
     try {
       const response = await axios.get<IResponseLogin>(`${API_URL}/refresh`, { withCredentials: true });
-      const authStore = useAuthStore();
-      const { userName } = storeToRefs(authStore);
 
       sessionStorage.setItem('accessToken', response.data.accessToken);
-      userName.value = decodeJwt(response.data.accessToken).email;
+      toggleIsAuth()
+      const decodeToken = decodeJwt(response.data.accessToken);
+      userName.value = decodeToken.email;
+      role.value = decodeToken.role;
 
       return apiAxios.request(originalRequest);
     } catch (e: any) {
+      sessionStorage.removeItem('accessToken');
       toggleIsAuth()
+      userName.value = '';
+      role.value = '';
       console.log(e.message);
     }
   }
+  sessionStorage.removeItem('accessToken');
+  toggleIsAuth()
+  userName.value = '';
+  role.value = '';
   throw error;
 });
 

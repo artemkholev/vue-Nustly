@@ -15,7 +15,8 @@ interface ValidationErrors {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const userName = ref<string>('')
+  const userName = ref<string>('');
+  const role = ref<string>('');
   const isAuth = ref(getBooleanValueFromLs(LocalStorageConstants.ISAUTH) || false);
   const isError = ref<boolean>(false);
   const errorMessage = ref<string>('');
@@ -33,7 +34,9 @@ export const useAuthStore = defineStore('auth', () => {
         toggleIsAuth()
       };
   
-      userName.value = decodeJwt(response.data.accessToken)?.email;
+      const decodeToken = decodeJwt(response.data.accessToken);
+      userName.value = decodeToken.email;
+      role.value = decodeToken.role;
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true;
@@ -56,7 +59,9 @@ export const useAuthStore = defineStore('auth', () => {
         toggleIsAuth();
       };
 
-      userName.value = decodeJwt(response.data.accessToken).email;
+      const decodeToken = decodeJwt(response.data.accessToken);
+      userName.value = decodeToken.email;
+      role.value = decodeToken.role;
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true
@@ -80,6 +85,7 @@ export const useAuthStore = defineStore('auth', () => {
         toggleIsAuth();
       };
       userName.value = '';
+      role.value = '';
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true
@@ -96,5 +102,5 @@ export const useAuthStore = defineStore('auth', () => {
     setBooleanValueFromLs(LocalStorageConstants.ISAUTH, isAuth.value);
   };
 
-  return { isAuth, isError, errorMessage, userName, login, registration, logout, toggleIsAuth };
+  return { isAuth, isError, errorMessage, userName, role, login, registration, logout, toggleIsAuth };
 });

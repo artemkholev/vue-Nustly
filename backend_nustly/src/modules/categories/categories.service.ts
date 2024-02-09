@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { Express } from 'express';
 import { Categories } from './categories.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { CategoryDto } from './dto/category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -9,7 +11,7 @@ export class CategoriesService {
     @InjectModel(Categories) private categoriesRepository: typeof Categories,
   ) {}
 
-  async getCategories() {
+  async getCategories(): Promise<CategoryDto[]> {
     const categories = await this.categoriesRepository.findAll({
       where: { visibility: true },
       include: { all: true },
@@ -17,8 +19,27 @@ export class CategoriesService {
     return categories;
   }
 
-  async createCategories(categoryDto: CreateCategoryDto): Promise<boolean> {
-    console.log(categoryDto);
+  async createCategories(
+    categoryDto: CreateCategoryDto,
+    file: Express.Multer.File,
+  ): Promise<CategoryDto> {
+    const photo = `http://localhost:5000/storage/${file.fieldname}`;
+    const newObjectCategory = {
+      title: categoryDto.title,
+      visibility: categoryDto.visibility,
+      photo: photo,
+    };
+    const category = await this.categoriesRepository.create(newObjectCategory);
+    return category;
+  }
+
+  async deleteCategories(idCategory: string) {
+    const category = await this.categoriesRepository.destroy({
+      where: { id: idCategory },
+    });
+    if (category) {
+      return false;
+    }
     return true;
   }
 }

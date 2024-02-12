@@ -23,14 +23,15 @@ export class CategoriesService {
     categoryDto: CreateCategoryDto,
     file: Express.Multer.File,
   ): Promise<CategoryDto> {
-    const photo = `http://localhost:5000/storage/${file.fieldname}`;
-    const newObjectCategory = {
-      title: categoryDto.title,
-      visibility: categoryDto.visibility,
-      photo: photo,
-    };
-    const category = await this.categoriesRepository.create(newObjectCategory);
-    return category;
+    console.log(categoryDto, file);
+    // const photo = `http://localhost:5000/storage/${file.fieldname}`;
+    // const newObjectCategory = {
+    //   title: categoryDto.title,
+    //   visibility: categoryDto.visibility,
+    //   photo: photo,
+    // };
+    // const category = await this.categoriesRepository.create(newObjectCategory);
+    return null;
   }
 
   async deleteCategories(idCategory: string) {

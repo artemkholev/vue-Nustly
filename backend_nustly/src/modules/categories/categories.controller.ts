@@ -38,7 +38,7 @@ export class CategoriesController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: '../../storage/',
+        destination: './files',
         filename: editFileName,
       }),
       fileFilter: imageFileFilter,
@@ -46,11 +46,12 @@ export class CategoriesController {
   )
   createCategories(
     @UploadedFile() file: Express.Multer.File,
-    @Body() categoryDto: string,
+    @Body() categoryDto: any,
   ) {
-    console.log(file, '\n', categoryDto);
-
-    return file;
+    return this.categoriesService.createCategories(
+      JSON.parse(categoryDto.data),
+      file,
+    );
   }
 
   @ApiOperation({ summary: 'Удаление категории' })

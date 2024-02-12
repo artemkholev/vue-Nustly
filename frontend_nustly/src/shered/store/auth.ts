@@ -5,7 +5,7 @@ import type { ILogin, IResponseLogin } from '@/shered/api/authApi/authApi.types'
 import { useRouter } from 'vue-router';
 import { PathNames } from '@/shered/constants/route.constants';
 import type { AxiosError, AxiosResponse } from 'axios';
-import { getBooleanValueFromLs, setBooleanValueFromLs } from '../utils/ls.utils';
+import { getBooleanValueFromLs, getStringValueFromLs, setBooleanValueFromLs, setStringValueFromLs } from '../utils/ls.utils';
 import { LocalStorageConstants } from '../constants/ls.constants';
 import { decodeJwt } from '../jwtRequest/decodeJwt';
 
@@ -16,7 +16,7 @@ interface ValidationErrors {
 
 export const useAuthStore = defineStore('auth', () => {
   const userName = ref<string>('');
-  const role = ref<string>('');
+  const role = ref<string>(getStringValueFromLs(LocalStorageConstants.ROLE) || 'USER');
   const isAuth = ref(getBooleanValueFromLs(LocalStorageConstants.ISAUTH) || false);
   const isError = ref<boolean>(false);
   const errorMessage = ref<string>('');
@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
   
       const decodeToken = decodeJwt(response.data.accessToken);
       userName.value = decodeToken.email;
-      role.value = decodeToken.role;
+      saveRole(decodeToken.roles);
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true;
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       const decodeToken = decodeJwt(response.data.accessToken);
       userName.value = decodeToken.email;
-      role.value = decodeToken.role;
+      saveRole(decodeToken.roles);
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true
@@ -85,7 +85,7 @@ export const useAuthStore = defineStore('auth', () => {
         toggleIsAuth();
       };
       userName.value = '';
-      role.value = '';
+      deleteRole();
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true
@@ -101,6 +101,14 @@ export const useAuthStore = defineStore('auth', () => {
     isAuth.value = !isAuth.value;
     setBooleanValueFromLs(LocalStorageConstants.ISAUTH, isAuth.value);
   };
+  const saveRole = (value: string) => {
+    role.value = value;
+    setStringValueFromLs(LocalStorageConstants.ROLE, role.value);
+  };
+  const deleteRole = () => {
+    role.value = '';
+    setStringValueFromLs(LocalStorageConstants.ROLE, role.value);
+  };
 
-  return { isAuth, isError, errorMessage, userName, role, login, registration, logout, toggleIsAuth };
+  return { isAuth, isError, errorMessage, userName, role, login, registration, logout, toggleIsAuth, saveRole, deleteRole };
 });

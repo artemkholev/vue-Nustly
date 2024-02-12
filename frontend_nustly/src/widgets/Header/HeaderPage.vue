@@ -6,7 +6,7 @@
     </router-link>
 
     <div class="header-container__functional">
-      <router-link to="/catalog" class="header-container__functional__catalog">
+      <router-link v-if="$route.path !== '/catalog'" to="/catalog" class="header-container__functional__catalog">
         <icon-base  width="30" height="30" iconName="catalog"><catalog-icon/></icon-base>
         <p>Каталог</p>
       </router-link>

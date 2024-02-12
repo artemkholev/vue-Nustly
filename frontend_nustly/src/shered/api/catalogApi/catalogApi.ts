@@ -4,3 +4,8 @@ export interface ICatalog {
   visibility: boolean;
   photo: string;
 }
+
+export interface ICreateCatalog {
+  title: string;
+  visibility: boolean;
+}

@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import type { ICatalog } from '@/shered/api/catalogApi/catalogApi';
+import type { ICatalog, ICreateCatalog } from '@/shered/api/catalogApi/catalogApi';
 import { AxiosError } from 'axios';
 import apiAxios from '../api';
 
@@ -15,20 +15,11 @@ export const useCatalogStore = defineStore('catalog', () => {
   const errorMessage = ref<string>('');
   const catalogElems = ref<ICatalog[]>([]);
 
+  //methods
   const getCatalog = async () => {
     isLoading.value = true;
-    // try {
-    //   const responce = await axios.get('https://dummyjson.com/products/category/smartphones');
-    //   catalogElems.value = responce.data.products;
-    //   isError.value = false;
-    // } catch (error) {
-    //   isError.value = true;
-    //   console.error(error);
-    // } finally {
-    //   isLoading.value = false;
-    // }
     try {
-      const response = await apiAxios.get('/categories/');
+      const response = await apiAxios.get('/categories');
       console.log(response)
       isError.value = false;
       errorMessage.value = '';
@@ -43,5 +34,29 @@ export const useCatalogStore = defineStore('catalog', () => {
       isLoading.value = false;
     }
   };
-  return { getCatalog, isLoading, isError, errorMessage, catalogElems };
+
+  const createCatalog = async (data: ICreateCatalog, file: any) => {
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('data', JSON.stringify(data));
+      const response = await apiAxios.post('/categories', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+      }); 
+      console.log(response.data);
+      isError.value = false;
+      errorMessage.value = '';
+    } catch (err: any) {
+      isError.value = true;
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessage.value = error.response.data.message;
+    }
+  };
+
+  return { getCatalog, createCatalog, isLoading, isError, errorMessage, catalogElems };
 });

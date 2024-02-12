@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 type DecodeFunction = {
     id: number;
     email: string;
-    role: string;
+    roles: string;
 };
 
 export const decodeJwt = (accessToken: string) => {

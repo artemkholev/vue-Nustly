@@ -4,6 +4,7 @@
       :type="isVisible ? 'text' : typeInput"
       :value="modelValue"
       :placeholder="placeholderInput"
+      :style="{border: isBorder ? '' : 'none'}"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       class="inputText"
     />
@@ -53,22 +54,10 @@
 </template>
 
 <script setup lang="ts">
+import '../../../app/assets/styles/vars.scss';
 import { useThemeStore } from '@/shered/store/theme';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
-
-const themeStore = useThemeStore();
-const { isDarkTheme } = storeToRefs(themeStore);
-
-const inputClasses = computed(() => {
-  return { containerInput: true, ['dark-containerInput']: isDarkTheme.value };
-});
-
-const isVisible = ref(false);
-
-const setIsVisible = () => {
-  isVisible.value = !isVisible.value;
-}
 
 defineProps({
   modelValue: {
@@ -82,8 +71,27 @@ defineProps({
   placeholderInput: {
     type: String,
     default: ''
+  },
+  isBorder: {
+    type: Boolean,
+    default: true,
   }
 })
+
+//theme
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
+const inputClasses = computed(() => {
+  return { containerInput: true, ['dark-containerInput']: isDarkTheme.value };
+});
+
+//password or text
+const isVisible = ref(false);
+
+const setIsVisible = () => {
+  isVisible.value = !isVisible.value;
+}
 
 defineOptions({
   name: 'input-elem',

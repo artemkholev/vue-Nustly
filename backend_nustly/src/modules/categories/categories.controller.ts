@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Post,
   UploadedFile,
@@ -10,10 +11,14 @@ import { Express } from 'express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Categories } from './categories.model';
 import { CategoriesService } from './categories.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
+// import { CreateCategoryDto } from './dto/create-category.dto';
 import { CategoryDto } from './dto/category.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import {
+  editFileName,
+  imageFileFilter,
+} from 'src/common/utils/file-upload.utils';
 
 @ApiTags('Категории')
 @Controller('categories')
@@ -31,35 +36,26 @@ export class CategoriesController {
   @ApiResponse({ status: 200 })
   @Post()
   @UseInterceptors(
-    FileInterceptor('file', {
+    FileInterceptor('image', {
       storage: diskStorage({
-        destination: '../../storage',
-        filename: (req, file, cb) => {
-          const name = file.originalname.split('.')[0];
-          const fileExtention = file.originalname.split[1];
-          const newFileName =
-            name.split(' ').join('_') + '_' + Date.now() + '.' + fileExtention;
-          cb(null, newFileName);
-        },
+        destination: '../../storage/',
+        filename: editFileName,
       }),
-      fileFilter: (req, file, cb) => {
-        if (!file.originalname.match(/\.(.jpg|jpeg|png|gif)$/)) {
-          return cb(null, false);
-        }
-        cb(null, true);
-      },
+      fileFilter: imageFileFilter,
     }),
   )
   createCategories(
-    @Body() categoryDto: CreateCategoryDto,
     @UploadedFile() file: Express.Multer.File,
+    @Body() categoryDto: string,
   ) {
-    return this.categoriesService.createCategories(categoryDto, file);
+    console.log(file, '\n', categoryDto);
+
+    return file;
   }
 
   @ApiOperation({ summary: 'Удаление категории' })
   @ApiResponse({ status: 200 })
-  @Post()
+  @Delete()
   deleteCategories(@Body() idCategory: string): Promise<boolean> {
     return this.categoriesService.deleteCategories(idCategory);
   }

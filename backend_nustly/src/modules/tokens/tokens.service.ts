@@ -49,7 +49,7 @@ export class TokensService {
       where: { userId: id },
     });
     if (tokenData?.dataValues.refreshToken) {
-      tokenData.dataValues.refreshToken = refreshToken;
+      tokenData.refreshToken = refreshToken;
       return await tokenData.save();
     }
     const token = await this.tokensRepository.create({
@@ -110,7 +110,7 @@ export class TokensService {
       where: { refreshToken },
       include: 'user',
     });
-
+    console.log('\n\n\n', tokenData);
     return tokenData.user.dataValues;
   }
 }

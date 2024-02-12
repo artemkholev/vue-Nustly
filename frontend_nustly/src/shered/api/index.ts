@@ -1,4 +1,4 @@
-import axios, { type AxiosRequestConfig } from 'axios';
+import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import type { IResponseLogin } from './authApi/authApi.types';
 import { useAuthStore } from '../store/auth';
 import { storeToRefs } from 'pinia';
@@ -23,17 +23,18 @@ apiAxios.interceptors.request.use((config: AxiosRequestConfig | any) => {
 apiAxios.interceptors.response.use((config) => config, async (error) => {
   const originalRequest = error.config;
   const authStore = useAuthStore();
-  const { toggleIsAuth, deleteRole, saveRole } = authStore;
+  const { loginIsAuth, logoutIsAuth, deleteRole, saveRole } = authStore;
   const { userName } = storeToRefs(authStore);
   const router = useRouter();
 
   if (error.response.status === 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;
     try {
-      const response = await axios.get<IResponseLogin>(`${API_URL}/refresh`, { withCredentials: true });
+      const response: AxiosResponse<IResponseLogin | any> = await axios.post(`${API_URL}/refresh`, { withCredentials: true });
 
+      console.log(response.data.accessToken);
       sessionStorage.setItem('accessToken', response.data.accessToken);
-      toggleIsAuth()
+      loginIsAuth()
       const decodeToken = decodeJwt(response.data.accessToken);
       userName.value = decodeToken.email;
       saveRole(decodeToken.roles);
@@ -42,7 +43,7 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
     } catch (e: any) {
       router.push({ name: PathNames.HOME });
       sessionStorage.removeItem('accessToken');
-      toggleIsAuth();
+      logoutIsAuth();
       deleteRole();
       userName.value = '';
       console.log(e.message);

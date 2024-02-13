@@ -10,7 +10,8 @@ export enum Links {
   AUTH = '/auth',
   REG = '/reg',
   AGREEMENT = '/agreement',
-  CATALOG = '/catalog'
+  CATALOG = '/catalog',
+  PRODUCTS = '/'
 }
 
 export enum PathNames {
@@ -25,5 +26,6 @@ export enum PathNames {
   AUTH = 'auth',
   REG = 'reg',
   AGREEMENT = 'agreement',
-  CATALOG = 'catalog'
+  CATALOG = 'catalog',
+  PRODUCTS = 'products',
 }

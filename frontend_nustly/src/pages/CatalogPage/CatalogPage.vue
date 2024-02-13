@@ -1,36 +1,38 @@
 <template>
   <div :class="catalogClasses">
-    <h1>Каталог {{ role }}</h1>
+    <div class="catalog__header">
+      <h1>Каталог {{ role }}</h1>
+      <button-elem
+        v-if="role == 'ADMIN'"
+        :clName="null"
+        :title="'Добавить категорию'"
+        :handler="handlerDialogVisible"
+        :width="'35vw'"
+        :height="'55px'"
+        :background="'#70C05B'"
+        :textColor="null"
+        :fontSize="null"
+        :fontWeight="null"
+        :margin="'0 0 0 0'"
+        :borderRadius="'5px'"
+        :icon="null"
+      />
+    </div>
+
     <div class="catalog__cards" 
       v-if="catalogElems.length > 0"
     >
-      <div name="catalog__elem">
-        <CatalogItem v-for="elem in catalogElems"
+      <template v-for="elem in catalogElems" :key="elem.id">
+        <CatalogItem
+          v-if="elem.visibility"
           :elemCatalog="elem"
-          :key="elem.id"
         />
-      </div>
+      </template>
     </div>
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
     <h2 v-if="!isLoading && (catalogElems.length === 0)" class="catalog__error">
       Данных нет
     </h2>
-    <button-elem
-      v-if="role == 'ADMIN'"
-      :clName="null"
-      :title="'Добавить категорию'"
-      :handler="handlerDialogVisible"
-      :width="'40vw'"
-      :height="'55px'"
-      :background="'#70C05B'"
-      :textColor="null"
-      :fontSize="null"
-      :fontWeight="null"
-      :margin="'100px 0 0 50%'"
-      :borderRadius="'10px'"
-      :icon="null"
-    />
-
     <dialog-window v-model:show="dialogVisible">
       <form @submit.prevent :style="{padding: '10px'}">
         <h1 :style="{marginBottom: '30px'}">Создать новую категорию</h1>
@@ -66,7 +68,7 @@
           :textColor="null"
           :fontSize="null"
           :fontWeight="null"
-          :margin="'24px 0 0 0'"
+          :margin="'20px 0 0 0'"
           :borderRadius="'10px'"
           :icon="null"
         />

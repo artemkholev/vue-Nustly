@@ -1,8 +1,9 @@
 @import '../../app/assets/styles/vars.scss';
 
 .catalog {
-  h1 {
-    margin-bottom: 50px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
   }
   h2 {
     margin: 100px;
@@ -14,15 +15,14 @@
     margin: 0 auto;
   }
   &__cards {
+    margin: 50px 0 0 0;
     display: grid;
-    grid-template-columns: repeat( 400px);
-    width: 100%;
-    max-width: 1000px; 
-    justify-content: center;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 5px;
+    grid-column-gap: 5px;
+    justify-content: space-between;
     justify-items: center; 
-    column-gap: 30px; 
-    row-gap: 40px; 
-    margin: 0 auto;
   }
 }
 
@@ -37,5 +37,65 @@
   }
   a {
     color: #fff;
+  }
+}
+
+@media (max-width: 1900px) {
+  .catalog {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .catalog {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .catalog {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .catalog {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(1, 1fr);
+      grid-template-columns: repeat(1, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
   }
 }

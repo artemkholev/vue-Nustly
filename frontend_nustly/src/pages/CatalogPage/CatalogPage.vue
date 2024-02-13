@@ -11,8 +11,8 @@
         />
       </div>
     </div>
-    <p v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
-    <h2 class="catalog__error" v-else>
+    <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
+    <h2 v-if="!isLoading && (catalogElems.length === 0)" class="catalog__error">
       Данных нет
     </h2>
     <button-elem
@@ -132,9 +132,14 @@ const onFileChange = (event: any) => {
 
 const submit = async () => {
   if (!fileImg.value) {
-    alert('please fill the filed');
+    alert('Фотография не прекреплена');
   } else {
     await createCatalog(catalogForm.value, fileImg.value);
+    getCatalog();
+    handlerDialogVisible();
+    fileImg.value = null;
+    catalogInfo.title = '';
+    catalogInfo.visibility = false;
   }
 };
 

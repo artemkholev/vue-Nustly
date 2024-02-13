@@ -20,7 +20,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     isLoading.value = true;
     try {
       const response = await apiAxios.get('/categories');
-      console.log(response)
+      catalogElems.value = response.data;
       isError.value = false;
       errorMessage.value = '';
     } catch (err: any) {

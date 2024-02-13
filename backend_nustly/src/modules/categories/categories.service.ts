@@ -34,12 +34,20 @@ export class CategoriesService {
   }
 
   async deleteCategories(idCategory: string) {
-    const category = await this.categoriesRepository.destroy({
+    const category = await this.categoriesRepository.findOne({
       where: { id: idCategory },
     });
-    if (category) {
-      return false;
-    }
+    await category.destroy();
+
+    const categoryPhotoPath = category.dataValues.photo
+      .split('/')
+      .slice(3)
+      .join('/');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const fs = require('fs');
+    fs.unlink(categoryPhotoPath, (err) => {
+      if (err) throw err;
+    });
     return true;
   }
 }

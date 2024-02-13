@@ -58,5 +58,20 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   };
 
-  return { getCatalog, createCatalog, isLoading, isError, errorMessage, catalogElems };
+  const deleteCatalog = async (data: string) => {
+    try {
+      await apiAxios.post('/categories/delete', {id: data});
+      isError.value = false;
+      errorMessage.value = '';
+    } catch (err: any) {
+      isError.value = true
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessage.value = error.response.data.message;
+    }
+  };
+
+  return { getCatalog, createCatalog, deleteCatalog, isLoading, isError, errorMessage, catalogElems };
 });

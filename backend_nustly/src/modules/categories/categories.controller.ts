@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Post,
   UploadedFile,
@@ -12,7 +11,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Categories } from './categories.model';
 import { CategoriesService } from './categories.service';
 // import { CreateCategoryDto } from './dto/create-category.dto';
-import { CategoryDto } from './dto/category.dto';
+import { CategoryDto, DeleteCategoryDto } from './dto/category.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import {
@@ -56,8 +55,9 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Удаление категории' })
   @ApiResponse({ status: 200 })
-  @Delete()
-  deleteCategories(@Body() idCategory: string): Promise<boolean> {
-    return this.categoriesService.deleteCategories(idCategory);
+  @Post('/delete')
+  deleteCategories(@Body() category: DeleteCategoryDto): Promise<boolean> {
+    console.log(category.id);
+    return this.categoriesService.deleteCategories(category.id);
   }
 }

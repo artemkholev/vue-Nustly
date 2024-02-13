@@ -110,7 +110,6 @@ export class TokensService {
       where: { refreshToken },
       include: 'user',
     });
-    console.log('\n\n\n', tokenData);
     return tokenData.user.dataValues;
   }
 }

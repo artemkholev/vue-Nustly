@@ -1,13 +1,11 @@
 export interface ICatalog {
-   id: number;
+  id: string;
   title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
+  visibility: boolean;
+  photo: string;
+}
+
+export interface ICreateCatalog {
+  title: string;
+  visibility: boolean;
 }

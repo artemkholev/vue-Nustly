@@ -1,5 +1,5 @@
 <template>
-  <div id="burger" :class="{ 'active' : isBurgerActive }" @click.prevent="toggle">
+  <div id="burger" :class="{ 'active' : isOpenSidebar }" @click.prevent="toggleSidebar">
     <slot>
       <button type="button" class="burger-button" title="Menu">
         <span class="hidden">Toggle menu</span>
@@ -13,21 +13,21 @@
 
 <script setup lang="ts">
 import store from '@/shered/store';
+import { useSidebarStore } from '@/shered/store/sidebar';
 import { useThemeStore } from '@/shered/store/theme';
 import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 
+//theme
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
 
-const isBurgerActive = computed(() => {
-  return store.state.isNavOpen;
-});
-  
-const toggle = () => {
-  store.commit('toggleNav');
-};
+//sidebar
+const sidebarStore = useSidebarStore();
+const { isOpenSidebar } = storeToRefs(sidebarStore);
+const { toggleSidebar } = sidebarStore
 
+//
 const isDarkStyle = computed(() => {
   return isDarkTheme.value ? 'white' : 'black';
 });

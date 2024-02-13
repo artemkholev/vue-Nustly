@@ -119,6 +119,15 @@ const router = createRouter({
         // title: 'Catalog'
       }
     },
+    {
+      path: `${Links.CATALOG}/:id`,
+      name: PathNames.PRODUCTS,
+      component: () => import('@/pages/ProductsPage/ProductsPage.vue'),
+      meta: {
+        layout: MainLayout,
+        // title: 'Products',
+      }
+    },
   ]
 });
 

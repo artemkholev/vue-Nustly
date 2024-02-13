@@ -6,11 +6,11 @@
     </router-link>
 
     <div class="header-container__functional">
-      <router-link to="/catalog" class="header-container__functional__catalog">
+      <router-link v-if="$route.path !== '/catalog'" to="/catalog" class="header-container__functional__catalog">
         <icon-base  width="30" height="30" iconName="catalog"><catalog-icon/></icon-base>
         <p>Каталог</p>
       </router-link>
-      <div v-if="$route.path === '/catalog'" class="header-container__functional__search">
+      <div v-if="$route.path === '/products'" class="header-container__functional__search">
         <input type="text" placeholder="Найти товар..." v-model="findInfo"> 
         <button>
           <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>

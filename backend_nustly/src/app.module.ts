@@ -2,13 +2,15 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './modules/auth/auth.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { FilesModule } from './modules/files/files.module';
+
 import { User } from './modules/users/users.model';
 import { Role } from './modules/roles/roles.model';
 import { UserRoles } from './modules/roles/user-role.model';
-import { AuthModule } from './modules/auth/auth.module';
-import { RolesModule } from './modules/roles/roles.module';
 import { Tokens } from './modules/tokens/tokens.model';
-import { CategoriesModule } from './modules/categories/categories.module';
 import { Categories } from './modules/categories/categories.model';
 
 @Module({
@@ -32,6 +34,7 @@ import { Categories } from './modules/categories/categories.model';
     AuthModule,
     RolesModule,
     CategoriesModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

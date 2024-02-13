@@ -1,44 +1,41 @@
 <template>
-  <div :class="cardClasses">
-    <div class="card__top">
-      <div class="card__image">
-        <img
-          :src="elemCatalog.thumbnail"
-          alt="товар"
-        />
-      </div>
-      <div class="card__label">-{{ elemCatalog.discountPercentage }}%</div>
-    </div>
-    <div class="card__bottom">
-      <div class="card__prices">
-        <div class="card__price card__price--discount">{{ (elemCatalog.price - elemCatalog.price / 100 * elemCatalog.discountPercentage).toFixed(2) }}</div>
-        <div class="card__price card__price--common">{{elemCatalog.price}}</div>
-      </div>
-      <p class="card__title">
-        {{ elemCatalog.title }}
-      </p>
-       <button-elem
-          :clName="null"
-          :title="'В карзину'"
-          :handler="() => null"
-          :width="'80%'"
-          :height="'48px'"
-          :background="'#70C05B'"
-          :textColor="null"
-          :fontSize="null"
-          :fontWeight="null"
-          :margin="'24px 0 0 0'"
-          :borderRadius="'10px'"
-          :icon="null"
-        />
-    </div>
+  <div 
+    :class="cardClasses"
+  >
+    <button 
+      type="button" 
+      class="card__delete"
+      @click.self="() => { 
+        deleteCatalog(elemCatalog.id)
+        getCatalog()
+      }"
+      >×
+    </button>
+    <figure class="overlay"
+      @mousedown.left="$router.push({
+        name: PathNames.PRODUCTS,
+        params: {
+          id: elemCatalog.id
+        },
+        query: $route.query
+      })"
+    >
+      <img
+        class="card__photo"
+        :src="elemCatalog.photo"
+        alt="карточка каталога"
+      />
+      <p class="card__title">{{ elemCatalog.title }}</p>
+    </figure>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useThemeStore } from '@/shered/store/theme';
-import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
-import { computed, type Ref } from 'vue';
+import { PathNames } from '@/shered/constants/route.constants'
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
+import { useCatalogStore } from '@/shered/store/catalog';
 
 defineProps({
   elemCatalog: {
@@ -47,6 +44,11 @@ defineProps({
   }
 })
 
+//catalog store
+const catalogStore = useCatalogStore();
+const { deleteCatalog, getCatalog } = catalogStore;
+
+//theme store
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
 
@@ -55,4 +57,4 @@ const cardClasses = computed(() => {
 });
 </script>
 
-<style src="./CatalogItem.style.scss" lang="scss" scoped></style>
+<style src="./CatalogItem.scss" lang="scss" scoped/>

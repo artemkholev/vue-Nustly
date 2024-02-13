@@ -7,3 +7,11 @@ export const getBooleanValueFromLs = (key: LocalStorageConstants) => {
 export const setBooleanValueFromLs = (key: LocalStorageConstants, value: boolean) => {
   localStorage.setItem(key, value.toString());
 };
+
+export const getStringValueFromLs = (key: LocalStorageConstants) => {
+  return localStorage.getItem(key);
+};
+
+export const setStringValueFromLs = (key: LocalStorageConstants, value: string) => {
+  localStorage.setItem(key, value);
+};

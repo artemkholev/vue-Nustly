@@ -5,5 +5,4 @@ export class CreateCategoryDto {
   readonly title: string;
   @IsNotEmpty()
   readonly visibility: boolean;
-  readonly photo: string;
 }

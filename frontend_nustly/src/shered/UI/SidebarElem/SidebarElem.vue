@@ -1,7 +1,7 @@
 <template>
-    <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen"></div>
+    <div class="sidebar-backdrop" @click="toggleSidebar" v-if="isOpenSidebar"></div>
     <transition name="slide">
-        <div v-if="isPanelOpen"
+        <div v-if="isOpenSidebar"
                 :class="contentClasses">
             <slot></slot>
         </div>
@@ -9,11 +9,12 @@
 </template>
 
 <script setup lang="ts">
-import store from '@/shered/store'
+import { useSidebarStore } from '@/shered/store/sidebar';
 import { useThemeStore } from '@/shered/store/theme';
 import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 
+//theme
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
 
@@ -21,17 +22,10 @@ const contentClasses = computed(() => {
   return { 'sidebar-panel': true, ['dark-sidebar']: isDarkTheme.value };
 });
 
-const closeSidebarPanel = () => {
-    store.commit('toggleNav');
-};
-
-const isPanelOpen = computed(() => {
-  return store.state.isNavOpen;
-});
-
-const isDarkStyle = computed(() => {
-  return isDarkTheme.value;
-});
+//sidebar
+const sidebarStore = useSidebarStore();
+const { isOpenSidebar } = storeToRefs(sidebarStore);
+const { toggleSidebar } = sidebarStore
 
 defineOptions({
     name: 'sidebar-elem',

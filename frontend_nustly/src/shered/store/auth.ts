@@ -5,7 +5,7 @@ import type { ILogin, IResponseLogin } from '@/shered/api/authApi/authApi.types'
 import { useRouter } from 'vue-router';
 import { PathNames } from '@/shered/constants/route.constants';
 import type { AxiosError, AxiosResponse } from 'axios';
-import { getBooleanValueFromLs, setBooleanValueFromLs } from '../utils/ls.utils';
+import { getBooleanValueFromLs, getStringValueFromLs, setBooleanValueFromLs, setStringValueFromLs } from '../utils/ls.utils';
 import { LocalStorageConstants } from '../constants/ls.constants';
 import { decodeJwt } from '../jwtRequest/decodeJwt';
 
@@ -15,7 +15,8 @@ interface ValidationErrors {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const userName = ref<string>('')
+  const userName = ref<string>('');
+  const role = ref<string>(getStringValueFromLs(LocalStorageConstants.ROLE) || 'USER');
   const isAuth = ref(getBooleanValueFromLs(LocalStorageConstants.ISAUTH) || false);
   const isError = ref<boolean>(false);
   const errorMessage = ref<string>('');
@@ -30,10 +31,12 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response) {
         sessionStorage.setItem('accessToken', response.data.accessToken);
-        toggleIsAuth()
+        loginIsAuth()
       };
   
-      userName.value = decodeJwt(response.data.accessToken)?.email;
+      const decodeToken = decodeJwt(response.data.accessToken);
+      userName.value = decodeToken.email;
+      saveRole(decodeToken.roles);
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true;
@@ -53,10 +56,12 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response) {
         sessionStorage.setItem('accessToken', response.data.accessToken);
-        toggleIsAuth();
+        loginIsAuth();
       };
 
-      userName.value = decodeJwt(response.data.accessToken).email;
+      const decodeToken = decodeJwt(response.data.accessToken);
+      userName.value = decodeToken.email;
+      saveRole(decodeToken.roles);
       router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true
@@ -77,10 +82,11 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response) {
         sessionStorage.removeItem('accessToken');
-        toggleIsAuth();
+        userName.value = '';
+        deleteRole();
+        logoutIsAuth();
+        router.push({ name: PathNames.HOME });
       };
-      userName.value = '';
-      router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true
       const error: AxiosError<ValidationErrors> = err;
@@ -91,10 +97,58 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  const toggleIsAuth = () => {
+  const refresh = async () => {
+    try {
+      const response: AxiosResponse<IResponseLogin | any> = await apiAxios.post('/auth/refresh', { withCredentials: true }); 
+      isError.value = false;
+      errorMessage.value = '';
+
+      if (response) {
+        sessionStorage.setItem('accessToken', response.data.accessToken);
+        loginIsAuth()
+      };
+  
+      const decodeToken = decodeJwt(response.data.accessToken);
+      userName.value = decodeToken.email;
+      saveRole(decodeToken.roles);
+      router.push({ name: PathNames.HOME });
+    } catch (err: any) {
+      isError.value = true;
+      router.push({ name: PathNames.HOME });
+      sessionStorage.removeItem('accessToken');
+      logoutIsAuth();
+      deleteRole();
+      userName.value = '';
+
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessage.value = error.response.data.message;
+    }
+  }
+
+  const logoutIsAuth = () => {
+    if (isAuth.value == false)
+      return
+    isAuth.value = !isAuth.value;
+    setBooleanValueFromLs(LocalStorageConstants.ISAUTH, isAuth.value);
+  };
+  const loginIsAuth = () => {
+    if (isAuth.value == true)
+      return
     isAuth.value = !isAuth.value;
     setBooleanValueFromLs(LocalStorageConstants.ISAUTH, isAuth.value);
   };
 
-  return { isAuth, isError, errorMessage, userName, login, registration, logout, toggleIsAuth };
+  const saveRole = (value: string) => {
+    role.value = value;
+    setStringValueFromLs(LocalStorageConstants.ROLE, role.value);
+  };
+  const deleteRole = () => {
+    role.value = '';
+    setStringValueFromLs(LocalStorageConstants.ROLE, role.value);
+  };
+
+  return { isAuth, isError, errorMessage, userName, role, login, registration, logout, loginIsAuth, logoutIsAuth, saveRole, deleteRole, refresh };
 });

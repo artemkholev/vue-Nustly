@@ -92,6 +92,7 @@ export class AuthService {
     if (!refreshToken) {
       throw new UnauthorizedException('Пользователь не авторизован');
     }
+
     const userIsValid =
       await this.tokensService.validateRefreshToken(refreshToken);
     const tokenFromDb = await this.tokensService.findToken(refreshToken);
@@ -100,7 +101,8 @@ export class AuthService {
       throw new UnauthorizedException('Пользователь не авторизован');
     }
 
-    const userObject = new User(tokenFromDb);
+    const user = await this.userService.getUserByEmail(tokenFromDb.email);
+    const userObject = new User(user);
 
     const tokens = await this.tokensService.generateTokens({ ...userObject });
     await this.tokensService.saveToken(userObject.id, tokens.refreshToken);

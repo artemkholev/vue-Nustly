@@ -25,7 +25,7 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
   const authStore = useAuthStore();
   const { loginIsAuth, logoutIsAuth, deleteRole, saveRole } = authStore;
   const { userName } = storeToRefs(authStore);
-  const router = useRouter();
+  // const router = useRouter();
 
   if (error.response.status === 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;
@@ -41,7 +41,7 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
 
       return apiAxios.request(originalRequest);
     } catch (e: any) {
-      router.push({ name: PathNames.HOME });
+      // router.push({ name: PathNames.HOME });
       sessionStorage.removeItem('accessToken');
       logoutIsAuth();
       deleteRole();

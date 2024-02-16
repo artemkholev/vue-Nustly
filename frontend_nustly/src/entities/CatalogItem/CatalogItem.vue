@@ -3,12 +3,10 @@
     :class="cardClasses"
   >
     <button 
+      
       type="button" 
       class="card__delete"
-      @click.self="() => { 
-        deleteCatalog(elemCatalog.id)
-        getCatalog()
-      }"
+      @click.self="handlerDeleteCatalog"
       >×
     </button>
     <figure class="overlay"
@@ -36,13 +34,19 @@ import { PathNames } from '@/shered/constants/route.constants'
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useCatalogStore } from '@/shered/store/catalog';
+import { useAuthStore } from '@/shered/store/auth';
 
-defineProps({
+const props = defineProps({
   elemCatalog: {
     type: Object,
     required: true,
   }
 })
+
+//auth store
+// v-if="role == 'ADMIN'"
+const authStore = useAuthStore();
+const { role } = storeToRefs(authStore);
 
 //catalog store
 const catalogStore = useCatalogStore();
@@ -55,6 +59,12 @@ const { isDarkTheme } = storeToRefs(themeStore);
 const cardClasses = computed(() => {
   return { card: true, ['dark-card']: isDarkTheme.value };
 });
+
+const handlerDeleteCatalog = async () => {
+  const answer = await deleteCatalog(props.elemCatalog.id)
+  if (answer)
+    getCatalog()
+}
 </script>
 
 <style src="./CatalogItem.scss" lang="scss" scoped/>

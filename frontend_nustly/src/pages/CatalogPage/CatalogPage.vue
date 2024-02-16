@@ -20,7 +20,7 @@
     </div>
 
     <div class="catalog__cards" 
-      v-if="catalogElems.length > 0"
+      v-if="catalogElems.length"
     >
       <template v-for="elem in catalogElems" :key="elem.id">
         <CatalogItem
@@ -30,7 +30,7 @@
       </template>
     </div>
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
-    <p  v-if="isError" :style="{margin: '10px', color: 'red'}">{{ errorMessage }}</p>
+    <p  v-if="errorMessage.length" :style="{margin: '10px', color: 'red'}">{{ errorMessage }}</p>
     <h2 v-if="!isLoading && (catalogElems.length === 0)" class="catalog__error">
       Данных нет
     </h2>
@@ -89,7 +89,7 @@ import { onMounted, computed, ref, reactive } from 'vue';
 
 //catalog store
 const catalogStore = useCatalogStore();
-const { isLoading, isError, catalogElems, errorMessage  } = storeToRefs(catalogStore);
+const { isLoading, catalogElems, errorMessage  } = storeToRefs(catalogStore);
 const { getCatalog, createCatalog } = catalogStore;
 
 //theme store

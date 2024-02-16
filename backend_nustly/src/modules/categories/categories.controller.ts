@@ -4,6 +4,7 @@ import {
   Get,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { Express } from 'express';
@@ -18,6 +19,7 @@ import {
   editFileName,
   imageFileFilter,
 } from 'src/common/utils/file-upload.utils';
+import { AdminGuard } from 'src/common/guards/admin.guard';
 
 @ApiTags('Категории')
 @Controller('categories')
@@ -34,6 +36,7 @@ export class CategoriesController {
   @ApiOperation({ summary: 'Создание категории' })
   @ApiResponse({ status: 200 })
   @Post()
+  // @UseGuards(AdminGuard)
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
@@ -56,8 +59,11 @@ export class CategoriesController {
   @ApiOperation({ summary: 'Удаление категории' })
   @ApiResponse({ status: 200 })
   @Post('/delete')
-  deleteCategories(@Body() category: DeleteCategoryDto): Promise<boolean> {
-    console.log(category.id);
-    return this.categoriesService.deleteCategories(category.id);
+  @UseGuards(AdminGuard)
+  // deleteCategories(@Body() category: DeleteCategoryDto): Promise<boolean> {
+  //   return this.categoriesService.deleteCategories(category.id);
+  // }
+  deleteCategories(@Body() category: DeleteCategoryDto) {
+    return category;
   }
 }

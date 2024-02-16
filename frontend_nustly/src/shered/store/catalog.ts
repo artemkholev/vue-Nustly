@@ -11,7 +11,6 @@ interface ValidationErrors {
 
 export const useCatalogStore = defineStore('catalog', () => {
   const isLoading = ref<boolean>(false);
-  const isError = ref<boolean>(false);
   const errorMessage = ref<string>('');
   const catalogElems = ref<ICatalog[]>([]);
 
@@ -21,10 +20,8 @@ export const useCatalogStore = defineStore('catalog', () => {
     try {
       const response = await apiAxios.get('/categories');
       catalogElems.value = response.data;
-      isError.value = false;
       errorMessage.value = '';
     } catch (err: any) {
-      isError.value = true
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
         throw err;
@@ -45,11 +42,8 @@ export const useCatalogStore = defineStore('catalog', () => {
             'Content-Type': 'multipart/form-data'
           }
       }); 
-      console.log(response.data);
-      isError.value = false;
       errorMessage.value = '';
     } catch (err: any) {
-      isError.value = true;
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
         throw err;
@@ -61,10 +55,9 @@ export const useCatalogStore = defineStore('catalog', () => {
   const deleteCatalog = async (data: string) => {
     try {
       await apiAxios.post('/categories/delete', {id: data});
-      isError.value = false;
       errorMessage.value = '';
+      return true;
     } catch (err: any) {
-      isError.value = true
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
         throw err;
@@ -73,5 +66,5 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   };
 
-  return { getCatalog, createCatalog, deleteCatalog, isLoading, isError, errorMessage, catalogElems };
+  return { getCatalog, createCatalog, deleteCatalog, isLoading, errorMessage, catalogElems };
 });

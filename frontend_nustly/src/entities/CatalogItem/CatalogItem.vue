@@ -3,7 +3,7 @@
     :class="cardClasses"
   >
     <button 
-      
+      v-if="role == 'ADMIN'"
       type="button" 
       class="card__delete"
       @click.self="handlerDeleteCatalog"
@@ -44,7 +44,6 @@ const props = defineProps({
 })
 
 //auth store
-// v-if="role == 'ADMIN'"
 const authStore = useAuthStore();
 const { role } = storeToRefs(authStore);
 
@@ -61,9 +60,9 @@ const cardClasses = computed(() => {
 });
 
 const handlerDeleteCatalog = async () => {
-  const answer = await deleteCatalog(props.elemCatalog.id)
-  if (answer)
-    getCatalog()
+  const answer = await deleteCatalog(props.elemCatalog.id);
+  console.log(answer);
+  getCatalog()
 }
 </script>
 

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Express } from 'express';
 import { Categories } from './categories.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -45,9 +44,7 @@ export class CategoriesService {
       .join('/');
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const fs = require('fs');
-    fs.unlink(categoryPhotoPath, (err) => {
-      if (err) throw err;
-    });
+    fs.unlink(categoryPhotoPath);
     return true;
   }
 }

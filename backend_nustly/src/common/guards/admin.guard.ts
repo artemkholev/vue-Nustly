@@ -21,7 +21,9 @@ export class AdminGuard implements CanActivate {
 
     const accessToken = authorizationHeader.split(' ')[1];
     if (accessToken == null) {
-      return false;
+      throw new ForbiddenException(
+        'Пользователь не имеет прав администратора!',
+      );
     }
     const userData: any = await this.jwtService.decode(accessToken);
     const user = await this.userRepository.findOne({

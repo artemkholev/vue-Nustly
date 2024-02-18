@@ -36,7 +36,7 @@ export class CategoriesController {
   @ApiOperation({ summary: 'Создание категории' })
   @ApiResponse({ status: 200 })
   @Post()
-  // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
@@ -60,10 +60,7 @@ export class CategoriesController {
   @ApiResponse({ status: 200 })
   @Post('/delete')
   @UseGuards(AdminGuard)
-  // deleteCategories(@Body() category: DeleteCategoryDto): Promise<boolean> {
-  //   return this.categoriesService.deleteCategories(category.id);
-  // }
-  deleteCategories(@Body() category: DeleteCategoryDto) {
-    return category;
+  deleteCategories(@Body() category: DeleteCategoryDto): Promise<boolean> {
+    return this.categoriesService.deleteCategories(category.id);
   }
 }

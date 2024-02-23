@@ -59,7 +59,7 @@ export class TokensService {
     return token;
   }
 
-  async removeToken(id: number, response: Response) {
+  async removeToken(id: string, response: Response) {
     const tokenData = await this.tokensRepository.destroy({
       where: { userId: id },
     });

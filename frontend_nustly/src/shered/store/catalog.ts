@@ -4,6 +4,10 @@ import type { ICatalog, ICreateCatalog } from '@/shered/api/catalogApi/catalogAp
 import { AxiosError } from 'axios';
 import apiAxios from '../api';
 
+//api request
+const API_URL_CATEGORIES = '/categories';
+
+//error validation
 interface ValidationErrors {
   message: string
   field_errors: Record<string, string>
@@ -18,7 +22,7 @@ export const useCatalogStore = defineStore('catalog', () => {
   const getCatalog = async () => {
     isLoading.value = true;
     try {
-      const response = await apiAxios.get('/categories');
+      const response = await apiAxios.get(API_URL_CATEGORIES);
       catalogElems.value = response.data;
       errorMessage.value = '';
     } catch (err: any) {
@@ -37,7 +41,7 @@ export const useCatalogStore = defineStore('catalog', () => {
       const formData = new FormData();
       formData.append('image', file);
       formData.append('data', JSON.stringify(data));
-      const response = await apiAxios.post('/categories', formData, {
+      const response = await apiAxios.post(API_URL_CATEGORIES, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -52,9 +56,9 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   };
 
-  const deleteCatalog = async (data: string) => {
+  const postDeleteCatalog = async (data: string) => {
     try {
-      await apiAxios.post('/categories/delete', {id: data});
+      await apiAxios.post(`${API_URL_CATEGORIES}/delete`, {id: data});
       errorMessage.value = '';
       return true;
     } catch (err: any) {
@@ -66,5 +70,19 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   };
 
-  return { getCatalog, createCatalog, deleteCatalog, isLoading, errorMessage, catalogElems };
+  const postVisibilityCategory = async (data: string) => {
+    try {
+      await apiAxios.post(`${API_URL_CATEGORIES}/visibility`, { id: data });
+      errorMessage.value = '';
+      return true;
+    } catch(err: any) {
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessage.value = error.response.data.message;
+    }
+  }
+
+  return { getCatalog, createCatalog, postDeleteCatalog, postVisibilityCategory, isLoading, errorMessage, catalogElems };
 });

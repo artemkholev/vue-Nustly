@@ -23,10 +23,7 @@
       v-if="catalogElems.length"
     >
       <template v-for="elem in catalogElems" :key="elem.id">
-        <CatalogItem
-          v-if="elem.visibility"
-          :elemCatalog="elem"
-        />
+        <CatalogItem :elemCatalog="elem"/>
       </template>
     </div>
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
@@ -83,7 +80,6 @@ import CatalogItem from '@/entities/CatalogItem/CatalogItem.vue';
 import { useAuthStore } from '@/shered/store/auth';
 import { useCatalogStore } from '@/shered/store/catalog';
 import { useThemeStore } from '@/shered/store/theme';
-import apiAxios from '@/shered/api';
 import { storeToRefs } from 'pinia';
 import { onMounted, computed, ref, reactive } from 'vue';
 

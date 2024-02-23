@@ -7,23 +7,45 @@
   min-width: 250px;
   margin: 20px;
   cursor: pointer;
-  &__delete {
+  &__buttons {
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
     right: 0;
-    width: 50px;
-    height: 50px;
-    font-size: calc(50px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
-    color: green;
-    background-color: transparent;
-    border: none;
-  }
-  &__delete:hover {
-    color: $main-color;
-    transition: 0.5s;
+    display: flex;
+    z-index: 2;
+
+    &__visibility {
+      display: flex;
+      width: 50px;
+      height: 50px;
+      background-color: transparent;
+      border: none;
+      justify-content: center;
+      align-items: center;
+      svg > g > path {
+        fill: white;
+      }
+    }
+    &__delete {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      font-size: 50px;
+      color: white;
+      background-color: transparent;
+      border: none;
+    }
+    &__visibility:hover {
+       svg > g > path {
+        fill: $main-color;
+        transition: 0.5s;
+      }
+    }
+    &__delete:hover {
+      color: $main-color;
+      transition: 0.5s;
+    }
   }
   &__photo {
     object-fit: cover;

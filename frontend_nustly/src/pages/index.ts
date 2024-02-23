@@ -120,7 +120,7 @@ const router = createRouter({
       }
     },
     {
-      path: `${Links.CATALOG}/:id`,
+      path: `${Links.CATALOG}/:products_id`,
       name: PathNames.PRODUCTS,
       component: () => import('@/pages/ProductsPage/ProductsPage.vue'),
       meta: {

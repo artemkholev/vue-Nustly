@@ -11,8 +11,7 @@ import { Express } from 'express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Categories } from './categories.model';
 import { CategoriesService } from './categories.service';
-// import { CreateCategoryDto } from './dto/create-category.dto';
-import { CategoryDto, DeleteCategoryDto } from './dto/category.dto';
+import { CategoryDto, IdCategoryDto } from './dto/category.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import {
@@ -20,6 +19,7 @@ import {
   imageFileFilter,
 } from 'src/common/utils/file-upload.utils';
 import { AdminGuard } from 'src/common/guards/admin.guard';
+import { GetCurrentUserRole } from 'src/common/decorators/get-current-user-role';
 
 @ApiTags('Категории')
 @Controller('categories')
@@ -29,8 +29,10 @@ export class CategoriesController {
   @ApiOperation({ summary: 'Получение категории' })
   @ApiResponse({ status: 200, type: Categories })
   @Get()
-  getCategories(): Promise<CategoryDto[]> {
-    return this.categoriesService.getCategories();
+  getCategories(
+    @GetCurrentUserRole() userRole: string,
+  ): Promise<CategoryDto[]> {
+    return this.categoriesService.getCategories(userRole);
   }
 
   @ApiOperation({ summary: 'Создание категории' })
@@ -60,7 +62,14 @@ export class CategoriesController {
   @ApiResponse({ status: 200 })
   @Post('/delete')
   @UseGuards(AdminGuard)
-  deleteCategories(@Body() category: DeleteCategoryDto): Promise<boolean> {
+  deleteCategories(@Body() category: IdCategoryDto): Promise<boolean> {
     return this.categoriesService.deleteCategories(category.id);
+  }
+
+  @ApiOperation({ summary: 'Видимость категории' })
+  @ApiResponse({ status: 200 })
+  @Post('/visibility')
+  visibilityCategory(@Body() category: IdCategoryDto): Promise<boolean> {
+    return this.categoriesService.visibilityCategory(category.id);
   }
 }

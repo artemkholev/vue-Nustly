@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { ICatalog, ICreateCatalog } from '@/shered/api/catalogApi/catalogApi';
 import { AxiosError } from 'axios';
-import apiAxios from '../api';
+import apiAxios from '@/shered/api';
 
 //api request
 const API_URL_CATEGORIES = '/categories';

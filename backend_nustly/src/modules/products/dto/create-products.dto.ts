@@ -1,6 +1,8 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateCategoryDto {
+export class CreateProductDto {
+  @IsNotEmpty()
+  readonly id_categories: string;
   @IsNotEmpty()
   readonly title: string;
   @IsNotEmpty()
@@ -8,10 +10,4 @@ export class CreateCategoryDto {
   readonly manufacturer: string;
   @IsNotEmpty()
   readonly price: number;
-  @IsNotEmpty()
-  readonly photo: string;
-  @IsNotEmpty()
-  readonly id_category: string;
-  readonly id_model: string;
-  readonly id_provider: string;
 }

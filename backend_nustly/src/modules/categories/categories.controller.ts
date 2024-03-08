@@ -24,7 +24,7 @@ import { GetCurrentUserRole } from 'src/common/decorators/get-current-user-role'
 @ApiTags('Категории')
 @Controller('categories')
 export class CategoriesController {
-  constructor(private categoriesService: CategoriesService) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @ApiOperation({ summary: 'Получение категории' })
   @ApiResponse({ status: 200, type: Categories })

@@ -1,7 +1,7 @@
 @import '../../app/assets/styles/vars.scss';
 
 .card {
-  width: 270px;
+  width: 300px;
   min-height: 300px;
   border: 1px solid $main-color;
   padding: 20px;
@@ -92,18 +92,19 @@
 
 .card__price--common {
   font-weight: 400;
-  font-size: 17px;
-  color: #606060;
+  font-size: 20px;
+  color: #000000;
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: flex-end;
 }
 
 .card__price--common::before {
-  content: "Обычная";
+  content: "Цена";
   font-weight: 400;
-  font-size: 13px;
-  color: #bfbfbf;
+  margin-right: 5px;
+  font-size: 20px;
+  color: #000000;
 }
 
 .card__title {

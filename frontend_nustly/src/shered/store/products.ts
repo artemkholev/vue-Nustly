@@ -1,93 +1,114 @@
-// import { defineStore } from 'pinia';
-// import { computed, reactive, ref } from 'vue';
-// // import type { Iworkplace, Iworkplaces } from '../api/workplacesApi/workplaceApi.types';
-// import { useRoute, useRouter } from 'vue-router';
-// // import { apiAxios } from '../api';
+import { defineStore } from 'pinia';
+import { computed, reactive, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-// export const useWorkplacesStore = defineStore('workplaces', () => {
-//   const router = useRouter();
+import type { ICreateProduct, IProducts } from '@/shered/api/productsApi/productsApi.types';
+import apiAxios from '@/shered/api'
+import type { AxiosError } from 'axios';
 
-//   const isError = ref<boolean>(false);
-//   const isLoading = ref<boolean>(false);
+interface ValidationErrors {
+  message: string
+  field_errors: Record<string, string>
+}
 
-//   let workplases = ref<Iworkplaces[]>([]);
-//   const workplace = ref<Iworkplace>();
+const API_URL_PRODUCTS = '/categories/products';
 
-//   const selected = ref<string>('');
-//   const page = ref(1);
-//   const limit = ref(10);
-//   const totalPages = ref(0);
-//   const selectOptions = reactive([
-//     {
-//       name: 'Обычный порядок',
-//       value:  'general'
-//     },
-//     {
-//       name: 'По названию',
-//       value:  'title'
-//     },
-//   ]);
+export const useProductsStore = defineStore('products', () => {
+  const router = useRouter();
+  const route = useRoute();
 
-//   const route = useRoute();
+  const isLoading = ref<boolean>(false);
+  const errorMessage = ref<string>('');
 
-//   const sortedPlans = computed(() => {
-//     return [...workplases.value].sort((workplace1: any, workplace2: any) => workplace1[selected.value]?.localeCompare(workplace2[selected.value]))
-//   });
+  const products = ref<IProducts[]>([]);
+  const product = ref<IProducts>();
 
-//   const removeWorkplace = async () => {
-//     try {
-//       await apiAxios.delete('/workplaces/' + route.params.id_w);
-//       router.go(-1);
-//       isError.value = false;
-//     } catch (error) {
-//       isError.value = true;
-//       console.error(error);
-//     } 
-//   }
+  const page = ref(1);
+  const limit = ref(10);
+  const totalPages = ref(0);
 
-//   const addWorkplace = async (data: any) => {
-//     try {
-//       await apiAxios.post('/workplaces/', data);
-//     } catch(error) {
-//       isError.value = true;
-//       console.error(error);
-//     }
-//   }
+  const selected = ref<string>('');
+  const selectOptions = reactive([
+    {
+      name: 'Обычный порядок',
+      value:  'general'
+    },
+    {
+      name: 'По названию',
+      value:  'title'
+    },
+  ]);
 
-//   const getWorkplaces = async () => {
-//     isLoading.value = true;
-//     try {
-//       const responce = await apiAxios.get('/workplaces', {
-//         params: {
-//           _page: page.value,
-//           _limit: limit.value
-//         }
-//       });
-//       workplases.value = responce.data;
-//       totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
-//       isError.value = false;
-//     } catch (error) {
-//       isError.value = true;
-//       console.error(error);
-//     } finally {
-//       isLoading.value = false;
-//     }
-//   }
+  const sortedPlans = computed(() => {
+    return [...products.value].sort((product_1: any, product_2: any) => product_1[selected.value]?.localeCompare(product_2[selected.value]))
+  });
+
+  const postRemoveProduct = async () => {
+    try {
+      await apiAxios.delete('/workplaces/' + route.params.id_w);
+      router.go(-1);
+      errorMessage.value = '';
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    } 
+  }
+
+  const postCreateProduct = async (data: ICreateProduct, file: any) => {
+     try {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('data', JSON.stringify(data));
+      const response = await apiAxios.post(`${API_URL_PRODUCTS}/createProduct`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+      }); 
+      errorMessage.value = '';
+    } catch (err: any) {
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessage.value = error.response.data.message;
+    }
+  }
+
+  const getProducts = async (categoryId: string | string[]) => {
+    isLoading.value = true;
+    try {
+      const responce = await apiAxios.post(`${API_URL_PRODUCTS}`,
+        { data: categoryId }, {
+        params: {
+          _page: page.value,
+          _limit: limit.value
+        }
+      });
+      products.value = responce.data;
+      totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
+      errorMessage.value = '';
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
 
-//   const getWorkplace = async () => {
-//     isLoading.value = true;
-//     try {
-//       const responce = await apiAxios.get('/workplaces/' + route.params.id_w);
-//       workplace.value = responce.data;
-//       isError.value = false;
-//     } catch (error) {
-//       isError.value = true;
-//       console.error(error);
-//     } finally {
-//       isLoading.value = false;
-//     }
-//   };
+  const getProduct = async () => {
+    isLoading.value = true;
+    try {
+      const responce = await apiAxios.get(`${API_URL_PRODUCTS}` + route.params.id_w);
+      product.value = responce.data;
+      errorMessage.value = '';
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    } finally {
+      isLoading.value = false;
+    }
+  };
 
-//   return {getWorkplace, removeWorkplace, addWorkplace, workplace}
-// });
+  return {sortedPlans, postRemoveProduct, postCreateProduct, getProducts, getProduct, isLoading, errorMessage, products, product, totalPages, page}
+});

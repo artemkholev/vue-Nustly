@@ -17,9 +17,6 @@ interface ProductsCreationAttrs {
   manufacturer: string;
   price: number;
   photo: string;
-  id_category: string;
-  id_model: string;
-  id_provider: string;
 }
 
 @Table({ tableName: 'products' })
@@ -79,16 +76,6 @@ export class Products extends Model<Products, ProductsCreationAttrs> {
     unique: true,
   })
   photo: string;
-
-  // @ApiProperty({
-  //   example: 'sdfg8dsfg8dfsfg8fdsg8',
-  //   description: 'id категории',
-  // })
-  // @Column({
-  //   type: DataType.STRING,
-  //   allowNull: false,
-  // })
-  // id_category: string;
 
   @ApiProperty({
     example: 'sdfg8dsfg8dfsfg8fdsg8',

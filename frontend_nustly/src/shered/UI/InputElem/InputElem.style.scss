@@ -14,6 +14,9 @@
     padding: 10px 50px 10px 20px;
     margin-bottom: 15px;
   }
+  & > .inputText:focus {
+    border-color: $main-color__active;
+  }
   & > .visibility {
     position: absolute;
     height: 44px;

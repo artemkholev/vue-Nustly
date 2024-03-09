@@ -45,15 +45,14 @@
     </h2>
     <dialog-window v-model:show="dialogVisible">
       <form @submit.prevent :style="{padding: '10px'}">
-        <h1 :style="{marginBottom: '30px'}">Создать новую категорию</h1>
+        <h1 :style="{marginBottom: '30px'}">Создать новый товар</h1>
         <input-elem    
           v-model="productInfo.title"
           :typeInput="'text'"
           :placeholderInput="'Название'"
         />
-        <input-elem    
-          v-model="productInfo.description"
-          :typeInput="'text'"
+        <text-area 
+          v-model="productInfo.description" 
           :placeholderInput="'Описание'"
         />
         <input-elem    

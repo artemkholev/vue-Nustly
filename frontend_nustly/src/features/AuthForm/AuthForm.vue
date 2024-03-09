@@ -5,11 +5,13 @@
       v-model="loginInfo.email"
       :typeInput="'text'"
       :placeholderInput="'email'"
+      @keydown.enter="handlerButton"
     />
     <input-elem
       v-model="loginInfo.password"
       :typeInput="'password'"
       :placeholderInput="'пароль'"
+      @keydown.enter="handlerButton"
     />
     <div :style="{margin: '5px'}">
       <p v-if="error" :style="{color: 'red'}">{{ error }}</p>

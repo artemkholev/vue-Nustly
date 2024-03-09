@@ -6,7 +6,7 @@
         v-if="role == 'ADMIN'"
         :clName="null"
         :title="'Добавить товар'"
-        :handler="handlerDialogVisible"
+        :handler="handlerCreateProductDialogVisible"
         :width="'35vw'"
         :height="'55px'"
         :background="'#70C05B'"
@@ -43,7 +43,7 @@
     <h2 v-if="!isLoading && (products.length === 0)" class="products__error">
       Данных нет
     </h2>
-    <dialog-window v-model:show="dialogVisible">
+    <dialog-window v-model:show="creatProductDialogVisible">
       <form @submit.prevent :style="{padding: '10px'}">
         <h1 :style="{marginBottom: '30px'}">Создать новый товар</h1>
         <input-elem    
@@ -120,7 +120,8 @@ const authStore = useAuthStore();
 const { role } = storeToRefs(authStore);
 
 //dialog window
-const dialogVisible = ref(false);
+const creatProductDialogVisible = ref(false);
+const showProductDialogVisible = ref(false);
 
 const productInfo = reactive({
   id_categories: categoryId,
@@ -142,9 +143,13 @@ const productForm = computed(() => {
   };
 });
 
-const handlerDialogVisible = () => {
-  dialogVisible.value = !dialogVisible.value;
+const handlerCreateProductDialogVisible = () => {
+  creatProductDialogVisible.value = !creatProductDialogVisible.value;
 };
+
+const handlerShowProductDialogVisible = () => {
+  showProductDialogVisible.value = !showProductDialogVisible.value;
+}
 
 //methods
 const changePage = (currentPage: number) => {
@@ -161,7 +166,7 @@ const submit = async () => {
   } else {
     await postCreateProduct(productForm.value, fileImg.value);
     getProducts(categoryId);
-    handlerDialogVisible();
+    handlerCreateProductDialogVisible();
     fileImg.value = null;
     productInfo.title = '';
     productInfo.description = '';

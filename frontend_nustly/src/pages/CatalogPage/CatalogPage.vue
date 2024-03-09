@@ -32,45 +32,11 @@
       Данных нет
     </h2>
     <dialog-window v-model:show="dialogVisible">
-      <form @submit.prevent :style="{padding: '10px'}">
-        <h1 :style="{marginBottom: '30px'}">Создать новую категорию</h1>
-        <input-elem    
-          v-model="catalogInfo.title"
-          :typeInput="'text'"
-          :placeholderInput="'Название'"
-        />
-        <input 
-          type="file" 
-          @change="onFileChange" 
-          :style="{margin: '15px 0'}"
-        >
-        <checkbox-elem
-          :id="1"
-          :text="'Видимость категории'"
-          :textLink="''"
-          :checked="false"
-          :handlerErMessage="() => null"
-          :trackAgreement="handlerStatusAgreement"
-          :handlerFilterValue="() => null"
-          :handlerCheckedFlag="() => null"
-          :deleteValue="() => null"
-          :selectedFilters="null"
-        />
-        <button-elem
-          :clName="null"
-          :title="'Отправить'"
-          :handler="submit"
-          :width="'100%'"
-          :height="'48px'"
-          :background="'#70C05B'"
-          :textColor="null"
-          :fontSize="null"
-          :fontWeight="null"
-          :margin="'20px 0 0 0'"
-          :borderRadius="'10px'"
-          :icon="null"
-        />
-      </form>
+      <CreateCatalog
+        :handlerDialogVisible="handlerDialogVisible"
+        :getCatalog="getCatalog"
+        :createCatalog="createCatalog"
+      />
     </dialog-window>
   </div>
 </template>
@@ -82,6 +48,7 @@ import { useCatalogStore } from '@/shered/store/catalog';
 import { useThemeStore } from '@/shered/store/theme';
 import { storeToRefs } from 'pinia';
 import { onMounted, computed, ref, reactive } from 'vue';
+import { CreateCatalog } from '@/features/Catalog/CreateCatalog';
 
 //catalog store
 const catalogStore = useCatalogStore();
@@ -103,44 +70,10 @@ const { role } = storeToRefs(authStore);
 //dialog window
 const dialogVisible = ref(false);
 
-const catalogInfo = reactive({
-  title: '',
-  visibility: false,
-});
-const fileImg = ref(null);
-
-
-const catalogForm = computed(() => {
-  return {
-    title: catalogInfo.title,
-    visibility: catalogInfo.visibility,
-  };
-});
 
 const handlerDialogVisible = () => {
   dialogVisible.value = !dialogVisible.value;
 }
-
-const handlerStatusAgreement = (status: boolean) => {
-  catalogInfo.visibility = status;
-};
-
-const onFileChange = (event: any) => {
-  fileImg.value = event.target.files[0];
-};
-
-const submit = async () => {
-  if (!fileImg.value) {
-    alert('Фотография не прекреплена');
-  } else {
-    await createCatalog(catalogForm.value, fileImg.value);
-    getCatalog();
-    handlerDialogVisible();
-    fileImg.value = null;
-    catalogInfo.title = '';
-    catalogInfo.visibility = false;
-  }
-};
 
 onMounted(() => {
   getCatalog()

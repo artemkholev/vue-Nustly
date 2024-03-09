@@ -1,0 +1,1 @@
+export { default as CreateCatalog } from './ui/CreateCatalog.vue';

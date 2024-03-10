@@ -3,6 +3,7 @@
     <div class="card__top">
       <div class="card__top__image">
         <img
+          @click="handlerShowProduct"
           :src="elemProduct.photo"
           alt="товар"
         />
@@ -43,16 +44,25 @@ import { useThemeStore } from '@/shered/store/theme';
 import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
 import { computed } from 'vue';
 
-defineProps({
+const props = defineProps({
   elemProduct: {
     type: Object,
+    required: true,
+  },
+  handlerShowProductDialogVisible: {
+    type: Function,
+    required: true,
+  },
+  getProduct: {
+    type: Function,
     required: true,
   }
 })
 
-const productsStore = useProductsStore();
-const { } = storeToRefs(productsStore);
-const { } = productsStore;
+const handlerShowProduct = () => {
+  props.getProduct();
+  props.handlerShowProductDialogVisible()
+}
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);

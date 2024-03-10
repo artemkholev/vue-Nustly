@@ -114,7 +114,7 @@ export class AuthService {
     return { accessToken: tokens.accessToken };
   }
 
-  async logoutUser(id: number, response: Response): Promise<boolean> {
+  async logoutUser(id: string, response: Response): Promise<boolean> {
     try {
       await this.tokensService.removeToken(id, response);
       return true;

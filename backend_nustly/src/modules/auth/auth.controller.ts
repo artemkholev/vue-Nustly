@@ -28,7 +28,7 @@ export class AuthController {
 
   @Post('/logout')
   logout(
-    @GetCurrentUserId() userId: number,
+    @GetCurrentUserId() userId: string,
     @Res({ passthrough: true }) response: Response,
   ) {
     return this.authService.logoutUser(userId, response);

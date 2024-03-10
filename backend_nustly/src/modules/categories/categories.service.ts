@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Express } from 'express';
 import { Categories } from './categories.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -11,7 +10,13 @@ export class CategoriesService {
     @InjectModel(Categories) private categoriesRepository: typeof Categories,
   ) {}
 
-  async getCategories(): Promise<CategoryDto[]> {
+  async getCategories(userRole: string): Promise<CategoryDto[]> {
+    if (userRole != undefined && userRole == 'ADMIN') {
+      const categories = await this.categoriesRepository.findAll({
+        include: { all: true },
+      });
+      return categories;
+    }
     const categories = await this.categoriesRepository.findAll({
       where: { visibility: true },
       include: { all: true },
@@ -45,9 +50,16 @@ export class CategoriesService {
       .join('/');
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const fs = require('fs');
-    fs.unlink(categoryPhotoPath, (err) => {
-      if (err) throw err;
+    fs.unlink(categoryPhotoPath, (err) => err && console.error(err));
+    return true;
+  }
+
+  async visibilityCategory(idCategory: string) {
+    const category = await this.categoriesRepository.findOne({
+      where: { id: idCategory },
     });
+    category.visibility = !category.visibility;
+    category.save();
     return true;
   }
 }

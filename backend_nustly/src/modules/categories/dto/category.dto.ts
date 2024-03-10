@@ -7,7 +7,7 @@ export class CategoryDto {
   readonly photo: string;
 }
 
-export class DeleteCategoryDto {
+export class IdCategoryDto {
   @IsNotEmpty()
   readonly id: string;
 }

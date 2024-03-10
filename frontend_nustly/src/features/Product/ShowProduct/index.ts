@@ -1,0 +1,1 @@
+export { default as ShowProduct } from './ui/ShowProduct.vue'

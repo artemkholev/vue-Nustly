@@ -6,6 +6,7 @@ import BurgerElem from "./BurgerElem/BurgerElem.vue";
 import SidebarElem from "./SidebarElem/SidebarElem.vue";
 import CheckboxElem from "./CheckboxElem/CheckboxElem.vue";
 import IconElem from "./IconElem/IconElem.vue";
+import TextArea from "./TextArea/TextArea.vue"
 
 export default [
   ButtonElem,
@@ -16,4 +17,5 @@ export default [
   SidebarElem,
   CheckboxElem,
   IconElem,
+  TextArea,
 ]

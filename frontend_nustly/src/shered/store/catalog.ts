@@ -2,8 +2,12 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { ICatalog, ICreateCatalog } from '@/shered/api/catalogApi/catalogApi';
 import { AxiosError } from 'axios';
-import apiAxios from '../api';
+import apiAxios from '@/shered/api';
 
+//api request
+const API_URL_CATEGORIES = '/categories';
+
+//error validation
 interface ValidationErrors {
   message: string
   field_errors: Record<string, string>
@@ -11,7 +15,6 @@ interface ValidationErrors {
 
 export const useCatalogStore = defineStore('catalog', () => {
   const isLoading = ref<boolean>(false);
-  const isError = ref<boolean>(false);
   const errorMessage = ref<string>('');
   const catalogElems = ref<ICatalog[]>([]);
 
@@ -19,12 +22,10 @@ export const useCatalogStore = defineStore('catalog', () => {
   const getCatalog = async () => {
     isLoading.value = true;
     try {
-      const response = await apiAxios.get('/categories');
+      const response = await apiAxios.get(API_URL_CATEGORIES);
       catalogElems.value = response.data;
-      isError.value = false;
       errorMessage.value = '';
     } catch (err: any) {
-      isError.value = true
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
         throw err;
@@ -40,16 +41,13 @@ export const useCatalogStore = defineStore('catalog', () => {
       const formData = new FormData();
       formData.append('image', file);
       formData.append('data', JSON.stringify(data));
-      const response = await apiAxios.post('/categories', formData, {
+      const response = await apiAxios.post(API_URL_CATEGORIES, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
       }); 
-      console.log(response.data);
-      isError.value = false;
       errorMessage.value = '';
     } catch (err: any) {
-      isError.value = true;
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
         throw err;
@@ -58,13 +56,12 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   };
 
-  const deleteCatalog = async (data: string) => {
+  const postDeleteCatalog = async (data: string) => {
     try {
-      await apiAxios.post('/categories/delete', {id: data});
-      isError.value = false;
+      await apiAxios.post(`${API_URL_CATEGORIES}/delete`, {id: data});
       errorMessage.value = '';
+      return true;
     } catch (err: any) {
-      isError.value = true
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
         throw err;
@@ -73,5 +70,19 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   };
 
-  return { getCatalog, createCatalog, deleteCatalog, isLoading, isError, errorMessage, catalogElems };
+  const postVisibilityCategory = async (data: string) => {
+    try {
+      await apiAxios.post(`${API_URL_CATEGORIES}/visibility`, { id: data });
+      errorMessage.value = '';
+      return true;
+    } catch(err: any) {
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessage.value = error.response.data.message;
+    }
+  }
+
+  return { getCatalog, createCatalog, postDeleteCatalog, postVisibilityCategory, isLoading, errorMessage, catalogElems };
 });

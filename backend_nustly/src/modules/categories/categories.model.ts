@@ -3,10 +3,12 @@ import { randomUUID } from 'crypto';
 import {
   Column,
   DataType,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { Products } from '../products/products.model';
 
 @Table({ tableName: 'categories' })
 export class Categories extends Model<Categories> {
@@ -42,4 +44,7 @@ export class Categories extends Model<Categories> {
     unique: true,
   })
   photo: string;
+
+  @HasMany(() => Products)
+  categoriesProducts: Products[];
 }

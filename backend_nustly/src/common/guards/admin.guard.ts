@@ -1,38 +1,38 @@
 import {
+  CanActivate,
   ExecutionContext,
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/modules/users/users.model';
 import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
-export class AdminGuard extends AuthGuard('jwt') {
+export class AdminGuard implements CanActivate {
   constructor(
     @InjectModel(User) private userRepository: typeof User,
     private readonly jwtService: JwtService,
-  ) {
-    super();
-  }
+  ) {}
 
-  async canActivate(ctx: ExecutionContext): Promise<boolean> {
-    const authorizationHeader = ctx.switchToHttp().getRequest()
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const authorizationHeader = context.switchToHttp().getRequest()
       .headers.authorization;
-    const accessToken = authorizationHeader.split(' ')[1];
-    const userData: any = await this.jwtService.decode(accessToken);
 
+    const accessToken = authorizationHeader.split(' ')[1];
+    if (accessToken == null) {
+      throw new ForbiddenException(
+        'Пользователь не имеет прав администратора!',
+      );
+    }
+    const userData: any = await this.jwtService.decode(accessToken);
     const user = await this.userRepository.findOne({
       where: { email: userData.email },
+      include: 'roles',
     });
+    const role = user.roles[0].dataValues.value;
 
-    const role = user.roles;
-
-    console.log(role);
-
-    if (role) return true;
-
+    if (role === 'ADMIN') return true;
     throw new ForbiddenException('Пользователь не имеет прав администратора!');
   }
 }

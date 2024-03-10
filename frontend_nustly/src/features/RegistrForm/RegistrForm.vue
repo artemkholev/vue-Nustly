@@ -5,16 +5,19 @@
       v-model="loginInfo.email"
       :typeInput="'email'"
       :placeholderInput="'email'"
+      @keydown.enter="handlerButton"
     />
     <input-elem
       v-model="loginInfo.password"
       :typeInput="'password'"
       :placeholderInput="'пароль'"
+      @keydown.enter="handlerButton"
     />
     <input-elem
       v-model="loginInfo.passwordRepeat"
       :typeInput="'password'"
       :placeholderInput="'повторите пароль'"
+      @keydown.enter="handlerButton"
     />
     <checkbox-elem
       :id="1"

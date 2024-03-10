@@ -1,0 +1,25 @@
+@import '@/app/assets/styles/vars.scss';
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+p {
+  margin-bottom: 20px;
+}
+li {
+  margin-bottom: 10px;
+}
+
+.about-container_dark {
+  h1 {
+    color: $text-color-isDark; 
+  }
+  h2 {
+    color: $text-color-isDark; 
+  }
+}

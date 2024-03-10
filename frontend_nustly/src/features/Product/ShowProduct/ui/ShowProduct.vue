@@ -10,7 +10,7 @@
         <p><strong>Производитель:</strong> {{ product?.manufacturer }}</p>
         <button-elem
           :clName="null"
-          :title="'В карзину'"
+          :title="'В корзину'"
           :handler="() => null"
           :width="'80%'"
           :height="'40px'"

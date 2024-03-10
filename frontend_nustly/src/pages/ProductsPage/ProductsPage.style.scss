@@ -1,4 +1,4 @@
-@import '../../app/assets/styles/vars.scss';
+@import '@/app/assets/styles/vars.scss';
 
 .products {
   &__header {
@@ -24,16 +24,22 @@
     justify-content: space-between;
     justify-items: center; 
   }
-  & > .navigation-pages {
+  &__pages {
+    display: flex;
+    &__name {
+      padding: 10px;
+    }
+    &__navigation-pages {
+      display: inline-block;
       margin-right: 5px;
-      padding: 5px;
-      border: 1px solid greenyellow;
-      border-radius: 5px;
+      padding: 10px;
+      border: 1px solid $main-color;
+      border-radius: 30px;
       cursor: pointer;
     }
-
-  & > .carrent-page {
-    border: 3px solid greenyellow;
+    &__carrent-page {
+      border: 3px solid $main-color__active;
+    }
   }
 }
 

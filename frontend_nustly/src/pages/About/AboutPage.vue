@@ -1,5 +1,5 @@
 <template>
-  <div class="container-about" :style="{padding: '0 2vw'}">
+  <div :class="aboutClasses" :style="{padding: '0 2vw'}">
     <h1>Добро пожаловать в мир Nustly: Вашего надежного партнера в мире продуктов!</h1>
     <p>Nustly - это компания, которая ставит перед собой задачу обеспечить своих клиентов высококачественными продуктами, удовлетворяя самые разнообразные потребности. Наше предприятие специализируется на продаже разнообразных товаров, предлагая широкий ассортимент продукции высокого стандарта.</p>
     <h2>Наши ценности:</h2>
@@ -19,22 +19,17 @@
 </template>
 
 <script setup lang="ts">
+import { useThemeStore } from '@/shered/store/theme';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
+//theme store
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
+const aboutClasses = computed(() => {
+  return { 'about-container': true, ['about-container_dark']: isDarkTheme.value };
+});
 </script>
 
-<style scoped>
-  h1 {
-    font-size: 30px;
-    margin-bottom: 20px;
-  }
-  h2 {
-    font-size: 25px;
-    margin-bottom: 20px;
-  }
-  p {
-    margin-bottom: 20px;
-  }
-  li {
-    margin-bottom: 10px;
-  }
-</style>
+<style src="./AboutPage.style.scss" lang="scss" scoped></style>

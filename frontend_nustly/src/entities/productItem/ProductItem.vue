@@ -21,7 +21,7 @@
       <div class="card__bottom__bucket_add">
         <button-elem
           :clName="null"
-          :title="'В карзину'"
+          :title="'В корзину'"
           :handler="() => null"
           :width="'80%'"
           :height="'48px'"

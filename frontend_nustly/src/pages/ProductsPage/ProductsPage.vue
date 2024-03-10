@@ -30,16 +30,19 @@
         />
       </template>
     </div>
-    <div 
-      v-for="pagePath in totalPages" 
-      :key="pagePath"
-      class="products__navigation-pages"
-      :class="{
-        'carrent-page': page === pagePath
-      }"
-      @click="changePage(pagePath)"
-    >
-      {{ pagePath }}
+    <div class="products__pages"> 
+      <div class="products__pages__name">Страницы:</div>
+      <div 
+        v-for="pagePath in totalPages" 
+        :key="pagePath"
+        class="products__pages__navigation-pages"
+        :class="{
+          'products__pages__carrent-page': page === pagePath
+        }"
+        @click="changePage(pagePath)"
+      >
+        {{ pagePath }}
+      </div>
     </div>
 
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>

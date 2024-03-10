@@ -12,6 +12,7 @@ interface ValidationErrors {
 }
 
 const API_URL_PRODUCTS = '/categories/products';
+const API_URL_PRODUCT = '/categories/product';
 
 export const useProductsStore = defineStore('products', () => {
   const router = useRouter();
@@ -77,8 +78,7 @@ export const useProductsStore = defineStore('products', () => {
   const getProducts = async (categoryId: string | string[]) => {
     isLoading.value = true;
     try {
-      const responce = await apiAxios.post(`${API_URL_PRODUCTS}`,
-        { data: categoryId }, {
+      const responce = await apiAxios.get(`${API_URL_PRODUCTS}/${categoryId}`, {
         params: {
           _page: page.value,
           _limit: limit.value
@@ -96,10 +96,10 @@ export const useProductsStore = defineStore('products', () => {
   }
 
 
-  const getProduct = async () => {
+  const getProduct = async (productId: string) => {
     isLoading.value = true;
     try {
-      const responce = await apiAxios.get(`${API_URL_PRODUCTS}` + route.params.id_w);
+      const responce = await apiAxios.get(`${API_URL_PRODUCT}/${productId}`);
       product.value = responce.data;
       errorMessage.value = '';
     } catch (error: any) {

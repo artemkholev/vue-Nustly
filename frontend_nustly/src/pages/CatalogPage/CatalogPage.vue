@@ -47,7 +47,7 @@ import { useAuthStore } from '@/shered/store/auth';
 import { useCatalogStore } from '@/shered/store/catalog';
 import { useThemeStore } from '@/shered/store/theme';
 import { storeToRefs } from 'pinia';
-import { onMounted, computed, ref, reactive } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { CreateCatalog } from '@/features/Catalog/CreateCatalog';
 
 //catalog store

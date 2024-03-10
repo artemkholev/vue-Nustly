@@ -7,6 +7,8 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -21,13 +23,13 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
-@Controller('categories/products')
+@Controller('categories')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @ApiOperation({ summary: 'Создание категории' })
-  @ApiResponse({ status: 200 })
-  @Post('/createProduct')
+  @ApiResponse({ status: 201 })
+  @Post('/products/createProduct')
   @UseGuards(AdminGuard)
   @UseInterceptors(
     FileInterceptor('image', {
@@ -48,15 +50,22 @@ export class ProductsController {
     );
   }
 
-  @ApiOperation({ summary: 'Получение продуктов по категории' })
+  @ApiOperation({ summary: 'Получение товаров по категории' })
   @ApiResponse({ status: 200, type: Products })
-  @Post()
+  @Get('/products/:categoryId')
   getProducts(
     @Query('_page') page: number,
     @Query('_limit') limit: number,
-    @Body() categoryId: any,
+    @Param('categoryId') categoryId: string,
     @Res() response: Response,
   ) {
-    this.productsService.getProducts(categoryId.data, response, page, limit);
+    this.productsService.getProducts(categoryId, response, page, limit);
+  }
+
+  @ApiOperation({ summary: 'Получение товара по категории' })
+  @ApiResponse({ status: 200, type: Products })
+  @Get('/product/:productId')
+  getProduct(@Param('productId') productId: string): Promise<ProductDto> {
+    return this.productsService.getProduct(productId);
   }
 }

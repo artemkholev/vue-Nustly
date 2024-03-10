@@ -17,15 +17,31 @@ export class ProductsService {
     page: number,
     limit: number,
   ) {
-    const products = await this.productsRepository.findAll({
-      where: { id_categories: categoryId },
-      include: { all: true },
-      limit: limit,
-      offset: limit * (page - 1),
-    });
-    response.set('Access-Control-Expose-Headers', 'X-Total-Count');
-    response.set('X-Total-Count', products.length.toString());
-    response.send(products);
+    try {
+      const products = await this.productsRepository.findAll({
+        where: { id_categories: categoryId },
+        include: { all: true },
+        limit: limit,
+        offset: limit * (page - 1),
+      });
+      response.set('Access-Control-Expose-Headers', 'X-Total-Count');
+      response.set('X-Total-Count', products.length.toString());
+      response.send(products);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getProduct(productId: string): Promise<ProductDto> {
+    try {
+      const product = await this.productsRepository.findOne({
+        where: { id: productId },
+        include: { all: true },
+      });
+      return product;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async createProduct(

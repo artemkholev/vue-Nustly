@@ -1,0 +1,35 @@
+@import '@/app/assets/styles/vars.scss';
+
+.product-container {
+  padding: 30px;
+  border: 1px solid $main-color__active;
+  &__title {
+    text-align: center;
+    font-size: $title-size;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  &__header {
+    display: flex;
+    gap: 20px;
+    &__image > img {
+      border: 2px solid $main-color__active;
+      border-radius: 20px;
+    }
+    &__general-info {
+      padding: 20px;
+      p {
+        font-size: $text-size;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  &__body {
+    padding: 20px;
+    &__discription {
+      p {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

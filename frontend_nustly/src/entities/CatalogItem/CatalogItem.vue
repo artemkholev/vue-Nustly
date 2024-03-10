@@ -25,7 +25,7 @@
       @mousedown.left="$router.push({
         name: PathNames.PRODUCTS,
         params: {
-          products_id: elemCatalog.id
+          category_id: elemCatalog.id
         },
         query: $route.query
       })"

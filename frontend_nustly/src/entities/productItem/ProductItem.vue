@@ -60,7 +60,7 @@ const props = defineProps({
 })
 
 const handlerShowProduct = () => {
-  props.getProduct();
+  props.getProduct(props.elemProduct.id);
   props.handlerShowProductDialogVisible()
 }
 

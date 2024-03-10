@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent :style="{padding: '10px'}">
+  <form @submit.prevent :style="{padding: '10px'}" :class="createProductClasses">
     <h1 :style="{marginBottom: '30px'}">Создать новый товар</h1>
     <input-elem    
       v-model="productInfo.title"
@@ -43,6 +43,8 @@
 </template>
 
 <script setup lang="ts">
+import { useThemeStore } from '@/shered/store/theme';
+import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 
 const props = defineProps({
@@ -62,6 +64,14 @@ const props = defineProps({
     required: true,
   }
 })
+
+//theme store
+const themeStore = useThemeStore();
+const { isDarkTheme } = storeToRefs(themeStore);
+
+const createProductClasses = computed(() => {
+  return { 'create-product': true, ['create-product_dark']: isDarkTheme.value };
+});
 
 const productInfo = reactive({
   id_categories: props.categoryId,
@@ -103,6 +113,4 @@ const submit = async () => {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style src="./CreateProduct.style.scss" lang="scss" scoped></style>

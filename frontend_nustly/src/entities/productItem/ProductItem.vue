@@ -68,7 +68,7 @@ const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);
 
 const cardClasses = computed(() => {
-  return { card: true, ['dark-card']: isDarkTheme.value };
+  return { card: true, ['card_dark']: isDarkTheme.value };
 });
 </script>
 

@@ -3,7 +3,7 @@
     <textarea 
       :value="modelValue"
       :placeholder="placeholderInput"
-      :style="{border: isBorder ? '' : 'none'}"
+      :style="{border: isBorder ? '' : 'none', backgroundColor: 'white'}"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       class="container-input__text"
     >

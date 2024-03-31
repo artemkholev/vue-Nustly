@@ -65,9 +65,9 @@
 
 <script setup lang="ts">
 import { ref, computed, defineComponent } from 'vue';
-import { useAuthStore } from '@/shered/store/auth';
+import { useAuthStore } from '@/shared/store/auth';
 import { storeToRefs } from 'pinia';
-import { useThemeStore } from '@/shered/store/theme';
+import { useThemeStore } from '@/shared/store/theme';
 
 import LogoIcon from '@/app/assets/images/icons/LogoIcon.vue';
 import CatalogIcon from '@/app/assets/images/icons/CatalogIcon.vue';
@@ -117,4 +117,4 @@ const headerClasses = computed(() => {
 });
 </script>
 
-<style src="./HeaderPage.style.scss" lang="scss" scoped></style>
+<style src="./HeaderPage.style.scss" lang="scss" scoped></style>@/shared/store/auth@/shared/store/theme

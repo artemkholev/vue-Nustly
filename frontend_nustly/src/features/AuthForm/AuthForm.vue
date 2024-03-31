@@ -35,8 +35,8 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch, computed } from 'vue'
-import { useAuthStore } from '@/shered/store/auth';
-import type { ILogin } from '@/shered/api/authApi/authApi.types';
+import { useAuthStore } from '@/shared/store/auth';
+import type { ILogin } from '@/shared/api/authApi/authApi.types';
 import { storeToRefs } from 'pinia';
 
 const authStore = useAuthStore();
@@ -99,4 +99,4 @@ watch(loginInfo, (newValues) => {
 
 <style scoped>
 
-</style>
+</style>@/shared/store/auth@/shared/api/authApi/authApi.types

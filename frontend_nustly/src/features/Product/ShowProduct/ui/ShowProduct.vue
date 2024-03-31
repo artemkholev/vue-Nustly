@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductsStore } from '@/shered/store/products';
+import { useProductsStore } from '@/shared/store/products';
 import { storeToRefs } from 'pinia';
 
 // {
@@ -91,4 +91,4 @@ const productsStore = useProductsStore();
 const { product } = storeToRefs(productsStore);
 </script>
 
-<style src="./ShowProduct.style.scss" lang="scss" scoped></style>
+<style src="./ShowProduct.style.scss" lang="scss" scoped></style>@/shared/store/products

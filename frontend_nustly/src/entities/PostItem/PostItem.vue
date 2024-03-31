@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePostsStore } from '@/shered/store/posts';
+import { usePostsStore } from '@/shared/store/posts';
 
 defineProps({
   post: {
@@ -40,4 +40,4 @@ const postsStore = usePostsStore();
 const { removePost } = postsStore;
 </script>
 
-<style src="./PostItem.style.scss" lang="scss" scoped></style>
+<style src="./PostItem.style.scss" lang="scss" scoped></style>@/shared/store/posts

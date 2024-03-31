@@ -6,7 +6,7 @@
 
 
 <script setup lang="ts">
-import { useAuthStore } from '@/shered/store/auth';
+import { useAuthStore } from '@/shared/store/auth';
 import { onMounted } from 'vue';
 
 const authStore = useAuthStore();
@@ -21,4 +21,4 @@ onMounted(() => {
 [v-cloak] {
   display: none;
 }
-</style>
+</style>@/shared/store/auth

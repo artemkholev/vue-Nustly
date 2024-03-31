@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/shered/store/theme';
+import { useThemeStore } from '@/shared/store/theme';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 
@@ -113,4 +113,4 @@ const submit = async () => {
 };
 </script>
 
-<style src="./CreateProduct.style.scss" lang="scss" scoped></style>
+<style src="./CreateProduct.style.scss" lang="scss" scoped></style>@/shared/store/theme

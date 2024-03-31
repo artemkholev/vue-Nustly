@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import apiAxios from '@/shered/api';
+import { apiAxios } from '@/shared/api';
 import { ref } from 'vue';
 
 const dialogVisible = ref(false);
@@ -64,4 +64,4 @@ const handleSend = () => {
 }
 </script>
 
-<style src="./MainPage.style.scss" lang="scss" scoped></style>
+<style src="./MainPage.style.scss" lang="scss" scoped></style>@/shared/api

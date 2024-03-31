@@ -65,12 +65,12 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/shered/store/auth';
-import { useProductsStore } from '@/shered/store/products';
-import { useThemeStore } from '@/shered/store/theme';
+import { useAuthStore } from '@/shared/store/auth';
+import { useProductsStore } from '@/shared/store/products';
+import { useThemeStore } from '@/shared/store/theme';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
-import ProductItem from '@/entities/productItem/ProductItem.vue';
+import { ProductItem } from '@/entities/product-item';
 import { useRoute } from 'vue-router';
 import { CreateProduct } from '@/features/Product/CreateProduct';
 import { ShowProduct } from '@/features/Product/ShowProduct';
@@ -117,4 +117,4 @@ onMounted(() => {
 })
 </script>
 
-<style src="./ProductsPage.style.scss" lang="scss" scoped></style>
+<style src="./ProductsPage.style.scss" lang="scss" scoped></style>@/shared/store/auth@/shared/store/products@/shared/store/theme

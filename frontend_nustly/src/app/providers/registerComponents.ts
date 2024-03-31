@@ -1,5 +1,5 @@
 import type { App } from "vue";
-import components from '@/shered/ui';
+import components from '@/shared/ui';
 
 export function registerComponents(application: App) {
   components.forEach(component => {

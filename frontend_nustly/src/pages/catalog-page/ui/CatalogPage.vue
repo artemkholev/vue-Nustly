@@ -42,10 +42,10 @@
 </template>
 
 <script setup lang="ts">
-import { CatalogItem } from '@/entities/Catalog';
-import { useAuthStore } from '@/shered/store/auth';
-import { CatalogModel } from '@/entities/Catalog';
-import { useThemeStore } from '@/shered/store/theme';
+import { CatalogItem } from '@/entities/catalog-item';
+import { useAuthStore } from '@/shared/store/auth';
+import { CatalogModel } from '@/entities/catalog-item';
+import { useThemeStore } from '@/shared/store/theme';
 import { storeToRefs } from 'pinia';
 import { onMounted, computed, ref } from 'vue';
 import { CreateCatalog } from '@/features/Catalog/CreateCatalog';
@@ -80,4 +80,4 @@ onMounted(() => {
 });
 </script>
 
-<style src="./CatalogPage.style.scss" lang="scss" scoped></style>
+<style src="./CatalogPage.style.scss" lang="scss" scoped></style>@/entities/catalog-item@/entities/catalog-item@/shared/store/auth@/shared/store/theme

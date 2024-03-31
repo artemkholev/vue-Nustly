@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import PostItem from '../../entities/PostItem/PostItem.vue';
-import type { IPost } from "@/shered/api/postsApi/postsApi.types";
+import type { IPost } from "@/shared/api/postsApi/postsApi.types";
 
 defineProps({
   posts: {
@@ -26,4 +26,4 @@ defineProps({
 })
 </script>
 
-<style src="./BucketList.style.scss" lang="scss" scoped></style>
+<style src="./BucketList.style.scss" lang="scss" scoped></style>@/shared/api/postsApi/postsApi.types

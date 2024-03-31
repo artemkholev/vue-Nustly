@@ -55,12 +55,11 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch, computed } from 'vue'
-import store from '@/shered/store'
-import { useAuthStore } from '@/shered/store/auth';
-import type { ILogin } from '@/shered/api/authApi/authApi.types';
-import { useThemeStore } from '@/shered/store/theme';
+import { useAuthStore } from '@/shared/store/auth';
+import type { ILogin } from '@/shared/api/authApi/authApi.types';
+import { useThemeStore } from '@/shared/store/theme';
 import { storeToRefs } from 'pinia';
-import { useCatalogStore } from '@/shered/store/catalog';
+import { useCatalogStore } from '@/shared/store/catalog';
 
 //white or dark theme
 const themeStore = useThemeStore();
@@ -159,4 +158,4 @@ watch(loginInfo, (newValues) => {
 
 <style scoped>
 
-</style>
+</style>@/shared/store/auth@/shared/api/authApi/authApi.types@/shared/store/theme

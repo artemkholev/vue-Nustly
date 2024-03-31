@@ -5,7 +5,7 @@ import type { ILogin, IResponseLogin } from '@/shered/api/authApi/authApi.types'
 import { useRouter } from 'vue-router';
 import { PathNames } from '@/shered/constants/route.constants';
 import type { AxiosError, AxiosResponse } from 'axios';
-import { getBooleanValueFromLs, getStringValueFromLs, setBooleanValueFromLs, setStringValueFromLs } from '../utils/ls.utils';
+import { getBooleanValueFromLs, getStringValueFromLs, setBooleanValueFromLs, setStringValueFromLs } from '../lib/utils/ls.utils';
 import { LocalStorageConstants } from '../constants/ls.constants';
 import { decodeJwt } from '../jwtRequest/decodeJwt';
 

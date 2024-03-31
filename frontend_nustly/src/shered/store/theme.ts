@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { getBooleanValueFromLs, setBooleanValueFromLs } from '@/shered/utils/ls.utils';
+import { getBooleanValueFromLs, setBooleanValueFromLs } from '@/shered/lib/utils/ls.utils';
 import { LocalStorageConstants } from '@/shered/constants/ls.constants';
 
 export const useThemeStore = defineStore('theme', () => {

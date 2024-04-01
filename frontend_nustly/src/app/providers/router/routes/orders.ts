@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
-import MainLayout from '@/widgets/MainLayout/MainLayout.vue';
+import MainLayout from '@/widgets/main-layout';
 
 export const routeName = 'OrdersPage'
 

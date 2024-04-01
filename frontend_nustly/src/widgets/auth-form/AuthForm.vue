@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch, computed } from 'vue'
-import { useAuthStore } from '@/shared/store/auth';
+import { useAuthStore } from '@/shared/stores/auth';
 import type { ILogin } from '@/shared/api/authApi/authApi.types';
 import { storeToRefs } from 'pinia';
 
@@ -99,4 +99,4 @@ watch(loginInfo, (newValues) => {
 
 <style scoped>
 
-</style>@/shared/store/auth@/shared/api/authApi/authApi.types
+</style>

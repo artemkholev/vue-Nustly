@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed, defineEmits } from 'vue';
 
@@ -30,4 +30,4 @@ defineOptions({
 })
 </script>
 
-<style src="./DialogWindow.style.scss" lang="scss" scoped></style>@/shared/store/theme
+<style src="./DialogWindow.style.scss" lang="scss" scoped></style>

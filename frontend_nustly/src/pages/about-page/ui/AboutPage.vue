@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
@@ -32,4 +32,4 @@ const aboutClasses = computed(() => {
 });
 </script>
 
-<style src="./AboutPage.style.scss" lang="scss" scoped></style>@/shared/store/theme
+<style src="./AboutPage.style.scss" lang="scss" scoped></style>

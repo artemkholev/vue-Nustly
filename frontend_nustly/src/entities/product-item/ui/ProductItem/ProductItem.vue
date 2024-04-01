@@ -39,8 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductsStore } from '@/shared/store/products';
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
 import { computed } from 'vue';
 
@@ -72,4 +71,4 @@ const cardClasses = computed(() => {
 });
 </script>
 
-<style src="./ProductItem.style.scss" lang="scss" scoped></style>@/shared/store/products@/shared/store/theme
+<style src="./ProductItem.style.scss" lang="scss" scoped></style>

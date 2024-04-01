@@ -30,26 +30,16 @@
         />
       </template>
     </div>
-    <div class="products__pages"> 
-      <div class="products__pages__name">Страницы:</div>
-      <div 
-        v-for="pagePath in totalPages" 
-        :key="pagePath"
-        class="products__pages__navigation-pages"
-        :class="{
-          'products__pages__carrent-page': page === pagePath
-        }"
-        @click="changePage(pagePath)"
-      >
-        {{ pagePath }}
-      </div>
-    </div>
-
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
     <p  v-if="errorMessage.length" :style="{margin: '10px', color: 'red'}">{{ errorMessage }}</p>
     <h2 v-if="!isLoading && (products.length === 0)" class="products__error">
       Данных нет
     </h2>
+    <Pagination
+      @change-page="(newPage) => page = newPage"
+      :totalPages="totalPages"
+      :page="page"
+    />
     <dialog-window v-model:show="createProductDialogVisible">
       <CreateProduct
         :categoryId="categoryId"
@@ -65,21 +55,22 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/shared/store/auth';
-import { useProductsStore } from '@/shared/store/products';
-import { useThemeStore } from '@/shared/store/theme';
+import { useAuthStore } from '@/shared/stores/auth';
+import Pagination from '@/features/pagination';
+import { ProductModel } from '@/entities/product-item';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
 import { ProductItem } from '@/entities/product-item';
 import { useRoute } from 'vue-router';
-import { CreateProduct } from '@/features/Product/CreateProduct';
-import { ShowProduct } from '@/features/Product/ShowProduct';
+import { CreateProduct } from '@/features/product/CreateProduct';
+import { ShowProduct } from '@/features/product/ShowProduct';
 
 const route = useRoute();
 const categoryId = route.params.category_id;
 
 //catalog store
-const productsStore = useProductsStore();
+const productsStore = ProductModel.useProductsStore();
 const { isLoading, errorMessage, products, totalPages, page  } = storeToRefs(productsStore);
 const { getProducts, getProduct, postCreateProduct } = productsStore;
 
@@ -107,14 +98,9 @@ const handlerShowProductDialogVisible = () => {
   showProductDialogVisible.value = !showProductDialogVisible.value;
 }
 
-//methods
-const changePage = (currentPage: number) => {
-  page.value = currentPage;
-};
-
 onMounted(() => {
   getProducts(categoryId);
 })
 </script>
 
-<style src="./ProductsPage.style.scss" lang="scss" scoped></style>@/shared/store/auth@/shared/store/products@/shared/store/theme
+<style src="./ProductsPage.style.scss" lang="scss" scoped></style>

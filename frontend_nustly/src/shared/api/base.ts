@@ -1,6 +1,6 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import type { IResponseLogin } from './authApi/authApi.types';
-import { useAuthStore } from '@/shared/store/auth';
+import { useAuthStore } from '@/shared/stores/auth';
 import { storeToRefs } from 'pinia';
 import { decodeJwt } from '../jwtRequest/decodeJwt';
 import { useRouter } from 'vue-router';

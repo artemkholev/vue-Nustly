@@ -28,7 +28,7 @@
 import { onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import BucketList from '@/features/BucketList/BucketList.vue';
-import { usePostsStore } from '@/shared/store/posts';
+import { usePostsStore } from '@/shared/stores/posts';
 
 const postsStore = usePostsStore();
 const { isError, isLoading, posts, page, selected, totalPages, selectOptions, sortedPost } = storeToRefs(postsStore);
@@ -47,4 +47,4 @@ onMounted(() => {
 });
 </script>
 
-<style src="./BucketPage.style.scss" lang="scss" scoped></style>@/shared/store/posts
+<style src="./BucketPage.style.scss" lang="scss" scoped></style>

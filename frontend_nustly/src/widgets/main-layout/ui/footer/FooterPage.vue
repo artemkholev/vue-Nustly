@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { computed, defineComponent } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import LogoIcon from '@/app/assets/images/icons/LogoIcon.vue';
 import TgIcon from '@/app/assets/images/icons/TgIcon.vue';
 import VkIcon from '@/app/assets/images/icons/VkIcon.vue';
@@ -60,4 +60,4 @@ const footerClasses = computed(() => {
 </script>
 
 
-<style src="./FooterPage.style.scss" lang="scss" scoped></style>@/shared/store/theme
+<style src="./FooterPage.style.scss" lang="scss" scoped></style>

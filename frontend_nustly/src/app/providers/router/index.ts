@@ -1,6 +1,6 @@
 import { routes } from './routes'
 import { createRouter, createWebHistory } from "vue-router";
-import { useAuthStore } from "@/shared/store/auth";
+import { useAuthStore } from "@/shared/stores/auth";
 import { storeToRefs } from "pinia";
 import { PathNames } from '@/shared/constants/route.constants';
 

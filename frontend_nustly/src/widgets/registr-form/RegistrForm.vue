@@ -55,11 +55,10 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch, computed } from 'vue'
-import { useAuthStore } from '@/shared/store/auth';
+import { useAuthStore } from '@/shared/stores/auth';
 import type { ILogin } from '@/shared/api/authApi/authApi.types';
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
-import { useCatalogStore } from '@/shared/store/catalog';
 
 //white or dark theme
 const themeStore = useThemeStore();
@@ -158,4 +157,4 @@ watch(loginInfo, (newValues) => {
 
 <style scoped>
 
-</style>@/shared/store/auth@/shared/api/authApi/authApi.types@/shared/store/theme
+</style>

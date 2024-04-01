@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 
@@ -104,4 +104,4 @@ const submit = async () => {
 };
 </script>
 
-<style src="./CreateCatalog.style.scss" lang="scss" scoped></style>@/shared/store/theme
+<style src="./CreateCatalog.style.scss" lang="scss" scoped></style>

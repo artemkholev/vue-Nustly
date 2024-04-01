@@ -43,12 +43,12 @@
 
 <script setup lang="ts">
 import { CatalogItem } from '@/entities/catalog-item';
-import { useAuthStore } from '@/shared/store/auth';
+import { useAuthStore } from '@/shared/stores/auth';
 import { CatalogModel } from '@/entities/catalog-item';
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { onMounted, computed, ref } from 'vue';
-import { CreateCatalog } from '@/features/Catalog/CreateCatalog';
+import { CreateCatalog } from '@/features/catalog/CreateCatalog';
 
 //catalog store
 const catalogStore = CatalogModel.useCatalogStore();
@@ -80,4 +80,4 @@ onMounted(() => {
 });
 </script>
 
-<style src="./CatalogPage.style.scss" lang="scss" scoped></style>@/entities/catalog-item@/entities/catalog-item@/shared/store/auth@/shared/store/theme
+<style src="./CatalogPage.style.scss" lang="scss" scoped></style>

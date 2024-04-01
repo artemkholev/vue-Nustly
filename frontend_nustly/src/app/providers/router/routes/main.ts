@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import MainPage from "@/pages/main-page";
-import MainLayout from '@/widgets/MainLayout/MainLayout.vue';
+import MainLayout from '@/widgets/main-layout';
 
 export const routeName = 'MainPage'
 

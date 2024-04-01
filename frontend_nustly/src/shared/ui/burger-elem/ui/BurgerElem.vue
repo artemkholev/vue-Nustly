@@ -12,9 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import store from '@/shared/store';
-import { useSidebarStore } from '@/shared/store/sidebar';
-import { useThemeStore } from '@/shared/store/theme';
+import { useSidebarStore } from '@/shared/stores/sidebar';
+import { useThemeStore } from '@/shared/stores/theme';
 import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 
@@ -37,4 +36,4 @@ defineOptions({
 })
 </script>
 
-<style src="./BurgerElem.style.scss" lang="scss" scoped></style>@/shared/store/sidebar@/shared/store/theme
+<style src="./BurgerElem.style.scss" lang="scss" scoped></style>

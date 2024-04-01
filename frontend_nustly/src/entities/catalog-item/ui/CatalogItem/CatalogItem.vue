@@ -41,12 +41,12 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { PathNames } from '@/shared/constants/route.constants';
 import { storeToRefs } from 'pinia';
 import { computed, defineComponent } from 'vue';
 import { useCatalogStore } from '../../model';
-import { useAuthStore } from '@/shared/store/auth';
+import { useAuthStore } from '@/shared/stores/auth';
 import VisibilityIcon from '@/app/assets/images/icons/VisibilityIcon.vue';
 import NoVisibilityIcon from '@/app/assets/images/icons/NoVisibilityIcon.vue';
 
@@ -94,4 +94,4 @@ const handlerVisibilityCatalog = async () => {
 }
 </script>
 
-<style src="./CatalogItem.scss" lang="scss" scoped/>@/shared/store/theme@/shared/constants/route.constants@/shared/store/auth
+<style src="./CatalogItem.scss" lang="scss" scoped/>

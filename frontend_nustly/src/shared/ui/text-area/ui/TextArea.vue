@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import '@/app/styles/vars.scss';
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 
@@ -45,4 +45,4 @@ defineOptions({
 })
 </script>
 
-<style src="./TextArea.style.scss" lang="scss" scoped></style>@/shared/store/theme
+<style src="./TextArea.style.scss" lang="scss" scoped></style>

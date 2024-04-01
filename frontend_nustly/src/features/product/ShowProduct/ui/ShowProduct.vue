@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductsStore } from '@/shared/store/products';
+import { ProductModel } from '@/entities/product-item';
 import { storeToRefs } from 'pinia';
 
 // {
@@ -87,8 +87,8 @@ import { storeToRefs } from 'pinia';
 //     }
 // }
 
-const productsStore = useProductsStore();
+const productsStore = ProductModel.useProductsStore();
 const { product } = storeToRefs(productsStore);
 </script>
 
-<style src="./ShowProduct.style.scss" lang="scss" scoped></style>@/shared/store/products
+<style src="./ShowProduct.style.scss" lang="scss" scoped></style>

@@ -70,13 +70,13 @@
 
 <script setup lang="ts">
 import { computed } from '@vue/reactivity';
-import { useAuthStore } from '@/shared/store/auth';
+import { useAuthStore } from '@/shared/stores/auth';
 import { storeToRefs } from 'pinia';
-import { useThemeStore } from '@/shared/store/theme';
+import { useThemeStore } from '@/shared/stores/theme';
 import { defineComponent } from 'vue';
 
 import CatalogIcon from '@/app/assets/images/icons/CatalogIcon.vue';
-import { useSidebarStore } from '@/shared/store/sidebar';
+import { useSidebarStore } from '@/shared/stores/sidebar';
 
 
 defineComponent({
@@ -110,4 +110,4 @@ const handleChangeIsAuth = () => {
 }
 </script>
 
-<style src="./ContentPage.style.scss" lang="scss" scoped />@/shared/store/auth@/shared/store/theme@/shared/store/sidebar
+<style src="./ContentPage.style.scss" lang="scss" scoped />

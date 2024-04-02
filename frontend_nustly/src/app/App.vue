@@ -6,7 +6,7 @@
 
 
 <script setup lang="ts">
-import { useAuthStore } from '@/shered/store/auth';
+import { useAuthStore } from '@/shared/stores/auth';
 import { onMounted } from 'vue';
 
 const authStore = useAuthStore();

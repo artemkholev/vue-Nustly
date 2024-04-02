@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePostsStore } from '@/shered/store/posts';
+import { usePostsStore } from '@/shared/stores/posts';
 
 defineProps({
   post: {

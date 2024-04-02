@@ -1,0 +1,15 @@
+@import '@/app/styles/vars.scss';
+
+.create-product {
+
+}
+
+.create-product_dark {
+  h1 {
+    color: $text-color-isDark;
+  }
+
+  p {
+    color: $text-color-isDark
+  }
+}

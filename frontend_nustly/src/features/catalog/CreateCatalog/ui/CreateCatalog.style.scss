@@ -1,0 +1,15 @@
+@import '@/app/styles/vars.scss';
+
+.create-catalog {
+
+}
+
+.create-catalog_dark {
+  h1 {
+    color: $text-color-isDark;
+  }
+
+  p {
+    color: $text-color-isDark
+  }
+}

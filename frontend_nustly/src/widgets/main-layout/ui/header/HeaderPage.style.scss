@@ -1,0 +1,309 @@
+@import '@/app/styles/vars';
+
+.header-container {
+  height: 120px;
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    & > .nameCompany {
+      border-left: 1px solid black;
+      padding-left: 10px;
+    }
+  }
+
+  &__functional {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    align-self: stretch;
+
+    &__catalog {
+      height:  40px;
+      display: flex;
+      width: 140px;
+      padding: 8px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      border-radius: 4px;
+      background: var(--main-secondary, $main-color); 
+      cursor: pointer;
+
+      &:focus:active {
+        border: none;
+        background-color: #1f971f;
+      }
+      & > svg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      & > p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 0 0;
+        text-align: center;
+        font-family: $text;
+        font-size: $text-size;
+        font-weight: 400;
+        line-height: 150%;
+      }
+    }
+
+    &__search {
+      position: relative;
+      display: flex;
+      padding: 8px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+
+      border-radius: 4px;
+      border: 1px solid var(--main-secondary, $main-color);
+      background: var(--main-surface, #FFF);
+      & > input {
+        display: flex;
+        height: 24px;
+        flex-direction: column;
+        justify-content: center;
+        border: none;
+
+        font-family: $text;
+        font-size: $text-size;
+        font-weight: 400;
+        line-height: 150%;
+      }
+      & > button {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translate(0, -50%);
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    height: 100%;
+    align-self: stretch;
+    & > .navigation-container {
+      cursor: pointer;
+      svg {
+        display: flex;
+        margin: 0 auto;
+        gap: 8px;
+      }
+      p {
+        text-align: center;
+        font-family: $text;
+        font-size: $text-size;
+        font-weight: 400;
+        line-height: 150%;
+      }
+    }
+
+    .user-menu {
+      min-width: 130px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 5px 10px;
+      border: 1px solid $main-color;
+      border-radius: 20px;
+      gap: 5px;
+      justify-content: space-between;
+      &__photo {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        background-color: orangered;
+      }
+
+      &__dropdown {
+        display: flex;
+        flex-direction: column;
+        & > button {
+          width: 25px;
+          height: 25px;
+          border: none;
+
+          background-color: transparent;
+          cursor: pointer;
+        }
+        &_active {
+          animation: rotate 0.2s;
+          transform: rotate(180deg);
+          transform-origin: 50% 50%;
+        }
+        @keyframes rotate {
+          0% {
+            transform: rotate(0deg)
+          }
+          100% {
+            transform: rotate(180deg)
+          }
+        }
+        &__content {
+          width: 100%;
+          position: absolute;
+          margin-top: 5px;
+          top: 100%;
+          right: 0;
+          border-radius: 5px;
+          transition: 0.3s;
+          display: flex;
+          flex-direction: column;
+          & > a {
+            background-color: $background-color;
+            border: 1px solid $main-color;
+            border-radius: 15px;
+            margin-bottom: 5px;
+            font-size: $text-size;
+            font-weight: bold;
+            padding: 10px;
+          }
+          & > a:hover {
+            background-color: rgb($main-color, 0.5);
+          }
+        }
+      }
+      & > .logout {
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+    }
+    
+  &__burger-theme {
+    display: flex;
+    gap: 10px;
+    &__burger {
+      display: none;
+    }
+    &__theme {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+  
+}
+
+.header-container_dark {
+  background-color: $background-color-isDark;
+  color: $text-color-isDark;
+  transition: 0.3s;
+  a {
+    color: #fff;
+  }
+
+  svg > g > path {
+    fill: #fff;
+  }
+
+  .user-menu__dropdown__content > a {
+    background-color: $background-color-isDark;
+  }
+  
+  & > .header-container__logo {
+    & > .nameCompany {
+      border-left: 1px solid white;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .header-container {
+    
+  }
+}
+
+@media (max-width: 1000px) {
+  .header-container {
+    justify-content: space-between;
+    &__functional {
+      &__catalog {
+        display: none;
+      }
+    }
+
+    &__navigation {
+      display: none;
+    }
+
+    &__burger-theme {
+      &__burger {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    justify-content: space-between;
+    &__functional {
+      &__catalog {
+        display: none;
+      }
+      &__search {
+        display: none;
+      }
+    }
+
+    &__navigation {
+      display: none;
+    }
+
+    & __burger-theme {
+      &__burger {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .header-container {
+    justify-content: space-between;
+    &__functional {
+      &__catalog {
+        display: none;
+      }
+      &__search {
+        display: none;
+      }
+    }
+
+    &__navigation {
+      display: none;
+    }
+
+    &__burger-theme {
+      &__burger {
+        display: block;
+      }
+    }
+  }
+}

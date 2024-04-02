@@ -12,6 +12,8 @@ import { Role } from 'src/modules/roles/roles.model';
 import { UserRoles } from 'src/modules/roles/user-role.model';
 import { Tokens } from 'src/modules/tokens/tokens.model';
 import { randomUUID } from 'crypto';
+import { Bucket } from '../bucket/bucket.model';
+import { Products } from '../products/products.model';
 
 interface UserCreationAttrs {
   email: string;
@@ -28,6 +30,7 @@ export class User extends Model<User, UserCreationAttrs> {
     primaryKey: true,
   })
   id: string = randomUUID();
+
   @ApiProperty({ example: 'user@gmail.com', description: 'Почтовый адрес' })
   @Column({
     type: DataType.STRING,
@@ -35,6 +38,7 @@ export class User extends Model<User, UserCreationAttrs> {
     allowNull: false,
   })
   email: string;
+
   @ApiProperty({ example: '123', description: 'Пароль пользователя' })
   @Column({
     type: DataType.STRING,
@@ -42,8 +46,12 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   password: string;
 
+  //connection
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
+
+  @BelongsToMany(() => Products, () => Bucket)
+  products: Products[];
 
   @HasOne(() => Tokens)
   tokens: Tokens;

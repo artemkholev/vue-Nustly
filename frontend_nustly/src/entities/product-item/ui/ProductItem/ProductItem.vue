@@ -22,7 +22,7 @@
         <button-elem
           :clName="null"
           :title="'В корзину'"
-          :handler="() => null"
+          :handler="postCreateBucketObject"
           :width="'80%'"
           :height="'48px'"
           :background="'#70C05B'"
@@ -40,6 +40,7 @@
 
 <script setup lang="ts">
 import { useThemeStore } from '@/shared/stores/theme';
+import { BucketModel } from '@/entities/bucket-item'
 import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
 import { computed } from 'vue';
 
@@ -57,6 +58,9 @@ const props = defineProps({
     required: true,
   }
 })
+
+const bucketStore = BucketModel.useBucketStore();
+const { postCreateBucketObject } = bucketStore;
 
 const handlerShowProduct = () => {
   props.getProduct(props.elemProduct.id);

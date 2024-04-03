@@ -15,7 +15,8 @@ import { Tokens } from './modules/tokens/tokens.model';
 import { Categories } from './modules/categories/categories.model';
 import { Products } from './modules/products/products.model';
 import { ProductsModule } from './modules/products/products.module';
-import { Bucket } from './modules/bucket/bucket.model';
+import { Bucket } from './modules/bucket/models/bucket.model';
+import { BucketItem } from './modules/bucket/models/bucketItem.model';
 
 @Module({
   controllers: [],
@@ -31,7 +32,16 @@ import { Bucket } from './modules/bucket/bucket.model';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      models: [User, Role, UserRoles, Tokens, Categories, Products, Bucket],
+      models: [
+        User,
+        Role,
+        UserRoles,
+        Tokens,
+        Categories,
+        Products,
+        Bucket,
+        BucketItem,
+      ],
       autoLoadModels: true,
     }),
     UsersModule,

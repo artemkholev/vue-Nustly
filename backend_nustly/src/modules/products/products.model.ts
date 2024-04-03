@@ -1,6 +1,5 @@
 import {
   BelongsTo,
-  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -11,8 +10,6 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { randomUUID } from 'crypto';
 import { Categories } from '../categories/categories.model';
-import { Bucket } from '../bucket/bucket.model';
-import { User } from '../users/users.model';
 
 interface ProductsCreationAttrs {
   title: string;
@@ -107,7 +104,4 @@ export class Products extends Model<Products, ProductsCreationAttrs> {
     allowNull: false,
   })
   id_categories: string;
-
-  @BelongsToMany(() => User, () => Bucket)
-  users: User[];
 }

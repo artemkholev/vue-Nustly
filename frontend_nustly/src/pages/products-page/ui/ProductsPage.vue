@@ -32,10 +32,11 @@
     </div>
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
     <p  v-if="errorMessage.length" :style="{margin: '10px', color: 'red'}">{{ errorMessage }}</p>
-    <h2 v-if="!isLoading && (products.length === 0)" class="products__error">
+    <h2 v-if="!isLoading && !products.length" class="products__error">
       Данных нет
     </h2>
     <Pagination
+      v-if="products.length"
       @change-page="(newPage) => page = newPage"
       :totalPages="totalPages"
       :page="page"

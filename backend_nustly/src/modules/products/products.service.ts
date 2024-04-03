@@ -20,7 +20,8 @@ export class ProductsService {
     try {
       const products = await this.productsRepository.findAll({
         where: { id_categories: categoryId },
-        include: { all: true },
+        attributes: { exclude: ['categories'] },
+        include: ['users'],
         limit: limit,
         offset: limit * (page - 1),
       });

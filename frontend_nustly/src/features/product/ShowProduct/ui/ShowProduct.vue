@@ -65,28 +65,6 @@
 import { ProductModel } from '@/entities/product-item';
 import { storeToRefs } from 'pinia';
 
-// {
-//     "id": "ca85ea42-f3ac-4dd9-9958-aafe97a2776f",
-//     "title": "Хлеб",
-//     "description": "Вкусный хлеб",
-//     "manufacturer": "Сосновское",
-//     "price": 100,
-//     "photo": "http://localhost:5000/dist/files/products/img (1)-925d.jpg",
-//     "id_model": null,
-//     "id_provider": null,
-//     "id_categories": "b5b481f1-b83b-4323-becb-84fc8a67c8b1",
-//     "createdAt": "2024-03-10T14:34:38.221Z",
-//     "updatedAt": "2024-03-10T14:34:38.221Z",
-//     "categories": {
-//         "id": "b5b481f1-b83b-4323-becb-84fc8a67c8b1",
-//         "title": "Products",
-//         "visibility": true,
-//         "photo": "http://localhost:5000/dist/files/categories/img (1)-da77.jpg",
-//         "createdAt": "2024-03-10T14:06:59.579Z",
-//         "updatedAt": "2024-03-10T14:06:59.579Z"
-//     }
-// }
-
 const productsStore = ProductModel.useProductsStore();
 const { product } = storeToRefs(productsStore);
 </script>

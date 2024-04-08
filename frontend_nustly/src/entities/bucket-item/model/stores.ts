@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { apiAxios } from '@/shared/api';
@@ -10,7 +10,7 @@ interface ValidationErrors {
   field_errors: Record<string, string>
 }
 
-const API_URL_PRODUCTS = '/bucket/products';
+const API_URL_BUCKET = '/bucket';
 const API_URL_PRODUCT = '/categories/product';
 
 export const useBucketStore = defineStore('bucket', () => {
@@ -18,7 +18,7 @@ export const useBucketStore = defineStore('bucket', () => {
   const route = useRoute();
 
   const isLoading = ref<boolean>(false);
-  const errorMessage = ref<string>('');
+  const errorMessageBucketPage = ref<string>('');
 
   const bucketObjects = ref([]);
   const bucketObject = ref();
@@ -43,35 +43,44 @@ export const useBucketStore = defineStore('bucket', () => {
     return [...bucketObjects.value].sort((bucketObject_1: any, bucketObject_2: any) => bucketObject_1[selected.value]?.localeCompare(bucketObject_2[selected.value]))
   });
 
-  const postRemoveObject = async () => {
-    try {
-      await apiAxios.delete('/workplaces/' + route.params.id_w);
-      router.go(-1);
-      errorMessage.value = '';
-    } catch (error: any) {
-      errorMessage.value = error;
-      console.error(error);
+  const postRemoveBucketObject = async (productId: string) => {
+     try {
+      const response = await apiAxios.post(`${API_URL_BUCKET}/remove`, {
+        productId: productId,
+        quantity: 0,
+      });
+      errorMessageBucketPage.value = '';
+      return response.data ?? false;
+    } catch (err: any) {
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessageBucketPage.value = error.response.data.message;
     } 
   }
 
-  const postCreateBucketObject = async () => {
-    //  try {
-    //   const response = await apiAxios.post(`${API_URL_PRODUCTS}/createProduct`, data);
-    //   errorMessage.value = '';
-    // } catch (err: any) {
-    //   const error: AxiosError<ValidationErrors> = err;
-    //   if (!error.response) {
-    //     throw err;
-    //   }
-    //   errorMessage.value = error.response.data.message;
-    // }
-    console.log('create bucket elem')
+  const postCreateBucketObject = async (productId: string, quantity: number) => {
+    try {
+      const response = await apiAxios.post(`${API_URL_BUCKET}/add`, {
+        productId: productId,
+        quantity: quantity,
+      });
+      errorMessageBucketPage.value = '';
+      return response.data ?? false;
+    } catch (err: any) {
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
+      errorMessageBucketPage.value = error.response.data.message;
+    }
   }
 
   const getBucketObjects = async (categoryId: string | string[]) => {
     isLoading.value = true;
     try {
-      const responce = await apiAxios.get(`${API_URL_PRODUCTS}/${categoryId}`, {
+      const responce = await apiAxios.get(`${API_URL_BUCKET}/${categoryId}`, {
         params: {
           _page: page.value,
           _limit: limit.value
@@ -79,9 +88,9 @@ export const useBucketStore = defineStore('bucket', () => {
       });
       bucketObjects.value = responce.data;
       totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
-      errorMessage.value = '';
+      errorMessageBucketPage.value = '';
     } catch (error: any) {
-      errorMessage.value = error;
+      errorMessageBucketPage.value = error;
       console.error(error);
     } finally {
       isLoading.value = false;
@@ -94,14 +103,20 @@ export const useBucketStore = defineStore('bucket', () => {
   //   try {
   //     const responce = await apiAxios.get(`${API_URL_PRODUCT}/${productId}`);
   //     product.value = responce.data;
-  //     errorMessage.value = '';
+  //     errorMessageBucketPage.value = '';
   //   } catch (error: any) {
-  //     errorMessage.value = error;
+  //     errorMessageBucketPage.value = error;
   //     console.error(error);
   //   } finally {
   //     isLoading.value = false;
   //   }
   // };
 
-  return { postCreateBucketObject }
+  watch(errorMessageBucketPage, () => {
+    setTimeout(function () {
+      errorMessageBucketPage.value = '';
+    }, 2000)
+  })
+
+  return { postCreateBucketObject, postRemoveBucketObject, errorMessageBucketPage }
 });

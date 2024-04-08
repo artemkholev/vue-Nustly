@@ -22,6 +22,7 @@ import {
 } from 'src/common/utils/file-upload.utils';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id';
 
 @Controller('categories')
 export class ProductsController {
@@ -54,18 +55,22 @@ export class ProductsController {
   @ApiResponse({ status: 200, type: Products })
   @Get('/products/:categoryId')
   getProducts(
+    @GetCurrentUserId() userId: string,
     @Query('_page') page: number,
     @Query('_limit') limit: number,
     @Param('categoryId') categoryId: string,
     @Res() response: Response,
   ) {
-    this.productsService.getProducts(categoryId, response, page, limit);
+    this.productsService.getProducts(userId, categoryId, response, page, limit);
   }
 
   @ApiOperation({ summary: 'Получение товара по категории' })
   @ApiResponse({ status: 200, type: Products })
   @Get('/product/:productId')
-  getProduct(@Param('productId') productId: string): Promise<ProductDto> {
-    return this.productsService.getProduct(productId);
+  getProduct(
+    @GetCurrentUserId() userId: string,
+    @Param('productId') productId: string,
+  ): Promise<ProductDto> {
+    return this.productsService.getProduct(userId, productId);
   }
 }

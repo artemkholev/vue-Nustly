@@ -18,11 +18,11 @@
       <p class="card__bottom__title">
         {{ elemProduct.title }}
       </p>
-      <div class="card__bottom__bucket_add">
+      <div v-if="isAuth" class="card__bottom__bucket_add">
         <button-elem
           :clName="null"
-          :title="'В корзину'"
-          :handler="postCreateBucketObject"
+          :title="elemProduct?.isProductInBucket ? 'Убрать из корзины' : 'В корзину'"
+          :handler="handlerActionBucketProduct"
           :width="'80%'"
           :height="'48px'"
           :background="'#70C05B'"
@@ -40,9 +40,10 @@
 
 <script setup lang="ts">
 import { useThemeStore } from '@/shared/stores/theme';
+import { useAuthStore } from '@/shared/stores/auth';
 import { BucketModel } from '@/entities/bucket-item'
 import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
   elemProduct: {
@@ -59,13 +60,33 @@ const props = defineProps({
   }
 })
 
+const quantityProducts = ref<number>(1);
+
 const bucketStore = BucketModel.useBucketStore();
-const { postCreateBucketObject } = bucketStore;
+const { postCreateBucketObject, postRemoveBucketObject } = bucketStore;
+
+const handlerActionBucketProduct = async () => {
+  let isActionWasGood = false;
+  if (props.elemProduct.isProductInBucket) {
+    isActionWasGood = await postRemoveBucketObject(props.elemProduct.id);
+    if (isActionWasGood) {
+      props.elemProduct.isProductInBucket = false;
+    }
+    return;
+  }
+  isActionWasGood = await postCreateBucketObject(props.elemProduct.id, quantityProducts.value);
+  if (isActionWasGood) {
+    props.elemProduct.isProductInBucket = true;
+  }
+}
 
 const handlerShowProduct = () => {
   props.getProduct(props.elemProduct.id);
   props.handlerShowProductDialogVisible()
 }
+
+const authStore = useAuthStore();
+const { isAuth } = storeToRefs(authStore);
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);

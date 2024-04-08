@@ -2,6 +2,10 @@
   <div :class="catalogClasses">
     <div class="products__header">
       <h1>Товары {{ role }}</h1>
+      <div class=products__header__error>
+        <p v-if="errorMessageBucketPage.length" >{{ errorMessageBucketPage }}</p>
+        <p  v-if="errorMessage.length">{{ errorMessage }}</p>
+      </div>
       <button-elem
         v-if="role == 'ADMIN'"
         :clName="null"
@@ -18,7 +22,9 @@
         :icon="null"
       />
     </div>
-
+    <div class="products__input-finder">
+      find product
+    </div>
     <div class="products__cards" 
       v-if="products.length"
     >
@@ -31,8 +37,7 @@
       </template>
     </div>
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
-    <p  v-if="errorMessage.length" :style="{margin: '10px', color: 'red'}">{{ errorMessage }}</p>
-    <h2 v-if="!isLoading && !products.length" class="products__error">
+    <h2 v-if="!isLoading && !products.length" class="products__info-product-request">
       Данных нет
     </h2>
     <Pagination
@@ -59,6 +64,7 @@
 import { useAuthStore } from '@/shared/stores/auth';
 import Pagination from '@/features/pagination';
 import { ProductModel } from '@/entities/product-item';
+import { BucketModel } from '@/entities/bucket-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
@@ -74,6 +80,11 @@ const categoryId = route.params.category_id;
 const productsStore = ProductModel.useProductsStore();
 const { isLoading, errorMessage, products, totalPages, page  } = storeToRefs(productsStore);
 const { getProducts, getProduct, postCreateProduct } = productsStore;
+
+//bucket store
+const bucketStore = BucketModel.useBucketStore();
+const { errorMessageBucketPage } = storeToRefs(bucketStore);
+
 
 //theme store
 const themeStore = useThemeStore();
@@ -98,6 +109,10 @@ const handlerCreateProductDialogVisible = () => {
 const handlerShowProductDialogVisible = () => {
   showProductDialogVisible.value = !showProductDialogVisible.value;
 }
+
+const findProduct = computed((finderParam) => {
+  return finderParam;
+})
 
 onMounted(() => {
   getProducts(categoryId);

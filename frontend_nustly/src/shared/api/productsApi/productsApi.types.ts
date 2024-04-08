@@ -7,6 +7,7 @@ export interface IProducts {
   readonly photo: string;
   readonly id_model: string;
   readonly id_provider: string;
+  isProductInBucket: boolean;
 }
 
 export interface ICreateProduct {

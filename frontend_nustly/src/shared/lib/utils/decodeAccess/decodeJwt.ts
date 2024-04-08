@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 
 type DecodeFunction = {
-    id: number;
+    id: string;
     email: string;
     roles: string;
 };

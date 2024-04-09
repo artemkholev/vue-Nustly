@@ -24,12 +24,12 @@ export class Bucket extends Model<Bucket> {
   })
   id: string = randomUUID();
 
+  @HasMany(() => BucketItem)
+  bucket_item: BucketItem[];
+
   @ForeignKey(() => User)
   @Column({ type: DataType.UUID })
   user_id: string;
   @BelongsTo(() => User)
   user: User;
-
-  @HasMany(() => BucketItem)
-  bucket_item: BucketItem[];
 }

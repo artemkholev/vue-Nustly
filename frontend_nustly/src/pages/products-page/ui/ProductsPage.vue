@@ -11,7 +11,7 @@
         :clName="null"
         :title="'Добавить товар'"
         :handler="handlerCreateProductDialogVisible"
-        :width="'35vw'"
+        :width="'150px'"
         :height="'55px'"
         :background="'#70C05B'"
         :textColor="null"
@@ -22,8 +22,11 @@
         :icon="null"
       />
     </div>
-    <div class="products__input-finder">
-      find product
+    <div v-if="products.length" class="products__input-finder">
+      <input type="text" placeholder="Найти товар..." v-model="findProductElem"> 
+      <button>
+        <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
+      </button>
     </div>
     <div class="products__cards" 
       v-if="products.length"
@@ -67,16 +70,25 @@ import { ProductModel } from '@/entities/product-item';
 import { BucketModel } from '@/entities/bucket-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { ProductItem } from '@/entities/product-item';
 import { useRoute } from 'vue-router';
 import { CreateProduct } from '@/features/product/CreateProduct';
 import { ShowProduct } from '@/features/product/ShowProduct';
 
+
+import MagnifierIcon from '@/app/assets/images/icons/MagnifierIcon.vue';
+
+defineComponent({
+  MagnifierIcon,
+})
+
 const route = useRoute();
 const categoryId = route.params.category_id;
 
-//catalog store
+const findProductElem = ref('');
+
+//products store
 const productsStore = ProductModel.useProductsStore();
 const { isLoading, errorMessage, products, totalPages, page  } = storeToRefs(productsStore);
 const { getProducts, getProduct, postCreateProduct } = productsStore;

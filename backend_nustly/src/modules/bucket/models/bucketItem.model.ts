@@ -33,15 +33,15 @@ export class BucketItem extends Model<BucketItem> {
   quantity: number;
 
   //connection
+  @BelongsTo(() => Products)
+  products: Products;
   @ForeignKey(() => Products)
   @Column({ type: DataType.UUID })
   products_id: string;
-  @BelongsTo(() => Products)
-  products: Products;
 
+  @BelongsTo(() => Bucket)
+  bucket: Bucket;
   @ForeignKey(() => Bucket)
   @Column({ type: DataType.UUID })
   bucket_id: string;
-  @BelongsTo(() => Bucket)
-  bucket: Bucket;
 }

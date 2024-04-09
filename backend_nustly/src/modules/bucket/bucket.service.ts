@@ -10,6 +10,7 @@ import { Products } from '../products/products.model';
 import { User } from '../users/users.model';
 import { BucketItem } from './models/bucketItem.model';
 import { infoProductDto } from './dto/infoProduct.dto';
+import { Response } from 'express';
 
 @Injectable()
 export class BucketService {
@@ -77,28 +78,43 @@ export class BucketService {
     return true;
   }
 
-  async getBasket(userId: string) {
+  async getBucket(
+    userId: string,
+    page: number,
+    limit: number,
+    response: Response,
+  ) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
     });
 
     if (!user) {
-      throw new NotFoundException('Пользовтель не найден!');
+      response.json({ message: 'Пользовтель не найден!' });
     }
 
-    const bucket = await this.bucketRepository.findOne({
-      where: { id: user.bucket.id },
-      // relations: ['basket_detail', 'basket_detail.product', 'user'],
-    });
+    const bucketId = await this.bucketRepository
+      .findOne({
+        where: { user_id: userId },
+      })
+      .then((data) => {
+        if (!data?.dataValues.id) {
+          response.json({ message: 'Корзина не найдена!' });
+        }
+        return data?.dataValues.id;
+      });
 
-    console.log(bucket);
+    if (bucketId) {
+      const bucketItems = await this.bucketItemRepository.findAll({
+        where: { bucket_id: bucketId },
+        limit: limit,
+        offset: limit * (page - 1),
+        include: { model: Products },
+      });
 
-    // if (!basket) {
-    //   throw new NotFoundException('Корзина не найдена!');
-    // }
-
-    // return basket;
-    return null;
+      response.set('Access-Control-Expose-Headers', 'X-Total-Count');
+      response.set('X-Total-Count', bucketItems.length.toString());
+      response.send(bucketItems);
+    }
   }
 
   async removeProductInBasket(

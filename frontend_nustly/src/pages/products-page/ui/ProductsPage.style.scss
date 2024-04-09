@@ -1,8 +1,11 @@
 @import '@/app/styles/vars.scss';
 
 .products {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
   &__header {
-    height: 60px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,10 +18,42 @@
     }
   }
   &__input-finder {
-    height: 50px;
+    width: 30%;
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0 auto;
+    padding: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    border-radius: 4px;
+    border: 1px solid var(--main-secondary, $main-color);
+    background: var(--main-surface, #FFF);
+    & > input {
+      display: flex;
+      width: 90%;
+      height: 35px;
+      flex-direction: column;
+      justify-content: center;
+      border: none;
+
+      font-family: $text;
+      font-size: $text-size;
+      font-weight: 400;
+      line-height: 150%;
+    }
+    & > button {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translate(0, -50%);
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
   }
   h2 {
     margin: 100px;
@@ -30,7 +65,6 @@
     margin: 0 auto;
   }
   &__cards {
-    margin: 50px 0 0 0;
     display: grid;
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(2, 1fr);

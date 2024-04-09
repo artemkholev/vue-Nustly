@@ -3,6 +3,7 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
@@ -10,6 +11,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { randomUUID } from 'crypto';
 import { Categories } from '../categories/categories.model';
+import { BucketItem } from '../bucket/models/bucketItem.model';
 
 interface ProductsCreationAttrs {
   title: string;
@@ -96,6 +98,12 @@ export class Products extends Model<Products, ProductsCreationAttrs> {
   id_provider: string;
 
   //connection
+  @HasMany(() => BucketItem, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  bucketItems: BucketItem[];
+
   @BelongsTo(() => Categories)
   categories: Categories;
   @ForeignKey(() => Categories)

@@ -1,28 +1,149 @@
 @import '@/app/styles/vars.scss';
 
-.containerBucket {
+.bucket { 
   display: flex;
   flex-direction: column;
-  & > .sortOption {
-    margin: 15px 0;
-    margin-left: auto;
-    right: 0;
-    width: 200px;
-  }
-
-  & > .page__wrapper {
+  row-gap: 20px;
+  &__header {
+    height: 50px;
     display: flex;
-    margin-top: 30px;
-    & > .navigation-pages {
-      margin-right: 5px;
-      padding: 5px;
-      border: 1px solid $main-color;
-      border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+    &__error > p {
+      color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+  }
+  &__input-finder {
+    width: 30%;
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    padding: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    border-radius: 4px;
+    border: 1px solid var(--main-secondary, $main-color);
+    background: var(--main-surface, #FFF);
+    & > input {
+      display: flex;
+      height: 30px;
+      flex-direction: column;
+      justify-content: center;
+      border: none;
+
+      font-family: $text;
+      font-size: $text-size;
+      font-weight: 400;
+      line-height: 150%;
+    }
+    & > button {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translate(0, -50%);
+      border: none;
+      background-color: transparent;
       cursor: pointer;
     }
+  }
+  h2 {
+    margin: 100px;
+  }
+  &__info-product-request {
+    display: flex;
+    justify-content: center;
+    width: 40vw;
+    margin: 0 auto;
+  }
+  &__cards {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    justify-content: space-between;
+    justify-items: center; 
+  }
+}
 
-    & > .carrent-page {
-      border: 3px solid #FF6633;
+.bucket_dark {
+  transition: 0.3s;
+  h1, h2 {
+    color: $text-color-isDark;
+  }
+  color: $text-color-isDark;
+  svg > path {
+    fill: #fff;
+  }
+  a {
+    color: #fff;
+  }
+}
+
+@media (max-width: 1900px) {
+  .bucket {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .bucket {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .bucket {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bucket {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+      justify-items: center; 
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .bucket {
+    &__cards {
+      display: grid;
+      grid-template-rows: repeat(1, 1fr);
+      grid-template-columns: repeat(1, 1fr);
+      justify-content: center;
+      justify-items: center; 
     }
   }
 }

@@ -7,7 +7,7 @@
         :clName="null"
         :title="'Добавить категорию'"
         :handler="handlerDialogVisible"
-        :width="'35vw'"
+        :width="'150px'"
         :height="'55px'"
         :background="'#70C05B'"
         :textColor="null"

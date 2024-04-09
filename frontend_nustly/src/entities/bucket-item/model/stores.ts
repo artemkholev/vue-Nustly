@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import type { IBucketModel } from './types'
 
 import { apiAxios } from '@/shared/api';
 import type { AxiosError } from 'axios';
@@ -11,7 +12,6 @@ interface ValidationErrors {
 }
 
 const API_URL_BUCKET = '/bucket';
-const API_URL_PRODUCT = '/categories/product';
 
 export const useBucketStore = defineStore('bucket', () => {
   const router = useRouter();
@@ -20,8 +20,8 @@ export const useBucketStore = defineStore('bucket', () => {
   const isLoading = ref<boolean>(false);
   const errorMessageBucketPage = ref<string>('');
 
-  const bucketObjects = ref([]);
-  const bucketObject = ref();
+  const bucketObjects = ref<IBucketModel[]>([]);
+  const bucketObject = ref<IBucketModel>();
 
   const page = ref(1);
   const limit = ref(10);
@@ -38,6 +38,10 @@ export const useBucketStore = defineStore('bucket', () => {
       value:  'title'
     },
   ]);
+
+  const findProducts = computed(() => {
+
+  })
 
   const sortedPlans = computed(() => {
     return [...bucketObjects.value].sort((bucketObject_1: any, bucketObject_2: any) => bucketObject_1[selected.value]?.localeCompare(bucketObject_2[selected.value]))
@@ -77,10 +81,10 @@ export const useBucketStore = defineStore('bucket', () => {
     }
   }
 
-  const getBucketObjects = async (categoryId: string | string[]) => {
+  const getBucketObjects = async () => {
     isLoading.value = true;
     try {
-      const responce = await apiAxios.get(`${API_URL_BUCKET}/${categoryId}`, {
+      const responce = await apiAxios.get(`${API_URL_BUCKET}`, {
         params: {
           _page: page.value,
           _limit: limit.value
@@ -118,5 +122,8 @@ export const useBucketStore = defineStore('bucket', () => {
     }, 2000)
   })
 
-  return { postCreateBucketObject, postRemoveBucketObject, errorMessageBucketPage }
+  return {
+    postCreateBucketObject, postRemoveBucketObject, getBucketObjects,
+    errorMessageBucketPage, page, limit, totalPages, bucketObjects, isLoading
+  }
 });

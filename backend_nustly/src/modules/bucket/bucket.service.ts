@@ -126,7 +126,6 @@ export class BucketService {
         where: { user_id: userId },
       })
       .then((data) => data.dataValues.id);
-    console.log(bucket_id);
     const bucketItem = await this.bucketItemRepository.findOne({
       where: {
         bucket_id: bucket_id,

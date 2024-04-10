@@ -94,10 +94,14 @@
       gap: 5px;
       justify-content: space-between;
       &__photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 40px;
         height: 40px;
         border-radius: 100%;
         background-color: orangered;
+        cursor: pointer;
       }
 
       &__dropdown {

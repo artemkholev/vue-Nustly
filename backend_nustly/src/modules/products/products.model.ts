@@ -104,12 +104,12 @@ export class Products extends Model<Products, ProductsCreationAttrs> {
   })
   bucketItems: BucketItem[];
 
-  @BelongsTo(() => Categories)
-  categories: Categories;
   @ForeignKey(() => Categories)
   @Column({
     type: DataType.UUID,
     allowNull: false,
   })
   id_categories: string;
+  @BelongsTo(() => Categories)
+  categories: Categories;
 }

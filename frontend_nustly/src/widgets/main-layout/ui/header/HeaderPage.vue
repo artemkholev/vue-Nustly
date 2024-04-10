@@ -7,27 +7,28 @@
 
     <div class="header-container__functional">
       <router-link v-if="$route.path !== '/catalog'" to="/catalog" class="header-container__functional__catalog">
-        <icon-base  width="30" height="30" iconName="catalog"><catalog-icon/></icon-base>
+        <icon-base  width="30" height="30" iconName="Каталог"><catalog-icon/></icon-base>
         <p>Каталог</p>
       </router-link>
     </div>
 
     <nav class="header-container__navigation">
       <router-link to="/user/favorites" class="navigation-container">
-        <icon-base width="35" height="35"><favorites-icon/></icon-base>
+        <icon-base width="35" height="35" iconName="Избранное"><favorites-icon/></icon-base>
         <p>Избранное</p>
       </router-link>
       <router-link to="/user/orders" class="navigation-container">
-        <icon-base width="35" height="35"><orders-icon/></icon-base>
+        <icon-base width="35" height="35" iconName="Заказы"><orders-icon/></icon-base>
         <p>Заказы</p>
       </router-link>
       <router-link to="/user/bucket" class="navigation-container">
-        <icon-base width="35" height="35"><bucket-icon/></icon-base>
+        <icon-base width="35" height="35" iconName="Корзина"><bucket-icon/></icon-base>
         <p>Корзина</p>
       </router-link>
 
       <div class="navigation-container__user-menu user-menu">
         <div class="user-menu__photo">
+          <icon-base width="35" height="35" iconName="Акаунт"><user-photo/></icon-base>
         </div>
         <p class="user-menu__name">{{ userName }}</p>
         <div v-if="!isAuth" class="user-menu__dropdown">
@@ -73,8 +74,10 @@ import OrdersIcon from '@/app/assets/images/icons/OrdersIcon.vue';
 import BucketIcon from '@/app/assets/images/icons/BucketIcon.vue';
 import LogoutIcon from '@/app/assets/images/icons/LogoutIcon.vue';
 import ArrowIcon from '@/app/assets/images/icons/ArrowIcon.vue';
+import UserPhoto from '@/app/assets/images/icons/UserPhoto.vue';
 
 defineComponent({
+  UserPhoto,
   LogoIcon,
   CatalogIcon,
   MagnifierIcon,

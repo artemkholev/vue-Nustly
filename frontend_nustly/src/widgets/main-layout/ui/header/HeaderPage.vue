@@ -12,16 +12,7 @@
       </router-link>
     </div>
     <UserAreaNav/>
-    <div class="header-container__burger-theme">
-      <button 
-        class="header-container__burger-theme__theme" 
-        @click="toggleTheme"
-      >
-        <icon-base v-if="!isDarkTheme" width="35" height="35"><theme_night-icon/></icon-base>
-        <icon-base v-else width="35" height="35" iconColor="white"><theme_day-icon/></icon-base>
-      </button>
-      <burger-elem class="header-container__burger-theme__burger"/>
-    </div> 
+    <BurgerTheme/>
   </div>
 </template>
 
@@ -30,6 +21,7 @@ import { computed, defineComponent } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/shared/stores/theme';
 import { UserAreaNav } from '@/features/main-header/user-area-nav'
+import { BurgerTheme } from '@/features/main-header/burger-theme';
 
 import LogoIcon from '@/app/assets/images/icons/LogoIcon.vue';
 import CatalogIcon from '@/app/assets/images/icons/CatalogIcon.vue';

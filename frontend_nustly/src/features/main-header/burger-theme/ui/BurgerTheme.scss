@@ -1,0 +1,61 @@
+@import '@/app/styles/vars';
+
+.burger-theme {
+  display: flex;
+  gap: 10px;
+  &__burger {
+    display: none;
+  }
+  &__theme {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.burger-theme_dark {
+  a {
+    color: #fff;
+  }
+
+  svg > g > path {
+    fill: #fff;
+  }
+
+  .user-menu__dropdown__content > a {
+    background-color: $background-color-isDark;
+  }
+  
+  & > .header-container__logo {
+    & > .nameCompany {
+      border-left: 1px solid white;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .burger-theme {
+    &__burger {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .burger-theme {
+    &__burger {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .burger-theme {
+    &__burger {
+      display: block;
+    }
+  }
+}

@@ -59,23 +59,6 @@
       }
     }
   }
-    
-  &__burger-theme {
-    display: flex;
-    gap: 10px;
-    &__burger {
-      display: none;
-    }
-    &__theme {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-    }
-  }
-  
 }
 
 .header-container_dark {

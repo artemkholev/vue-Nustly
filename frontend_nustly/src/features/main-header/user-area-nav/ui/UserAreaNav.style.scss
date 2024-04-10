@@ -119,3 +119,27 @@
     }
   }
 }
+
+@media (max-width: 1200px) {
+  .header-container {
+    
+  }
+}
+
+@media (max-width: 1000px) {
+  .navigation {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .navigation {
+    display: none;
+  }
+}

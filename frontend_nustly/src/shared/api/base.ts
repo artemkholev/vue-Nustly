@@ -2,7 +2,7 @@ import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import type { IResponseLogin } from './authApi/authApi.types';
 import { useAuthStore } from '@/shared/stores/auth';
 import { storeToRefs } from 'pinia';
-import { decodeJwt } from '../jwtRequest/decodeJwt';
+import { decodeJwt } from '../lib/utils/decodeAccess/decodeJwt';
 import { useRouter } from 'vue-router';
 import { PathNames } from '../constants/route.constants';
 

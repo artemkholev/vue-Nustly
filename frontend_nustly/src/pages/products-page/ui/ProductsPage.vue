@@ -2,12 +2,16 @@
   <div :class="catalogClasses">
     <div class="products__header">
       <h1>Товары {{ role }}</h1>
+      <div class=products__header__error>
+        <p v-if="errorMessageBucketPage.length" >{{ errorMessageBucketPage }}</p>
+        <p  v-if="errorMessage.length">{{ errorMessage }}</p>
+      </div>
       <button-elem
         v-if="role == 'ADMIN'"
         :clName="null"
         :title="'Добавить товар'"
         :handler="handlerCreateProductDialogVisible"
-        :width="'35vw'"
+        :width="'150px'"
         :height="'55px'"
         :background="'#70C05B'"
         :textColor="null"
@@ -18,7 +22,12 @@
         :icon="null"
       />
     </div>
-
+    <div v-if="products.length" class="products__input-finder">
+      <input type="text" placeholder="Найти товар..." v-model="findProductElem"> 
+      <button>
+        <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
+      </button>
+    </div>
     <div class="products__cards" 
       v-if="products.length"
     >
@@ -31,11 +40,11 @@
       </template>
     </div>
     <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
-    <p  v-if="errorMessage.length" :style="{margin: '10px', color: 'red'}">{{ errorMessage }}</p>
-    <h2 v-if="!isLoading && (products.length === 0)" class="products__error">
+    <h2 v-if="!isLoading && !products.length" class="products__info-product-request">
       Данных нет
     </h2>
     <Pagination
+      v-if="products.length"
       @change-page="(newPage) => page = newPage"
       :totalPages="totalPages"
       :page="page"
@@ -58,21 +67,36 @@
 import { useAuthStore } from '@/shared/stores/auth';
 import Pagination from '@/features/pagination';
 import { ProductModel } from '@/entities/product-item';
+import { BucketModel } from '@/entities/bucket-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { ProductItem } from '@/entities/product-item';
 import { useRoute } from 'vue-router';
 import { CreateProduct } from '@/features/product/CreateProduct';
 import { ShowProduct } from '@/features/product/ShowProduct';
 
+
+import MagnifierIcon from '@/app/assets/images/icons/MagnifierIcon.vue';
+
+defineComponent({
+  MagnifierIcon,
+})
+
 const route = useRoute();
 const categoryId = route.params.category_id;
 
-//catalog store
+const findProductElem = ref('');
+
+//products store
 const productsStore = ProductModel.useProductsStore();
 const { isLoading, errorMessage, products, totalPages, page  } = storeToRefs(productsStore);
 const { getProducts, getProduct, postCreateProduct } = productsStore;
+
+//bucket store
+const bucketStore = BucketModel.useBucketStore();
+const { errorMessageBucketPage } = storeToRefs(bucketStore);
+
 
 //theme store
 const themeStore = useThemeStore();
@@ -97,6 +121,10 @@ const handlerCreateProductDialogVisible = () => {
 const handlerShowProductDialogVisible = () => {
   showProductDialogVisible.value = !showProductDialogVisible.value;
 }
+
+const findProduct = computed((finderParam) => {
+  return finderParam;
+})
 
 onMounted(() => {
   getProducts(categoryId);

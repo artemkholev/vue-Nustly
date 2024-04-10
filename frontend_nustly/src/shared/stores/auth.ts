@@ -7,7 +7,7 @@ import { PathNames } from '@/shared/constants/route.constants';
 import type { AxiosError, AxiosResponse } from 'axios';
 import { getBooleanValueFromLs, getStringValueFromLs, setBooleanValueFromLs, setStringValueFromLs } from '../lib/utils/ls.utils';
 import { LocalStorageConstants } from '../constants/ls.constants';
-import { decodeJwt } from '../jwtRequest/decodeJwt';
+import { decodeJwt } from '../lib/utils/decodeAccess/decodeJwt';
 import { useAppRoutes } from '@/app/providers';
 
 interface ValidationErrors {

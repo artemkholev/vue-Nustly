@@ -21,7 +21,7 @@
       <div v-if="isAuth" class="card__bottom__bucket_add">
         <button-elem
           :clName="null"
-          :title="elemProduct?.isProductInBucket ? 'Убрать из корзины' : 'В корзину'"
+          :title="'Убрать из корзины'"
           :handler="handlerActionBucketProduct"
           :width="'80%'"
           :height="'48px'"
@@ -42,10 +42,14 @@
 import { useThemeStore } from '@/shared/stores/theme';
 import { useAuthStore } from '@/shared/stores/auth';
 import { BucketModel } from '@/entities/bucket-item'
-import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
+import { storeToRefs, type _UnwrapAll } from 'pinia';
 import { computed, ref } from 'vue';
 
 const props = defineProps({
+  idBucketElem: {
+    type: String,
+    required: true,
+  },
   elemProduct: {
     type: Object,
     required: true,
@@ -60,29 +64,23 @@ const props = defineProps({
   }
 })
 
-const quantityProducts = ref<number>(1);
-
 const bucketStore = BucketModel.useBucketStore();
-const { postCreateBucketObject, postRemoveBucketObject } = bucketStore;
+const { postRemoveBucketObject } = bucketStore;
+const { bucketObjects } = storeToRefs(bucketStore);
 
 const handlerActionBucketProduct = async () => {
   let isActionWasGood = false;
-  if (props.elemProduct.isProductInBucket) {
-    isActionWasGood = await postRemoveBucketObject(props.elemProduct.id);
-    if (isActionWasGood) {
-      props.elemProduct.isProductInBucket = false;
-    }
-    return;
-  }
-  isActionWasGood = await postCreateBucketObject(props.elemProduct.id, quantityProducts.value);
-  if (isActionWasGood) {
-    props.elemProduct.isProductInBucket = true;
-  }
+  isActionWasGood = await postRemoveBucketObject(props.elemProduct.id);
+  deleteBucketObject();
 }
+
+const deleteBucketObject = () => {
+  bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.id !== props.idBucketElem);
+} 
 
 const handlerShowProduct = () => {
   props.getProduct(props.elemProduct.id);
-  props.handlerShowProductDialogVisible()
+  props.handlerShowProductDialogVisible();
 }
 
 const authStore = useAuthStore();
@@ -96,4 +94,4 @@ const cardClasses = computed(() => {
 });
 </script>
 
-<style src="./ProductItem.style.scss" lang="scss" scoped></style>
+<style src="./BucketItem.style.scss" lang="scss" scoped></style>

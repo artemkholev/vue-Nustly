@@ -3,16 +3,18 @@ import {
   Column,
   DataType,
   ForeignKey,
-  PrimaryKey,
+  HasMany,
   Model,
+  PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../users/users.model';
 import { randomUUID } from 'crypto';
+import { User } from '../../users/users.model';
+import { BucketItem } from './bucketItem.model';
 
-@Table({ tableName: 'tokens', createdAt: false, updatedAt: false })
-export class Tokens extends Model<Tokens> {
+@Table({ tableName: 'bucket' })
+export class Bucket extends Model<Bucket> {
   @ApiProperty({ example: '1', description: 'Уникальный индификатор' })
   @PrimaryKey
   @Column({
@@ -21,16 +23,13 @@ export class Tokens extends Model<Tokens> {
     primaryKey: true,
   })
   id: string = randomUUID();
-  @ApiProperty({ example: '123', description: 'Токен пользователя' })
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  refreshToken: string;
+
+  @HasMany(() => BucketItem)
+  bucket_item: BucketItem[];
 
   @ForeignKey(() => User)
   @Column({ type: DataType.UUID })
-  userId: string;
+  user_id: string;
   @BelongsTo(() => User)
   user: User;
 }

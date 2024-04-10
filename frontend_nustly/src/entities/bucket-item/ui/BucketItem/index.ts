@@ -1,0 +1,1 @@
+export { default as BucketItem } from './BucketItem.vue'

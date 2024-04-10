@@ -13,7 +13,7 @@ export class CategoriesService {
   async getCategories(userRole: string): Promise<CategoryDto[]> {
     if (userRole != undefined && userRole == 'ADMIN') {
       const categories = await this.categoriesRepository.findAll({
-        include: { all: true },
+        attributes: { exclude: ['categoriesProducts'] },
       });
       return categories;
     }

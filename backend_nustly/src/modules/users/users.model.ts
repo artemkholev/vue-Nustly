@@ -12,8 +12,7 @@ import { Role } from 'src/modules/roles/roles.model';
 import { UserRoles } from 'src/modules/roles/user-role.model';
 import { Tokens } from 'src/modules/tokens/tokens.model';
 import { randomUUID } from 'crypto';
-import { Bucket } from '../bucket/bucket.model';
-import { Products } from '../products/products.model';
+import { Bucket } from '../bucket/models/bucket.model';
 
 interface UserCreationAttrs {
   email: string;
@@ -50,8 +49,8 @@ export class User extends Model<User, UserCreationAttrs> {
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
 
-  @BelongsToMany(() => Products, () => Bucket)
-  products: Products[];
+  @HasOne(() => Bucket)
+  bucket: Bucket;
 
   @HasOne(() => Tokens)
   tokens: Tokens;

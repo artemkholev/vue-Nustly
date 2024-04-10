@@ -8,34 +8,36 @@
       <div class="product-container__header__general-info">
         <p><strong>Название:</strong> {{ product?.title }}</p>
         <p><strong>Производитель:</strong> {{ product?.manufacturer }}</p>
-        <button-elem
-          :clName="null"
-          :title="'В корзину'"
-          :handler="() => null"
-          :width="'80%'"
-          :height="'40px'"
-          :background="'#70C05B'"
-          :textColor="null"
-          :fontSize="null"
-          :fontWeight="null"
-          :margin="'15px 0 0 0'"
-          :borderRadius="'10px'"
-          :icon="null"
-        />
-        <button-elem
-          :clName="null"
-          :title="'В избранное'"
-          :handler="() => null"
-          :width="'80%'"
-          :height="'40px'"
-          :background="'#70C05B'"
-          :textColor="null"
-          :fontSize="null"
-          :fontWeight="null"
-          :margin="'15px 0 0 0'"
-          :borderRadius="'10px'"
-          :icon="null"
-        />
+        <div v-if="isAuth">
+          <button-elem
+            :clName="null"
+            :title="product?.isProductInBucket ? 'Убрать из корзины' : 'В корзину'"
+            :handler="handlerActionBucketProduct"
+            :width="'80%'"
+            :height="'40px'"
+            :background="'#70C05B'"
+            :textColor="null"
+            :fontSize="null"
+            :fontWeight="null"
+            :margin="'15px 0 0 0'"
+            :borderRadius="'10px'"
+            :icon="null"
+          />
+          <button-elem
+            :clName="null"
+            :title="'В избранное'"
+            :handler="() => null"
+            :width="'80%'"
+            :height="'40px'"
+            :background="'#70C05B'"
+            :textColor="null"
+            :fontSize="null"
+            :fontWeight="null"
+            :margin="'15px 0 0 0'"
+            :borderRadius="'10px'"
+            :icon="null"
+          />
+        </div>
       </div>
     </div>
     <div class="product-container__body">
@@ -62,33 +64,41 @@
 </template>
 
 <script setup lang="ts">
+import { BucketModel } from '@/entities/bucket-item';
 import { ProductModel } from '@/entities/product-item';
+import { useAuthStore } from '@/shared/stores/auth';
 import { storeToRefs } from 'pinia';
 
-// {
-//     "id": "ca85ea42-f3ac-4dd9-9958-aafe97a2776f",
-//     "title": "Хлеб",
-//     "description": "Вкусный хлеб",
-//     "manufacturer": "Сосновское",
-//     "price": 100,
-//     "photo": "http://localhost:5000/dist/files/products/img (1)-925d.jpg",
-//     "id_model": null,
-//     "id_provider": null,
-//     "id_categories": "b5b481f1-b83b-4323-becb-84fc8a67c8b1",
-//     "createdAt": "2024-03-10T14:34:38.221Z",
-//     "updatedAt": "2024-03-10T14:34:38.221Z",
-//     "categories": {
-//         "id": "b5b481f1-b83b-4323-becb-84fc8a67c8b1",
-//         "title": "Products",
-//         "visibility": true,
-//         "photo": "http://localhost:5000/dist/files/categories/img (1)-da77.jpg",
-//         "createdAt": "2024-03-10T14:06:59.579Z",
-//         "updatedAt": "2024-03-10T14:06:59.579Z"
-//     }
-// }
-
 const productsStore = ProductModel.useProductsStore();
-const { product } = storeToRefs(productsStore);
+const { product, products } = storeToRefs(productsStore);
+
+const authStore = useAuthStore();
+const { isAuth } = storeToRefs(authStore);
+
+const bucketStore = BucketModel.useBucketStore();
+const { postCreateBucketObject, postRemoveBucketObject } = bucketStore;
+
+const findProductChangeInBucket = (productId: string, isProductInBucket: boolean) => {
+  const index = products.value.findIndex((product) => product.id == productId);
+  products.value[index].isProductInBucket = isProductInBucket;
+}
+
+const handlerActionBucketProduct = async () => {
+  let isActionWasGood = false;
+  if (product.value?.isProductInBucket) {
+    isActionWasGood = await postRemoveBucketObject(product.value.id);
+    if (isActionWasGood) {
+      product.value.isProductInBucket = false;
+      findProductChangeInBucket(product.value.id, false);
+    }
+    return;
+  }
+  isActionWasGood = await postCreateBucketObject(product.value!.id, 1);
+  if (isActionWasGood) {
+    product.value!.isProductInBucket = true;
+    findProductChangeInBucket(product.value!.id, true);
+  }
+}
 </script>
 
 <style src="./ShowProduct.style.scss" lang="scss" scoped></style>

@@ -17,6 +17,9 @@ import { Products } from './modules/products/products.model';
 import { ProductsModule } from './modules/products/products.module';
 import { Bucket } from './modules/bucket/models/bucket.model';
 import { BucketItem } from './modules/bucket/models/bucketItem.model';
+import { Order } from './modules/orders/models/order.model';
+import { OrderDetails } from './modules/orders/models/orderDetails.model';
+import { OrderModule } from './modules/orders/order.module';
 
 @Module({
   controllers: [],
@@ -41,6 +44,8 @@ import { BucketItem } from './modules/bucket/models/bucketItem.model';
         Products,
         Bucket,
         BucketItem,
+        Order,
+        OrderDetails,
       ],
       autoLoadModels: true,
     }),
@@ -51,6 +56,7 @@ import { BucketItem } from './modules/bucket/models/bucketItem.model';
     FilesModule,
     ProductsModule,
     BucketModule,
+    OrderModule,
   ],
 })
 export class AppModule {}

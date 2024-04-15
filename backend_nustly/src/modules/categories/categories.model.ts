@@ -45,6 +45,9 @@ export class Categories extends Model<Categories> {
   })
   photo: string;
 
-  @HasMany(() => Products)
+  @HasMany(() => Products, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
   categoriesProducts: Products[];
 }

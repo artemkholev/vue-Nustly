@@ -1,0 +1,1 @@
+export { default as UserAreaNav } from './UserAreaNav.vue'

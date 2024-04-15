@@ -11,8 +11,10 @@ import { routeName as politics } from './routes/politics';
 import { routeName as products } from './routes/products';
 import { routeName as registr } from './routes/registr';
 import { routeName as vacancy } from './routes/vacancy';
+import { routeName as account } from './routes/account';
 
 export const pages = {
+  account,
   about,
   agreement,
   articles,

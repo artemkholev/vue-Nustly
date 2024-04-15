@@ -12,6 +12,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { randomUUID } from 'crypto';
 import { Categories } from '../categories/categories.model';
 import { BucketItem } from '../bucket/models/bucketItem.model';
+import { OrderDetails } from '../orders/models/orderDetails.model';
 
 interface ProductsCreationAttrs {
   title: string;
@@ -104,12 +105,20 @@ export class Products extends Model<Products, ProductsCreationAttrs> {
   })
   bucketItems: BucketItem[];
 
-  @BelongsTo(() => Categories)
-  categories: Categories;
+  @ForeignKey(() => OrderDetails)
+  @Column({
+    type: DataType.UUID,
+  })
+  id_order: string;
+  @BelongsTo(() => OrderDetails)
+  order: OrderDetails;
+
   @ForeignKey(() => Categories)
   @Column({
     type: DataType.UUID,
     allowNull: false,
   })
   id_categories: string;
+  @BelongsTo(() => Categories)
+  categories: Categories;
 }

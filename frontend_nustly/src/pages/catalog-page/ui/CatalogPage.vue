@@ -48,7 +48,7 @@ import { CatalogModel } from '@/entities/catalog-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { onMounted, computed, ref } from 'vue';
-import { CreateCatalog } from '@/features/catalog/CreateCatalog';
+import { CreateCatalog } from '@/features/catalog/create-catalog';
 
 //catalog store
 const catalogStore = CatalogModel.useCatalogStore();

@@ -9,46 +9,50 @@ export class AppRoutes {
   private constructor() {}
 
   static getAbout() {
-    return getRoute(AppPages.about, {})
+    return getRoute(AppPages.about, {});
   }
 
   static getAgreement() {
-    return getRoute(AppPages.agreement, {})
+    return getRoute(AppPages.agreement, {});
   }
 
   static getArticles() {
-    return getRoute(AppPages.articles, {})
+    return getRoute(AppPages.articles, {});
   }
   static getAuth() {
-    return getRoute(AppPages.auth, {})
+    return getRoute(AppPages.auth, {});
   }
   static getBucket() {
-    return getRoute(AppPages.bucket, {})
+    return getRoute(AppPages.bucket, {});
   }
   static getCatalog() {
-    return getRoute(AppPages.catalog, {})
+    return getRoute(AppPages.catalog, {});
   }
   static getFavorites() {
-    return getRoute(AppPages.favorites, {})
+    return getRoute(AppPages.favorites, {});
   }
   static getMain() {
-    return getRoute(AppPages.main, {})
+    return getRoute(AppPages.main, {});
   }
   static getOrders() {
-  return getRoute(AppPages.orders, {})
-}
+    return getRoute(AppPages.orders, {});
+  }
   static getPolitics() {
-  return getRoute(AppPages.politics, {})
+    return getRoute(AppPages.politics, {});
   }
   static getProducts() {
-  return getRoute(AppPages.products, {})
+    return getRoute(AppPages.products, {});
   }
   static getRegistr() {
-  return getRoute(AppPages.registr, {})
+    return getRoute(AppPages.registr, {});
   }
   static getVacancy() {
-  return getRoute(AppPages.vacancy, {})
-}
+    return getRoute(AppPages.vacancy, {});
+  }
+
+  static getAccount() {
+    return getRoute(AppPages.account, {});
+  }
 }
 
 // TODO необязательный 2й параметр

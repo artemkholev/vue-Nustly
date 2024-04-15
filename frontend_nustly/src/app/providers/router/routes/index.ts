@@ -13,7 +13,10 @@ import { route as politics } from './politics';
 import { route as products } from './products';
 import { route as registr } from './registr';
 import { route as vacancy } from './vacancy';
+import { route as account } from './account';
+
 export const routes: readonly RouteRecordRaw[] = [
+  account,
   about,
   agreement,
   articles,

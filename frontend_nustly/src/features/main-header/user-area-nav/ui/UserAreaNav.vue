@@ -15,7 +15,7 @@
 
     <div class="navigation-container__user-menu user-menu">
       <router-link to="/user/account" class="user-menu__photo">
-        <icon-base width="35" height="35" iconName="Акаунт"><user-photo/></icon-base>
+        <icon-base v-if="getUserName" width="35" height="35" iconName="Акаунт"><user-photo/></icon-base>
       </router-link>
       <p class="user-menu__name">{{ getUserName }}</p>
       <div v-if="!isAuth" class="user-menu__dropdown">

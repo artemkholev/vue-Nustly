@@ -3,12 +3,12 @@
     <div class="product-container__title">Общая информация о товаре</div>
     <div class="product-container__header">
       <div class="product-container__header__image">
-        <img :src="product?.photo" alt="Фотография товара">
+        <img :src="product?.photo" style="max-width: 400px; max-height: 400px;" alt="Фотография товара">
       </div>
       <div class="product-container__header__general-info">
         <p><strong>Название:</strong> {{ product?.title }}</p>
         <p><strong>Производитель:</strong> {{ product?.manufacturer }}</p>
-        <div v-if="isAuth">
+        <div v-if="isAuth && route.name !== 'BucketPage'">
           <button-elem
             :clName="null"
             :title="product?.isProductInBucket ? 'Убрать из корзины' : 'В корзину'"
@@ -68,6 +68,9 @@ import { BucketModel } from '@/entities/bucket-item';
 import { ProductModel } from '@/entities/product-item';
 import { useAuthStore } from '@/shared/stores/auth';
 import { storeToRefs } from 'pinia';
+import { useRoute } from 'vue-router';
+
+ const route = useRoute();
 
 const productsStore = ProductModel.useProductsStore();
 const { product, products } = storeToRefs(productsStore);
@@ -86,7 +89,7 @@ const findProductChangeInBucket = (productId: string, isProductInBucket: boolean
 const handlerActionBucketProduct = async () => {
   let isActionWasGood = false;
   if (product.value?.isProductInBucket) {
-    isActionWasGood = await postRemoveBucketObject(product.value.id);
+    isActionWasGood = await postRemoveBucketObject(product.value.id, '');
     if (isActionWasGood) {
       product.value.isProductInBucket = false;
       findProductChangeInBucket(product.value.id, false);

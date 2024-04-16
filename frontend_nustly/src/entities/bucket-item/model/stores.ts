@@ -47,13 +47,19 @@ export const useBucketStore = defineStore('bucket', () => {
     return [...bucketObjects.value].sort((bucketObject_1: any, bucketObject_2: any) => bucketObject_1[selected.value]?.localeCompare(bucketObject_2[selected.value]))
   });
 
-  const postRemoveBucketObject = async (productId: string) => {
+  const deleteBucketObject = (idBucketElem: string) => {
+    bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.id !== idBucketElem);
+  } 
+
+  const postRemoveBucketObject = async (productId: string, idBucketElem: string) => {
      try {
       const response = await apiAxios.post(`${API_URL_BUCKET}/remove`, {
         productId: productId,
         quantity: 0,
       });
       errorMessageBucketPage.value = '';
+      if (idBucketElem.length)
+        deleteBucketObject(idBucketElem);
       return response.data ?? false;
     } catch (err: any) {
       const error: AxiosError<ValidationErrors> = err;

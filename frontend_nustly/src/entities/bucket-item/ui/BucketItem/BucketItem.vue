@@ -70,13 +70,8 @@ const { bucketObjects } = storeToRefs(bucketStore);
 
 const handlerActionBucketProduct = async () => {
   let isActionWasGood = false;
-  isActionWasGood = await postRemoveBucketObject(props.elemProduct.id);
-  deleteBucketObject();
+  isActionWasGood = await postRemoveBucketObject(props.elemProduct.id, props.idBucketElem);
 }
-
-const deleteBucketObject = () => {
-  bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.id !== props.idBucketElem);
-} 
 
 const handlerShowProduct = () => {
   props.getProduct(props.elemProduct.id);

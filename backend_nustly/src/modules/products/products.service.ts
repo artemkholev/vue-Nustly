@@ -107,4 +107,6 @@ export class ProductsService {
     const product = await this.productsRepository.create(newObjectProduct);
     return product;
   }
+
+  async deleteProduct() {}
 }

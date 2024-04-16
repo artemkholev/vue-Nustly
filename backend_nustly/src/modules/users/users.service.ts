@@ -1,9 +1,15 @@
 import { RolesService } from '../roles/roles.service';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AddRoleDto } from './dto/add-role.dto';
+import { Role } from '../roles/roles.model';
 
 @Injectable()
 export class UsersService {
@@ -11,6 +17,17 @@ export class UsersService {
     @InjectModel(User) private userRepository: typeof User,
     private rolesService: RolesService,
   ) {}
+  async getUser(userId: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      include: { model: Role },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Пользователь не найден!');
+    }
+    return user;
+  }
 
   async createUser(dto: CreateUserDto) {
     const user = await this.userRepository.create(dto);

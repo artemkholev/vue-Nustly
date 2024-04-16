@@ -51,12 +51,12 @@ export class User extends Model<User, UserCreationAttrs> {
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
 
+  @HasMany(() => Order)
+  order: Order[];
+
   @HasOne(() => Bucket)
   bucket: Bucket;
 
   @HasOne(() => Tokens)
   tokens: Tokens;
-
-  @HasMany(() => Order)
-  order: Order[];
 }

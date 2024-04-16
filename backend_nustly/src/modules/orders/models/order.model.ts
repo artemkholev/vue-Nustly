@@ -77,7 +77,7 @@ export class Order extends Model<Order> {
   //connection
   @ForeignKey(() => User)
   @Column({ type: DataType.UUID })
-  user_id: string;
+  id_user: string;
   @BelongsTo(() => User)
   user: User;
 

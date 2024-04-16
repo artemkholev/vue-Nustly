@@ -3,7 +3,6 @@ import {
   Column,
   DataType,
   ForeignKey,
-  HasMany,
   Model,
   PrimaryKey,
   Table,
@@ -25,17 +24,22 @@ export class OrderDetails extends Model<OrderDetails> {
   id: string = randomUUID();
 
   @Column({
-    type: DataType.NUMBER,
+    type: DataType.INTEGER,
   })
   quantity: number;
 
   //connection
-  @HasMany(() => Products)
-  products: Products[];
+  @ForeignKey(() => Products)
+  @Column({
+    type: DataType.UUID,
+  })
+  id_product: string;
+  @BelongsTo(() => Products)
+  product: Products;
 
   @ForeignKey(() => Order)
   @Column({ type: DataType.UUID })
-  order_id: string;
+  id_order: string;
   @BelongsTo(() => Order)
   order: Order;
 }

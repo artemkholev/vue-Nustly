@@ -9,6 +9,7 @@ export const route: RouteRecordRaw = {
   component: () => import('@/pages/account-page'),
   meta: {
     layout: MainLayout,
+    requiredAuth: true,
     title: 'AccountUser'
   }
 }

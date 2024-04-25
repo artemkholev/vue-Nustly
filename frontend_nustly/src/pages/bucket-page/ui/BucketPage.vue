@@ -6,6 +6,36 @@
         <p v-if="errorMessageBucketPage.length" >{{ errorMessageBucketPage }}</p>
         <p  v-if="errorMessageBucketPage.length">{{ errorMessageBucketPage }}</p>
       </div>
+      <div class="bucket__header__buttons-actions">
+        <button-elem
+          :clName="null"
+          :title="'Выбрать все'"
+          :handler="selectAllProducts"
+          :width="'200px'"
+          :height="'55px'"
+          :background="'#70C05B'"
+          :textColor="null"
+          :fontSize="null"
+          :fontWeight="null"
+          :margin="'0 0 0 0'"
+          :borderRadius="'5px'"
+          :icon="null"
+        />
+        <button-elem
+          :clName="null"
+          :title="'Купить выбранные товары'"
+          :handler="() => {}"
+          :width="'200px'"
+          :height="'55px'"
+          :background="'#70C05B'"
+          :textColor="null"
+          :fontSize="null"
+          :fontWeight="null"
+          :margin="'0 0 0 0'"
+          :borderRadius="'5px'"
+          :icon="null"
+        />
+      </div>  
     </div>
     <div v-if="bucketObjects.length" class="bucket__input-finder">
       <input type="text" placeholder="Найти товар..." v-model="findBucketObject"> 
@@ -64,8 +94,8 @@ const { getProduct } = productsStore;
 
 //bucket store
 const bucketStore = BucketModel.useBucketStore();
-const { getBucketObjects } = bucketStore;
-const { errorMessageBucketPage, page, totalPages, bucketObjects, isLoading } = storeToRefs(bucketStore);
+const { getBucketObjects, selectAllProducts } = bucketStore;
+const { errorMessageBucketPage, page, totalPages, bucketObjects, isLoading, selectedObjectsBucket } = storeToRefs(bucketStore);
 
 //theme store
 const themeStore = useThemeStore();

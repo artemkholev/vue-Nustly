@@ -22,6 +22,7 @@ export const useBucketStore = defineStore('bucket', () => {
 
   const bucketObjects = ref<IBucketModel[]>([]);
   const bucketObject = ref<IBucketModel>();
+  const selectedObjectsBucket = ref<IBucketModel[]>([]);
 
   const page = ref(1);
   const limit = ref(10);
@@ -38,6 +39,10 @@ export const useBucketStore = defineStore('bucket', () => {
       value:  'title'
     },
   ]);
+
+  const selectAllProducts = () => {
+    selectedObjectsBucket.value = bucketObjects.value;
+  }
 
   const findProducts = computed(() => {
 
@@ -129,7 +134,7 @@ export const useBucketStore = defineStore('bucket', () => {
   })
 
   return {
-    postCreateBucketObject, postRemoveBucketObject, getBucketObjects,
-    errorMessageBucketPage, page, limit, totalPages, bucketObjects, isLoading
+    postCreateBucketObject, postRemoveBucketObject, getBucketObjects, selectAllProducts,
+    errorMessageBucketPage, page, limit, totalPages, bucketObjects, isLoading, selectedObjectsBucket
   }
 });

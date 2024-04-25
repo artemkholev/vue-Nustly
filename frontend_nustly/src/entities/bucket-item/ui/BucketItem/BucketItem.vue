@@ -1,6 +1,7 @@
 <template>
   <div :class="cardClasses">
     <div class="card__top">
+      <input class="card__top__checker" type="checkbox">
       <div class="card__top__image">
         <img
           @click="handlerShowProduct"

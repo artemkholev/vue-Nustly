@@ -22,33 +22,45 @@
         :icon="null"
       />
     </div>
-    <div v-if="products.length" class="products__input-finder">
-      <input type="text" placeholder="Найти товар..." v-model="findProductElem"> 
-      <button>
-        <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
-      </button>
-    </div>
-    <div class="products__cards" 
-      v-if="products.length"
-    >
-      <template v-for="elem in products" :key="elem.id">
-        <ProductItem 
-          :elemProduct="elem"
-          :handlerShowProductDialogVisible="handlerShowProductDialogVisible"
-          :getProduct="getProduct"
+
+    <div class="products__container">
+      <button v-show="!openFinder" @click="togleFinderPanel" class="button-filter">+</button>
+      <Transition name="sidebar">
+        <FinderSidebarProduct v-if="openFinder" @close="togleFinderPanel"/>
+      </Transition>
+    
+      <div class="container__products-cards">
+        <div v-if="products.length" class="input-finder">
+          <input type="text" placeholder="Найти товар..." v-model="findProductElem"> 
+          <button>
+            <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
+          </button>
+        </div>
+        <div class="cards" 
+          v-if="products.length"
+        >
+          <template v-for="elem in products" :key="elem.id">
+            <ProductItem 
+              :elemProduct="elem"
+              :handlerShowProductDialogVisible="handlerShowProductDialogVisible"
+              :getProduct="getProduct"
+            />
+          </template>
+        </div>
+        <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
+        <h2 v-if="!isLoading && !products.length" class="container__products-cards__info-product-request">
+          Данных нет
+        </h2>
+        <Pagination
+          v-if="products.length"
+          @change-page="(newPage) => page = newPage"
+          :totalPages="totalPages"
+          :page="page"
         />
-      </template>
+      </div>
     </div>
-    <p  v-if="isLoading" :style="{margin: '10px'}">Loading...</p>
-    <h2 v-if="!isLoading && !products.length" class="products__info-product-request">
-      Данных нет
-    </h2>
-    <Pagination
-      v-if="products.length"
-      @change-page="(newPage) => page = newPage"
-      :totalPages="totalPages"
-      :page="page"
-    />
+
+    
     <dialog-window v-model:show="createProductDialogVisible">
       <CreateProduct
         :categoryId="categoryId"
@@ -75,6 +87,7 @@ import { ProductItem } from '@/entities/product-item';
 import { useRoute } from 'vue-router';
 import { CreateProduct } from '@/features/product/CreateProduct';
 import { ShowProduct } from '@/features/product/ShowProduct';
+import FinderSidebarProduct from '@/widgets/finder-sidebar-product';
 
 
 import MagnifierIcon from '@/app/assets/images/icons/MagnifierIcon.vue';
@@ -82,6 +95,12 @@ import MagnifierIcon from '@/app/assets/images/icons/MagnifierIcon.vue';
 defineComponent({
   MagnifierIcon,
 })
+
+const openFinder = ref(false);
+
+const togleFinderPanel = () => {
+  openFinder.value = !openFinder.value;
+}
 
 const route = useRoute();
 const categoryId = route.params.category_id;
@@ -131,4 +150,14 @@ onMounted(() => {
 })
 </script>
 
-<style src="./ProductsPage.style.scss" lang="scss" scoped></style>
+<style src="./ProductsPage.style.scss" lang="scss" scoped>
+.sidebar-enter-active,
+.sidebar-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.sidebar-enter-from,
+.sidebar-leave-to {
+  opacity: 0;
+}
+</style>

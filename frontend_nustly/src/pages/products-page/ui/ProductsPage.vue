@@ -53,6 +53,7 @@
         </h2>
         <Pagination
           v-if="products.length"
+          style="width: 100%; display: flex; justify-content: center; margin: 0, auto;"
           @change-page="(newPage) => page = newPage"
           :totalPages="totalPages"
           :page="page"

@@ -23,6 +23,7 @@ export const useProductsStore = defineStore('products', () => {
 
   const products = ref<IProducts[]>([]);
   const product = ref<IProducts>();
+  const nameCategory = ref<string>('');
 
   const page = ref(1);
   const limit = ref(10);
@@ -40,9 +41,6 @@ export const useProductsStore = defineStore('products', () => {
     },
   ]);
 
-  const sortedPlans = computed(() => {
-    return [...products.value].sort((product_1: any, product_2: any) => product_1[selected.value]?.localeCompare(product_2[selected.value]))
-  });
 
   const postRemoveProduct = async () => {
     try {
@@ -84,7 +82,8 @@ export const useProductsStore = defineStore('products', () => {
           _limit: limit.value
         }
       });
-      products.value = responce.data;
+      products.value = responce.data.products;
+      nameCategory.value = responce.data.category.title
       totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
       errorMessage.value = '';
     } catch (error: any) {
@@ -110,5 +109,8 @@ export const useProductsStore = defineStore('products', () => {
     }
   };
 
-  return {sortedPlans, postRemoveProduct, postCreateProduct, getProducts, getProduct, isLoading, errorMessage, products, product, totalPages, page}
+  return {
+    postRemoveProduct, postCreateProduct, getProducts, getProduct, isLoading, errorMessage, products,
+    product, totalPages, page, nameCategory
+  }
 });

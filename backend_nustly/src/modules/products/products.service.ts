@@ -6,12 +6,14 @@ import { Response } from 'express';
 import { CreateProductDto } from './dto/create-products.dto';
 import { Bucket } from '../bucket/models/bucket.model';
 import { BucketItem } from '../bucket/models/bucketItem.model';
+import { Categories } from '../categories/categories.model';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectModel(Products) private productsRepository: typeof Products,
     @InjectModel(Bucket) private bucketRepository: typeof Bucket,
+    @InjectModel(Categories) private categoriesRepository: typeof Categories,
   ) {}
 
   async getProducts(
@@ -51,9 +53,17 @@ export class ProductsService {
         }
       }
 
+      const category = await this.categoriesRepository.findOne({
+        where: { id: categoryId },
+      });
+
       response.set('Access-Control-Expose-Headers', 'X-Total-Count');
       response.set('X-Total-Count', products.length.toString());
-      response.send(productsWithBucketElem ? productsWithBucketElem : products);
+      const sendProducts = {
+        category: category,
+        products: productsWithBucketElem ? productsWithBucketElem : products,
+      };
+      response.send(sendProducts);
     } catch (error) {
       console.log(error);
     }

@@ -53,10 +53,10 @@ export const useBucketStore = defineStore('bucket', () => {
   });
 
   const deleteBucketObject = (idBucketElem: string) => {
-    bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.id !== idBucketElem);
+    bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.products.id !== idBucketElem);
   } 
 
-  const postRemoveBucketObject = async (productId: string, idBucketElem: string) => {
+  const postRemoveBucketObject = async (productId: string, idBucketElem: string = '') => {
      try {
       const response = await apiAxios.post(`${API_URL_BUCKET}/remove`, {
         productId: productId,

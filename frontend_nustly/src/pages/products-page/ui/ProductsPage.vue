@@ -1,7 +1,7 @@
 <template>
   <div :class="catalogClasses">
     <div class="products__header">
-      <h1>Товары {{ role }}</h1>
+      <h1>Товары {{ role }} | {{ nameCategory }}</h1>
       <div class=products__header__error>
         <p v-if="errorMessageBucketPage.length" >{{ errorMessageBucketPage }}</p>
         <p  v-if="errorMessage.length">{{ errorMessage }}</p>
@@ -23,23 +23,23 @@
       />
     </div>
 
-    <div class="products__container">
-      <button v-show="!openFinder" @click="togleFinderPanel" class="button-filter">+</button>
+    <div style="position: relative;" class="products__container">
+      <button v-show="!openFinder && productsFilter.length" @click="togleFinderPanel" class="button-filter">+</button>
       <Transition name="sidebar">
-        <FinderSidebarProduct v-if="openFinder" @close="togleFinderPanel"/>
+        <FinderSidebarProduct v-if="openFinder" @close="togleFinderPanel" style="position: absolute;"/>
       </Transition>
     
       <div class="container__products-cards">
         <div v-if="products.length" class="input-finder">
-          <input type="text" placeholder="Найти товар..." v-model="findProductElem"> 
-          <button>
+          <input type="text" placeholder="Найти товар..." v-model="findProductElemString" @keydown.enter="filterProducts"> 
+          <button @click="filterProducts" >
             <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
           </button>
         </div>
         <div class="cards" 
           v-if="products.length"
         >
-          <template v-for="elem in products" :key="elem.id">
+          <template v-for="elem in productsFilter" :key="elem.id">
             <ProductItem 
               :elemProduct="elem"
               :handlerShowProductDialogVisible="handlerShowProductDialogVisible"
@@ -82,7 +82,7 @@ import { ProductModel } from '@/entities/product-item';
 import { BucketModel } from '@/entities/bucket-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 import { ProductItem } from '@/entities/product-item';
 import { useRoute } from 'vue-router';
 import { CreateProduct } from '@/features/product/CreateProduct';
@@ -105,12 +105,14 @@ const togleFinderPanel = () => {
 const route = useRoute();
 const categoryId = route.params.category_id;
 
-const findProductElem = ref('');
+const findProductElemString = ref('');
 
 //products store
 const productsStore = ProductModel.useProductsStore();
-const { isLoading, errorMessage, products, totalPages, page  } = storeToRefs(productsStore);
+const { isLoading, errorMessage, products, totalPages, page, nameCategory } = storeToRefs(productsStore);
 const { getProducts, getProduct, postCreateProduct } = productsStore;
+
+const productsFilter = ref<any>([]);
 
 //bucket store
 const bucketStore = BucketModel.useBucketStore();
@@ -141,12 +143,20 @@ const handlerShowProductDialogVisible = () => {
   showProductDialogVisible.value = !showProductDialogVisible.value;
 }
 
-const findProduct = computed((finderParam) => {
-  return finderParam;
-})
+const filterProducts = () => {
+  if (!findProductElemString.value.length)
+    productsFilter.value = [...products.value]
+  productsFilter.value = [];
+  findProductElemString.value = findProductElemString.value.toLowerCase();
+  for (const product of products.value) {
+    if (product.title.toLowerCase().indexOf(findProductElemString.value) != -1)
+      productsFilter.value.push(product);
+  }     
+};
 
-onMounted(() => {
-  getProducts(categoryId);
+onBeforeMount(async () => {
+  await getProducts(categoryId);
+  productsFilter.value = [...products.value];
 })
 </script>
 

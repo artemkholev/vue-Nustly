@@ -24,18 +24,21 @@
     </div>
 
     <div style="position: relative;" class="products__container">
-      <button v-show="!openFinder && productsFilter.length" @click="togleFinderPanel" class="button-filter">+</button>
-      <Transition name="sidebar">
-        <FinderSidebarProduct v-if="openFinder" @close="togleFinderPanel" style="position: absolute;"/>
-      </Transition>
-    
       <div class="container__products-cards">
-        <div v-if="products.length" class="input-finder">
-          <input type="text" placeholder="Найти товар..." v-model="findProductElemString" @keydown.enter="filterProducts"> 
-          <button @click="filterProducts" >
-            <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
-          </button>
+        <div class="filters">
+          <button @click="togleFinderPanel" class="button-filter">+</button>
+          <Transition name="sidebar">
+            <FinderSidebarProduct v-if="openFinder" @close="togleFinderPanel" style="position: absolute;"/>
+          </Transition>
+      
+          <div v-if="products.length" class="input-finder">
+            <input type="text" placeholder="Найти товар..." v-model="findProductElemString" @keydown.enter="filterProducts"> 
+            <button @click="filterProducts" >
+              <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
+            </button>
+          </div>
         </div>
+        
         <div class="cards" 
           v-if="products.length"
         >

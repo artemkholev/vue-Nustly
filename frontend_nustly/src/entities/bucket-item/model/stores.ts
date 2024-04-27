@@ -53,7 +53,7 @@ export const useBucketStore = defineStore('bucket', () => {
   });
 
   const deleteBucketObject = (idBucketElem: string) => {
-    bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.products.id !== idBucketElem);
+    bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.id !== idBucketElem);
   } 
 
   const postRemoveBucketObject = async (productId: string, idBucketElem: string = '') => {
@@ -63,8 +63,10 @@ export const useBucketStore = defineStore('bucket', () => {
         quantity: 0,
       });
       errorMessageBucketPage.value = '';
+      
       if (idBucketElem.length)
         deleteBucketObject(idBucketElem);
+      console.log(bucketObjects.value)
       return response.data ?? false;
     } catch (err: any) {
       const error: AxiosError<ValidationErrors> = err;

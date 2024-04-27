@@ -86,7 +86,7 @@ import { ProductModel } from '@/entities/product-item';
 import { BucketModel } from '@/entities/bucket-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
-import { computed, defineComponent, onBeforeMount, ref } from 'vue';
+import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue';
 import { ProductItem } from '@/entities/product-item';
 import { useRoute } from 'vue-router';
 import { CreateProduct } from '@/features/product/CreateProduct';
@@ -158,9 +158,14 @@ const filterProducts = () => {
   }     
 };
 
+watch(products, () => {
+  filterProducts();
+})
+
 onBeforeMount(async () => {
   await getProducts(categoryId);
-  productsFilter.value = [...products.value];
+  if (products.value.length)
+    productsFilter.value = [...products.value];
 })
 </script>
 

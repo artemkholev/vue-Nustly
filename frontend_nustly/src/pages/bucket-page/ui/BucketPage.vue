@@ -38,15 +38,15 @@
       </div>  
     </div>
     <div v-if="bucketObjects.length" class="bucket__input-finder">
-      <input type="text" placeholder="Найти товар..." v-model="findBucketObject"> 
-      <button>
+      <input type="text" placeholder="Найти товар..." v-model="findProductElemString" @keydown.enter="filterProducts"> 
+      <button @click="filterProducts" >
         <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
       </button>
     </div>
     <div class="bucket__cards" 
       v-if="bucketObjects.length"
     >
-      <template v-for="bucketElem in bucketObjects" :key="bucketElem.id">
+      <template v-for="bucketElem in productsFilter" :key="bucketElem.id">
         <BucketItem 
           :idBucketElem="bucketElem.id"
           :elemProduct="bucketElem.products"
@@ -61,6 +61,7 @@
     </h2>
     <Pagination
       v-if="bucketObjects.length"
+      style="width: 100%; display: flex; justify-content: center; margin: 0, auto;"
       @change-page="(newPage) => page = newPage"
       :totalPages="totalPages"
       :page="page"
@@ -77,7 +78,7 @@ import Pagination from '@/features/pagination';
 import { BucketModel } from '@/entities/bucket-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { BucketItem } from '@/entities/bucket-item';
 import { ShowProduct } from '@/features/product/ShowProduct';
 import { ProductModel } from '@/entities/product-item';
@@ -105,7 +106,8 @@ const catalogClasses = computed(() => {
   return { bucket: true, ['bucket_dark']: isDarkTheme.value };
 });
 
-const findBucketObject = ref('');
+const findProductElemString = ref('');
+const productsFilter = ref<any>([]);
 
 //auth store 
 const authStore = useAuthStore();
@@ -118,8 +120,24 @@ const handlerShowProductDialogVisible = () => {
   showProductDialogVisible.value = !showProductDialogVisible.value;
 }
 
-onMounted(() => {
-  getBucketObjects();
+const filterProducts = () => {
+  if (!findProductElemString.value.length)
+    productsFilter.value = [...bucketObjects.value]
+  productsFilter.value = [];
+  findProductElemString.value = findProductElemString.value.toLowerCase();
+  for (const product of bucketObjects.value) {
+    if (product.products.title.toLowerCase().indexOf(findProductElemString.value) != -1)
+      productsFilter.value.push(product);
+  }     
+};
+
+watch(bucketObjects, () => {
+  filterProducts();
+})
+onMounted(async () => {
+  await getBucketObjects();
+  if (bucketObjects.value.length)
+    productsFilter.value = [...bucketObjects.value];
 })
 </script>
 

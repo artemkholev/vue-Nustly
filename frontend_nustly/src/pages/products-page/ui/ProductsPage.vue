@@ -28,12 +28,20 @@
         <div class="filters">
           <button @click="togleFinderPanel" class="button-filter">+</button>
           <Transition name="sidebar">
-            <FinderSidebarProduct v-if="openFinder" @close="togleFinderPanel" style="position: absolute;"/>
+            <FinderSidebarProduct 
+              v-if="openFinder" 
+              @close="togleFinderPanel"
+              @actionFilter="((minPrice: number, maxPrice: number) => {
+                paramsFilter.price.min = minPrice;
+                paramsFilter.price.max = maxPrice;
+              })"
+              style="position: absolute;"
+            />
           </Transition>
       
           <div v-if="products.length" class="input-finder">
-            <input type="text" placeholder="Найти товар..." v-model="findProductElemString" @keydown.enter="filterProducts"> 
-            <button @click="filterProducts" >
+            <input type="text" placeholder="Найти товар..." v-model="paramsFilter.input" @keydown.enter="filterProducts(paramsFilter.input)"> 
+            <button @click="filterProducts(paramsFilter.input)" >
               <icon-base width="30" height="30" iconName="find"><magnifier-icon/></icon-base>
             </button>
           </div>
@@ -109,14 +117,10 @@ const togleFinderPanel = () => {
 const route = useRoute();
 const categoryId = route.params.category_id;
 
-const findProductElemString = ref('');
-
 //products store
 const productsStore = ProductModel.useProductsStore();
-const { isLoading, errorMessage, products, totalPages, page, nameCategory } = storeToRefs(productsStore);
-const { getProducts, getProduct, postCreateProduct } = productsStore;
-
-const productsFilter = ref<any>([]);
+const { isLoading, errorMessage, products, totalPages, page, nameCategory, productsFilter, paramsFilter } = storeToRefs(productsStore);
+const { getProducts, getProduct, postCreateProduct, filterProducts, filtersMinMaxPrice } = productsStore;
 
 //bucket store
 const bucketStore = BucketModel.useBucketStore();
@@ -147,19 +151,8 @@ const handlerShowProductDialogVisible = () => {
   showProductDialogVisible.value = !showProductDialogVisible.value;
 }
 
-const filterProducts = () => {
-  if (!findProductElemString.value.length)
-    productsFilter.value = [...products.value]
-  productsFilter.value = [];
-  findProductElemString.value = findProductElemString.value.toLowerCase();
-  for (const product of products.value) {
-    if (product.title.toLowerCase().indexOf(findProductElemString.value) != -1)
-      productsFilter.value.push(product);
-  }     
-};
-
 watch(products, () => {
-  filterProducts();
+  filterProducts(paramsFilter.value.input);
 })
 
 onBeforeMount(async () => {

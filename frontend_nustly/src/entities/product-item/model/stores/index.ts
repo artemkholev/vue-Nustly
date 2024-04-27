@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import type { ICreateProduct, IProducts } from '@/shared/api/productsApi/productsApi.types';
@@ -24,6 +24,7 @@ export const useProductsStore = defineStore('products', () => {
   const products = ref<IProducts[]>([]);
   const product = ref<IProducts>();
   const nameCategory = ref<string>('');
+  const productsFilter = ref<any>([]);
 
   const page = ref(1);
   const limit = ref(10);
@@ -41,6 +42,38 @@ export const useProductsStore = defineStore('products', () => {
     },
   ]);
 
+  const paramsFilter = ref({
+    input: '',
+    price: {
+      min: 0,
+      max: 0,
+    }
+  })
+
+  const filterProducts = (findProductElemString: string) => {
+    if (!findProductElemString.length)
+      productsFilter.value = [...products.value]
+    productsFilter.value = [];
+    findProductElemString = findProductElemString.toLowerCase();
+    for (const product of products.value) {
+      if (product.title.toLowerCase().indexOf(findProductElemString) != -1)
+        productsFilter.value.push(product);
+    }     
+  };
+
+  const filtersMinMaxPrice = (minPrice: number, maxPrice: number) => {
+    productsFilter.value = productsFilter.value.filter((elem: IProducts) => {
+      elem.price >= minPrice && elem.price <= maxPrice
+    })
+  }
+
+
+  watch(paramsFilter, () => {
+    filterProducts(paramsFilter.value.input);
+    if (paramsFilter.value.price.min || paramsFilter.value.price.max) {
+      filtersMinMaxPrice(paramsFilter.value.price.min, paramsFilter.value.price.max);
+    }
+  }, { deep: true })
 
   const postRemoveProduct = async () => {
     try {
@@ -110,7 +143,7 @@ export const useProductsStore = defineStore('products', () => {
   };
 
   return {
-    postRemoveProduct, postCreateProduct, getProducts, getProduct, isLoading, errorMessage, products,
-    product, totalPages, page, nameCategory
+    postRemoveProduct, postCreateProduct, getProducts, getProduct, filterProducts, filtersMinMaxPrice,
+    isLoading, errorMessage, products, product, totalPages, page, nameCategory, productsFilter, paramsFilter
   }
 });

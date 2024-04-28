@@ -2,11 +2,12 @@
   <div :class="catalogClasses">
     <div class="bucket__header">
       <h1>Корзина {{ role }}</h1>
+      <span v-if="orders.length" style="color: orangered">Выбрано товаров на сумму {{ price }}₽</span>
       <div class=bucket__header__error>
         <p v-if="errorMessageBucketPage.length" >{{ errorMessageBucketPage }}</p>
         <p  v-if="errorMessageBucketPage.length">{{ errorMessageBucketPage }}</p>
       </div>
-      <div class="bucket__header__buttons-actions">
+      <div v-if="bucketObjects.length" class="bucket__header__buttons-actions">
         <button-elem
           :clName="null"
           :title="selectedAll ? 'Удалить выбранные' : 'Выбрать все'"
@@ -95,7 +96,7 @@ defineComponent({
 
 //placingOrderStore
 const placingOrderStore = PlacingOrderModel.usePlacingOrderStore();
-const { orders } = storeToRefs(placingOrderStore);
+const { orders, price } = storeToRefs(placingOrderStore);
 
 //product store
 const productsStore = ProductModel.useProductsStore();
@@ -155,6 +156,7 @@ watch([bucketObjects, findProductElemString], () => {
 })
 
 onMounted(async () => {
+  orders.value = [];
   await getBucketObjects();
   if (bucketObjects.value.length)
     productsFilter.value = [...bucketObjects.value];

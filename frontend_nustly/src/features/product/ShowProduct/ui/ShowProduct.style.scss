@@ -2,19 +2,17 @@
 
 .product-container {
   padding: 30px;
-  border: 1px solid $main-color__active;
   &__title {
     text-align: center;
-    font-size: $title-size;
-    font-weight: 500;
+    font-size: xx-large;
+    font-weight: 300;
     margin-bottom: 20px;
   }
   &__header {
     display: flex;
     gap: 20px;
     &__image > img {
-      border: 2px solid $main-color__active;
-      border-radius: 20px;
+      border-radius: 5px;
     }
     &__general-info {
       padding: 20px;

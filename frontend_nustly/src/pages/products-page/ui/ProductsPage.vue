@@ -25,7 +25,7 @@
 
     <div style="position: relative;" class="products__container">
       <div class="container__products-cards">
-        <div v-if="products" class="filters">
+        <div v-if="products.length" class="filters">
           <button @click="togleFinderPanel" class="button-filter">+</button>
           <Transition name="sidebar">
             <FinderSidebarProduct 

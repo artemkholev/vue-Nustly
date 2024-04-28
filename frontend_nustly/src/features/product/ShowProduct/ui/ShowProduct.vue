@@ -6,6 +6,7 @@
         <img :src="product?.photo" style="max-width: 400px; max-height: 400px;" alt="Фотография товара">
       </div>
       <div class="product-container__header__general-info">
+        <p><strong>Цена:</strong> {{ product?.price }} ₽</p>
         <p><strong>Название:</strong> {{ product?.title }}</p>
         <p><strong>Производитель:</strong> {{ product?.manufacturer }}</p>
         <div v-if="isAuth && route.name !== 'BucketPage'">
@@ -13,28 +14,28 @@
             :clName="null"
             :title="product?.isProductInBucket ? 'Убрать из корзины' : 'В корзину'"
             :handler="handlerActionBucketProduct"
-            :width="'80%'"
+            :width="'100%'"
             :height="'40px'"
             :background="'#70C05B'"
             :textColor="null"
             :fontSize="null"
             :fontWeight="null"
             :margin="'15px 0 0 0'"
-            :borderRadius="'10px'"
+            :borderRadius="'5px'"
             :icon="null"
           />
           <button-elem
             :clName="null"
             :title="'В избранное'"
             :handler="() => null"
-            :width="'80%'"
+            :width="'100%'"
             :height="'40px'"
             :background="'#70C05B'"
             :textColor="null"
             :fontSize="null"
             :fontWeight="null"
             :margin="'15px 0 0 0'"
-            :borderRadius="'10px'"
+            :borderRadius="'5px'"
             :icon="null"
           />
         </div>
@@ -43,24 +44,21 @@
     <div class="product-container__body">
       <div class="product-container__body__discription">
         <p><strong>Описание:</strong> {{ product?.description }}</p>
-        <p><strong>Цена:</strong> {{ product?.price }}</p>
       </div>
-      <router-link to="/placing-order">
-        <button-elem
-          :clName="null"
-          :title="'Купить'"
-          :handler="buyProduct"
-          :width="'80%'"
-          :height="'48px'"
-          :background="'#70C05B'"
-          :textColor="null"
-          :fontSize="null"
-          :fontWeight="null"
-          :margin="'24px 0 0 0'"
-          :borderRadius="'10px'"
-          :icon="null"
-        />
-      </router-link>       
+      <button-elem
+        :clName="null"
+        :title="'Купить'"
+        :handler="buyProduct"
+        :width="'40%'"
+        :height="'48px'"
+        :background="'orangered'"
+        :textColor="null"
+        :fontSize="null"
+        :fontWeight="null"
+        :margin="'24px 0 0 auto'"
+        :borderRadius="'5px'"
+        :icon="null"
+      />      
     </div>
   </div>
 </template>
@@ -71,9 +69,10 @@ import { BucketModel } from '@/entities/bucket-item';
 import { ProductModel } from '@/entities/product-item';
 import { useAuthStore } from '@/shared/stores/auth';
 import { storeToRefs } from 'pinia';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
- const route = useRoute();
+const route = useRoute();
+const router = useRouter();
 
 const productsStore = ProductModel.useProductsStore();
 const { product, products } = storeToRefs(productsStore);
@@ -97,6 +96,7 @@ const findProductChangeInBucket = (productId: string, isProductInBucket: boolean
 
 const buyProduct = () => {
   addToPlacingPrders(product.value!);
+  router.push('/placing-order');
 }
 
 const handlerActionBucketProduct = async () => {

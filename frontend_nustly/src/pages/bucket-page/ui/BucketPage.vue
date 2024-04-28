@@ -9,7 +9,7 @@
       <div class="bucket__header__buttons-actions">
         <button-elem
           :clName="null"
-          :title="'Выбрать все'"
+          :title="selectedAll ? 'Удалить выбранные' : 'Выбрать все'"
           :handler="selectAllProducts"
           :width="'200px'"
           :height="'55px'"
@@ -79,6 +79,7 @@
 import { useAuthStore } from '@/shared/stores/auth';
 import Pagination from '@/features/pagination';
 import { BucketModel } from '@/entities/bucket-item';
+import { PlacingOrderModel } from '@/entities/placing-order';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
@@ -91,6 +92,10 @@ import MagnifierIcon from '@/app/assets/images/icons/MagnifierIcon.vue';
 defineComponent({
   MagnifierIcon,
 })
+
+//placingOrderStore
+const placingOrderStore = PlacingOrderModel.usePlacingOrderStore();
+const { orders } = storeToRefs(placingOrderStore);
 
 //product store
 const productsStore = ProductModel.useProductsStore();
@@ -109,8 +114,9 @@ const catalogClasses = computed(() => {
   return { bucket: true, ['bucket_dark']: isDarkTheme.value };
 });
 
-const findProductElemString = ref('');
+const findProductElemString = ref<string>('');
 const productsFilter = ref<any>([]);
+const selectedAll = ref<boolean>(false);
 
 //auth store 
 const authStore = useAuthStore();
@@ -136,7 +142,12 @@ const filterProducts = () => {
 };
 
 const selectAllProducts = () => {
-  
+  if (selectedAll.value) {
+    orders.value = [];
+  } else {
+    orders.value = bucketObjects.value.map(elem => elem.products);
+  }
+  selectedAll.value = !selectedAll.value;
 }
 
 watch([bucketObjects, findProductElemString], () => {

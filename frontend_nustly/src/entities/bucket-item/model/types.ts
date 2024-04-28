@@ -18,6 +18,5 @@ export interface Products {
   id_model: any
   id_provider: any
   id_categories: string
-  createdAt: string
-  updatedAt: string
+  isProductInBucket: boolean
 }

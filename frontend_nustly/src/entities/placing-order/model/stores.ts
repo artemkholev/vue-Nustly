@@ -7,8 +7,6 @@ interface ValidationErrors {
   field_errors: Record<string, string>
 }
 
-const API_URL_BUCKET = '/';
-
 export const usePlacingOrderStore = defineStore('placingOrder', () => {
   const orders = ref<IProducts[]>([]);
 

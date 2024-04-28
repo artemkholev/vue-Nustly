@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import { computed, reactive, ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import type { ICreateProduct, IProducts } from '@/shared/api/productsApi/productsApi.types';
+import type { ICreateProduct, IProducts } from '@/entities/product-item/model';
 import { apiAxios } from '@/shared/api';
 import type { AxiosError } from 'axios';
 
@@ -24,7 +24,7 @@ export const useProductsStore = defineStore('products', () => {
   const products = ref<IProducts[]>([]);
   const product = ref<IProducts>();
   const nameCategory = ref<string>('');
-  const productsFilter = ref<any>([]);
+  const productsFilter = ref<IProducts[]>([]);
 
   const page = ref(1);
   const limit = ref(10);
@@ -51,6 +51,7 @@ export const useProductsStore = defineStore('products', () => {
   })
 
   const filterProducts = (findProductElemString: string) => {
+    if (!products.value.length) return;
     if (!findProductElemString.length)
       productsFilter.value = [...products.value]
     productsFilter.value = [];
@@ -62,8 +63,9 @@ export const useProductsStore = defineStore('products', () => {
   };
 
   const filtersMinMaxPrice = (minPrice: number, maxPrice: number) => {
+    console.log(minPrice, maxPrice)
     productsFilter.value = productsFilter.value.filter((elem: IProducts) => {
-      elem.price >= minPrice && elem.price <= maxPrice
+      return elem.price >= minPrice && elem.price <= maxPrice
     })
   }
 

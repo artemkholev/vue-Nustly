@@ -45,10 +45,11 @@
         <p><strong>Описание:</strong> {{ product?.description }}</p>
         <p><strong>Цена:</strong> {{ product?.price }}</p>
       </div>
+      <router-link to="/placing-order">
         <button-elem
           :clName="null"
           :title="'Купить'"
-          :handler="() => null"
+          :handler="buyProduct"
           :width="'80%'"
           :height="'48px'"
           :background="'#70C05B'"
@@ -59,11 +60,13 @@
           :borderRadius="'10px'"
           :icon="null"
         />
+      </router-link>       
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { PlacingOrderModel } from '@/entities/placing-order';
 import { BucketModel } from '@/entities/bucket-item';
 import { ProductModel } from '@/entities/product-item';
 import { useAuthStore } from '@/shared/stores/auth';
@@ -75,15 +78,25 @@ import { useRoute } from 'vue-router';
 const productsStore = ProductModel.useProductsStore();
 const { product, products } = storeToRefs(productsStore);
 
+//auth store
 const authStore = useAuthStore();
 const { isAuth } = storeToRefs(authStore);
 
+//bucket store
 const bucketStore = BucketModel.useBucketStore();
 const { postCreateBucketObject, postRemoveBucketObject } = bucketStore;
+
+//placing order store 
+const placingOrderStore = PlacingOrderModel.usePlacingOrderStore();
+const { addToPlacingPrders } = placingOrderStore;
 
 const findProductChangeInBucket = (productId: string, isProductInBucket: boolean) => {
   const index = products.value.findIndex((product) => product.id == productId);
   products.value[index].isProductInBucket = isProductInBucket;
+}
+
+const buyProduct = () => {
+  addToPlacingPrders(product.value!);
 }
 
 const handlerActionBucketProduct = async () => {

@@ -22,7 +22,6 @@ export const useBucketStore = defineStore('bucket', () => {
 
   const bucketObjects = ref<IBucketModel[]>([]);
   const bucketObject = ref<IBucketModel>();
-  const selectedObjectsBucket = ref<IBucketModel[]>([]);
 
   const page = ref(1);
   const limit = ref(10);
@@ -39,14 +38,6 @@ export const useBucketStore = defineStore('bucket', () => {
       value:  'title'
     },
   ]);
-
-  const selectAllProducts = () => {
-    selectedObjectsBucket.value = bucketObjects.value;
-  }
-
-  const findProducts = computed(() => {
-
-  })
 
   const sortedPlans = computed(() => {
     return [...bucketObjects.value].sort((bucketObject_1: any, bucketObject_2: any) => bucketObject_1[selected.value]?.localeCompare(bucketObject_2[selected.value]))
@@ -136,7 +127,6 @@ export const useBucketStore = defineStore('bucket', () => {
   })
 
   return {
-    postCreateBucketObject, postRemoveBucketObject, getBucketObjects, selectAllProducts,
-    errorMessageBucketPage, page, limit, totalPages, bucketObjects, isLoading, selectedObjectsBucket
+    postCreateBucketObject, postRemoveBucketObject, getBucketObjects, errorMessageBucketPage, page, limit, totalPages, bucketObjects, isLoading
   }
 });

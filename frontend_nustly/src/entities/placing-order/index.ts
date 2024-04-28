@@ -1,0 +1,1 @@
+export * as PlacingOrderModel from './model';

@@ -21,20 +21,23 @@
           :borderRadius="'5px'"
           :icon="null"
         />
-        <button-elem
-          :clName="null"
-          :title="'Купить выбранные товары'"
-          :handler="() => {}"
-          :width="'200px'"
-          :height="'55px'"
-          :background="'#70C05B'"
-          :textColor="null"
-          :fontSize="null"
-          :fontWeight="null"
-          :margin="'0 0 0 0'"
-          :borderRadius="'5px'"
-          :icon="null"
-        />
+        <router-link to="/placing-order">
+          <button-elem
+            :clName="null"
+            :title="'Купить выбранные товары'"
+            :handler="() => {}"
+            :width="'200px'"
+            :height="'55px'"
+            :background="'#70C05B'"
+            :textColor="null"
+            :fontSize="null"
+            :fontWeight="null"
+            :margin="'0 0 0 0'"
+            :borderRadius="'5px'"
+            :icon="null"
+          />
+        </router-link>
+        
       </div>  
     </div>
     <div v-if="bucketObjects.length" class="bucket__input-finder">
@@ -95,8 +98,8 @@ const { getProduct } = productsStore;
 
 //bucket store
 const bucketStore = BucketModel.useBucketStore();
-const { getBucketObjects, selectAllProducts } = bucketStore;
-const { errorMessageBucketPage, page, totalPages, bucketObjects, isLoading, selectedObjectsBucket } = storeToRefs(bucketStore);
+const { getBucketObjects } = bucketStore;
+const { errorMessageBucketPage, page, totalPages, bucketObjects, isLoading } = storeToRefs(bucketStore);
 
 //theme store
 const themeStore = useThemeStore();
@@ -121,6 +124,7 @@ const handlerShowProductDialogVisible = () => {
 }
 
 const filterProducts = () => {
+  if (!bucketObjects.value.length) return
   if (!findProductElemString.value.length)
     productsFilter.value = [...bucketObjects.value]
   productsFilter.value = [];
@@ -131,9 +135,14 @@ const filterProducts = () => {
   }     
 };
 
-watch(bucketObjects, () => {
+const selectAllProducts = () => {
+  
+}
+
+watch([bucketObjects, findProductElemString], () => {
   filterProducts();
 })
+
 onMounted(async () => {
   await getBucketObjects();
   if (bucketObjects.value.length)

@@ -25,7 +25,7 @@
 
     <div style="position: relative;" class="products__container">
       <div class="container__products-cards">
-        <div class="filters">
+        <div v-if="products" class="filters">
           <button @click="togleFinderPanel" class="button-filter">+</button>
           <Transition name="sidebar">
             <FinderSidebarProduct 
@@ -125,7 +125,6 @@ const { getProducts, getProduct, postCreateProduct, filterProducts, filtersMinMa
 //bucket store
 const bucketStore = BucketModel.useBucketStore();
 const { errorMessageBucketPage } = storeToRefs(bucketStore);
-
 
 //theme store
 const themeStore = useThemeStore();

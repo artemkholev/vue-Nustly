@@ -7,6 +7,7 @@ import { CreateProductDto } from './dto/create-products.dto';
 import { Bucket } from '../bucket/models/bucket.model';
 import { BucketItem } from '../bucket/models/bucketItem.model';
 import { Categories } from '../categories/categories.model';
+import { Favorites } from '../favorites/models/favorites.model';
 
 @Injectable()
 export class ProductsService {
@@ -14,6 +15,7 @@ export class ProductsService {
     @InjectModel(Products) private productsRepository: typeof Products,
     @InjectModel(Bucket) private bucketRepository: typeof Bucket,
     @InjectModel(Categories) private categoriesRepository: typeof Categories,
+    @InjectModel(Favorites) private favoritsRepository: typeof Favorites,
   ) {}
 
   async getProducts(

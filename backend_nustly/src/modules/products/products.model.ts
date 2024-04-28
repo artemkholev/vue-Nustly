@@ -14,6 +14,7 @@ import { randomUUID } from 'crypto';
 import { Categories } from '../categories/categories.model';
 import { BucketItem } from '../bucket/models/bucketItem.model';
 import { OrderDetails } from '../orders/models/orderDetails.model';
+import { FavoritesItem } from '../favorites/models/favoritesItem.model';
 
 interface ProductsCreationAttrs {
   title: string;
@@ -105,6 +106,12 @@ export class Products extends Model<Products, ProductsCreationAttrs> {
     hooks: true,
   })
   bucketItems: BucketItem[];
+
+  @HasMany(() => FavoritesItem, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  favritesItems: FavoritesItem[];
 
   @HasOne(() => OrderDetails)
   orders: OrderDetails;

@@ -2,11 +2,15 @@
 
 .header-container {
   height: 120px;
+  z-index: 1000;
   display: flex;
   padding: 20px;
   justify-content: center;
   align-items: center;
   gap: 30px;
+  -webkit-box-shadow: 0 5px 5px #888888;
+  -moz-box-shadow: 0 5px 5px #888888;
+  box-shadow: 0 5px 5px #888888;
 
   &__logo {
     display: flex;

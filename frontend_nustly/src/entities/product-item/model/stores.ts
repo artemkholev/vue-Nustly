@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import { computed, reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import type { ICreateProduct, IProducts } from '@/shared/api/productsApi/productsApi.types';
+import type { ICreateProduct, IProducts } from '@/entities/product-item/model';
 import { apiAxios } from '@/shared/api';
 import type { AxiosError } from 'axios';
 
@@ -23,6 +23,8 @@ export const useProductsStore = defineStore('products', () => {
 
   const products = ref<IProducts[]>([]);
   const product = ref<IProducts>();
+  const nameCategory = ref<string>('');
+  const productsFilter = ref<IProducts[]>([]);
 
   const page = ref(1);
   const limit = ref(10);
@@ -40,9 +42,40 @@ export const useProductsStore = defineStore('products', () => {
     },
   ]);
 
-  const sortedPlans = computed(() => {
-    return [...products.value].sort((product_1: any, product_2: any) => product_1[selected.value]?.localeCompare(product_2[selected.value]))
-  });
+  const paramsFilter = ref({
+    input: '',
+    price: {
+      min: 0,
+      max: 0,
+    }
+  })
+
+  const filterProducts = (findProductElemString: string) => {
+    if (!products.value.length) return;
+    if (!findProductElemString.length)
+      productsFilter.value = [...products.value]
+    productsFilter.value = [];
+    findProductElemString = findProductElemString.toLowerCase();
+    for (const product of products.value) {
+      if (product.title.toLowerCase().indexOf(findProductElemString) != -1)
+        productsFilter.value.push(product);
+    }     
+  };
+
+  const filtersMinMaxPrice = (minPrice: number, maxPrice: number) => {
+    console.log(minPrice, maxPrice)
+    productsFilter.value = productsFilter.value.filter((elem: IProducts) => {
+      return elem.price >= minPrice && elem.price <= maxPrice
+    })
+  }
+
+
+  watch(paramsFilter, () => {
+    filterProducts(paramsFilter.value.input);
+    if (paramsFilter.value.price.min || paramsFilter.value.price.max) {
+      filtersMinMaxPrice(paramsFilter.value.price.min, paramsFilter.value.price.max);
+    }
+  }, { deep: true })
 
   const postRemoveProduct = async () => {
     try {
@@ -84,7 +117,8 @@ export const useProductsStore = defineStore('products', () => {
           _limit: limit.value
         }
       });
-      products.value = responce.data;
+      products.value = responce.data.products;
+      nameCategory.value = responce.data.category.title
       totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
       errorMessage.value = '';
     } catch (error: any) {
@@ -110,5 +144,8 @@ export const useProductsStore = defineStore('products', () => {
     }
   };
 
-  return {sortedPlans, postRemoveProduct, postCreateProduct, getProducts, getProduct, isLoading, errorMessage, products, product, totalPages, page}
+  return {
+    postRemoveProduct, postCreateProduct, getProducts, getProduct, filterProducts, filtersMinMaxPrice,
+    isLoading, errorMessage, products, product, totalPages, page, nameCategory, productsFilter, paramsFilter
+  }
 });

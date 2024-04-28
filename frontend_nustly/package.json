@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react-leaflet": "^3.0.0",
+    "@vue-stripe/vue-stripe": "^4.5.0",
     "axios": "^1.6.2",
     "jwt-decode": "^3.1.2",
     "pinia": "^2.1.7",

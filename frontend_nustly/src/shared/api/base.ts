@@ -31,8 +31,6 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
     originalRequest._isRetry = true;
     try {
       const response: AxiosResponse<IResponseLogin | any> = await axios.post(`${API_URL}/refresh`, { withCredentials: true });
-
-      console.log(response.data.accessToken);
       sessionStorage.setItem('accessToken', response.data.accessToken);
       loginIsAuth()
       const decodeToken = decodeJwt(response.data.accessToken);

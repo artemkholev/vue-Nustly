@@ -1,0 +1,47 @@
+
+.side-bar {
+  width: 400px;
+  height: auto;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  border-radius: 10px;
+  box-shadow: 0 10px 5px #888888;
+  background-color: rgb(255, 255, 255);
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    &__title {
+      padding: 10px;
+      border-radius: 5px;
+      width: 100%;
+      font-weight: 600;
+      font-size: 50px;
+      background-color: #dadada;
+      font-size: 20px;
+      font-weight: normal;
+      text-align: center;
+    }
+    span {
+      padding: 10px;
+      font-size: large;
+      font-size: 40px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+
+  &__container {
+    height: 100%;
+    
+  }
+
+  &__footer {
+    margin: 0 auto;
+  }
+  
+}

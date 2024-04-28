@@ -1,0 +1,9 @@
+@import '@/app/styles/vars.scss';
+
+.account-container {
+  padding: 10px;
+  width: 50%;
+  margin: auto;
+  border: 1px solid $main-color;
+  border-radius: 10px;
+}

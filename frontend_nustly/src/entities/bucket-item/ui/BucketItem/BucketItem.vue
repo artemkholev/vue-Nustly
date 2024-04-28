@@ -1,6 +1,7 @@
 <template>
   <div :class="cardClasses">
     <div class="card__top">
+      <input class="card__top__checker" type="checkbox" :value="elemProduct" v-model="orders">
       <div class="card__top__image">
         <img
           @click="handlerShowProduct"
@@ -41,6 +42,7 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/shared/stores/theme';
 import { useAuthStore } from '@/shared/stores/auth';
+import { PlacingOrderModel } from '@/entities/placing-order'
 import { BucketModel } from '@/entities/bucket-item'
 import { storeToRefs, type _UnwrapAll } from 'pinia';
 import { computed, ref } from 'vue';
@@ -64,19 +66,19 @@ const props = defineProps({
   }
 })
 
+//placingOrderStore
+const placingOrderStore = PlacingOrderModel.usePlacingOrderStore();
+const { orders } = storeToRefs(placingOrderStore);
+
+//bucket store
 const bucketStore = BucketModel.useBucketStore();
 const { postRemoveBucketObject } = bucketStore;
 const { bucketObjects } = storeToRefs(bucketStore);
 
 const handlerActionBucketProduct = async () => {
   let isActionWasGood = false;
-  isActionWasGood = await postRemoveBucketObject(props.elemProduct.id);
-  deleteBucketObject();
+  isActionWasGood = await postRemoveBucketObject(props.elemProduct.id, props.idBucketElem);
 }
-
-const deleteBucketObject = () => {
-  bucketObjects.value = bucketObjects.value.filter((elemBucket) => elemBucket.id !== props.idBucketElem);
-} 
 
 const handlerShowProduct = () => {
   props.getProduct(props.elemProduct.id);

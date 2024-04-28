@@ -6,6 +6,7 @@ import {
   HasMany,
   Model,
   PrimaryKey,
+  HasOne,
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
@@ -105,13 +106,8 @@ export class Products extends Model<Products, ProductsCreationAttrs> {
   })
   bucketItems: BucketItem[];
 
-  @ForeignKey(() => OrderDetails)
-  @Column({
-    type: DataType.UUID,
-  })
-  id_order: string;
-  @BelongsTo(() => OrderDetails)
-  order: OrderDetails;
+  @HasOne(() => OrderDetails)
+  orders: OrderDetails;
 
   @ForeignKey(() => Categories)
   @Column({

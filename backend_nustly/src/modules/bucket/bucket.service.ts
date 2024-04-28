@@ -126,6 +126,7 @@ export class BucketService {
         where: { user_id: userId },
       })
       .then((data) => data.dataValues.id);
+
     const bucketItem = await this.bucketItemRepository.findOne({
       where: {
         bucket_id: bucket_id,
@@ -136,9 +137,10 @@ export class BucketService {
 
     const bucket = await this.bucketRepository.findOne({
       where: { user_id: userId },
+      include: { all: true },
     });
 
-    if (bucket.dataValues?.bucket_item == undefined) {
+    if (!bucket.bucket_item.length) {
       await bucket.destroy();
     }
 

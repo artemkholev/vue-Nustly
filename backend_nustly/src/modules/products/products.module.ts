@@ -8,10 +8,19 @@ import { Products } from './products.model';
 import { User } from '../users/users.model';
 import { JwtService } from '@nestjs/jwt';
 import { Bucket } from '../bucket/models/bucket.model';
+import { OrderDetails } from '../orders/models/orderDetails.model';
 
 @Module({
   providers: [ProductsService, JwtService],
   controllers: [ProductsController],
-  imports: [SequelizeModule.forFeature([Categories, User, Products, Bucket])],
+  imports: [
+    SequelizeModule.forFeature([
+      Categories,
+      User,
+      Products,
+      Bucket,
+      OrderDetails,
+    ]),
+  ],
 })
 export class ProductsModule {}

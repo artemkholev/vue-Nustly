@@ -1,0 +1,19 @@
+@import '@/app/styles/vars.scss';
+
+.container {
+  width: 100%;
+  padding: 20px;
+  &__info {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    &__photo {
+    
+    }
+    &__discription {
+      &__email {
+
+      }
+    }
+  }
+}

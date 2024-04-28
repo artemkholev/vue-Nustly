@@ -42,7 +42,7 @@
 import { useThemeStore } from '@/shared/stores/theme';
 import { useAuthStore } from '@/shared/stores/auth';
 import { BucketModel } from '@/entities/bucket-item'
-import { storeToRefs, type Store, type _UnwrapAll } from 'pinia';
+import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 
 const props = defineProps({

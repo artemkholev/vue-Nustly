@@ -12,6 +12,7 @@ import { routeName as products } from './routes/products';
 import { routeName as registr } from './routes/registr';
 import { routeName as vacancy } from './routes/vacancy';
 import { routeName as account } from './routes/account';
+import { routeName as error } from './routes/error';
 
 export const pages = {
   account,
@@ -28,4 +29,5 @@ export const pages = {
   products,
   registr,
   vacancy,
+  error,
 } as const

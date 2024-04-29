@@ -112,10 +112,10 @@ export const useAuthStore = defineStore('auth', () => {
       const decodeToken = decodeJwt(response.data.accessToken);
       userName.value = decodeToken.email;
       saveRole(decodeToken.roles);
-      router.push({ name: PathNames.HOME });
+      // router.push({ name: PathNames.HOME });
     } catch (err: any) {
       isError.value = true;
-      router.push({ name: PathNames.HOME });
+      // router.push({ name: PathNames.HOME });
       sessionStorage.removeItem('accessToken');
       logoutIsAuth();
       deleteRole();

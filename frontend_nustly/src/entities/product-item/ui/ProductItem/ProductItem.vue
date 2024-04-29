@@ -11,13 +11,20 @@
       <!-- <div class="card__top__label">-{{ elemProduct.discountPercentage }}%</div> -->
     </div>
     <div class="card__bottom">
-      <div class="card__bottom__prices">
-        <!-- <div class="card__bottom__prices__price card__bottom__prices__price--discount">{{ (elemProduct.price - elemProduct.price / 100 * elemProduct.discountPercentage).toFixed(2) }}</div> -->
-        <div class="card__bottom__prices__price card__bottom__prices__price--common">{{elemProduct.price}}</div>
+      <div style="display: flex; justify-content: space-between">
+        <div>
+          <div class="card__bottom__prices">
+            <!-- <div class="card__bottom__prices__price card__bottom__prices__price--discount">{{ (elemProduct.price - elemProduct.price / 100 * elemProduct.discountPercentage).toFixed(2) }}</div> -->
+            <div class="card__bottom__prices__price card__bottom__prices__price--common">{{elemProduct.price}}</div>
+          </div>
+          <p class="card__bottom__title">
+            {{ elemProduct.title }}
+          </p>
+        </div>
+        <div>
+          <icon-base style="cursor: pointer;" width="30" height="30" :iconColor="elemProduct.isProductInFavorites ? 'red' : 'gray'" iconName="понравилось"><heart-icon/></icon-base>
+        </div>
       </div>
-      <p class="card__bottom__title">
-        {{ elemProduct.title }}
-      </p>
       <div v-if="isAuth" class="card__bottom__bucket_add">
         <button-elem
           :clName="null"
@@ -42,8 +49,15 @@
 import { useThemeStore } from '@/shared/stores/theme';
 import { useAuthStore } from '@/shared/stores/auth';
 import { BucketModel } from '@/entities/bucket-item'
+import { FavoritesModel } from '@/entities/favorites-item';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
+
+import HeartIcon from '@/app/assets/images/icons/HeartIcon.vue';
+
+defineComponent({
+  HeartIcon
+})
 
 const props = defineProps({
   elemProduct: {
@@ -62,8 +76,13 @@ const props = defineProps({
 
 const quantityProducts = ref<number>(1);
 
+//bucket store
 const bucketStore = BucketModel.useBucketStore();
 const { postCreateBucketObject, postRemoveBucketObject } = bucketStore;
+
+//favorites store
+const favoritesStore = FavoritesModel.useFavoritesStore();
+const { postCreateFavoritesObject, postRemoveFavoritesObject } = bucketStore;
 
 const handlerActionBucketProduct = async () => {
   let isActionWasGood = false;

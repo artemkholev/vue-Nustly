@@ -25,7 +25,7 @@
         <router-link to="/placing-order">
           <button-elem
             :clName="null"
-            :title="'Купить выбранные товары'"
+            :title="'Оформить выбранные товары'"
             :handler="() => {}"
             :width="'200px'"
             :height="'55px'"

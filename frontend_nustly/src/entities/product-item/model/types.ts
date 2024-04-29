@@ -8,6 +8,7 @@ export interface IProducts {
   readonly id_model: string;
   readonly id_provider: string;
   isProductInBucket: boolean;
+  isProductInFavorites: boolean;
 }
 
 export interface ICreateProduct {

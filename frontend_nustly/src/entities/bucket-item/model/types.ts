@@ -19,4 +19,5 @@ export interface Products {
   id_provider: any
   id_categories: string
   isProductInBucket: boolean
+  isProductInFavorites: boolean
 }

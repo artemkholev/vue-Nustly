@@ -53,20 +53,18 @@ export class ProductsService {
           })
           .then((data) => data?.dataValues.favorites_item);
 
-        if (bucketItems !== undefined) {
-          productsWithElemOptions = products.map((product) => {
-            const elemBucket = bucketItems.find(
-              (item) => item.products_id === product.dataValues.id,
-            );
-            const elemFavorites = favoritesItems.find(
-              (item) => item.products_id === product.dataValues.id,
-            );
-            return Object.assign(product.dataValues, {
-              isProductInBucket: elemBucket ? true : false,
-              isProductInFavorites: elemFavorites ? true : false,
-            });
+        productsWithElemOptions = products.map((product) => {
+          const elemBucket = bucketItems?.find(
+            (item) => item.products_id === product.dataValues.id,
+          );
+          const elemFavorites = favoritesItems?.find(
+            (item) => item.products_id === product.dataValues.id,
+          );
+          return Object.assign(product.dataValues, {
+            isProductInBucket: elemBucket ? true : false,
+            isProductInFavorites: elemFavorites ? true : false,
           });
-        }
+        });
       }
 
       const category = await this.categoriesRepository.findOne({

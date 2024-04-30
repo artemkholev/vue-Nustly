@@ -98,17 +98,27 @@ export class ProductsService {
             include: { model: BucketItem },
           })
           .then((data) => data?.dataValues.bucket_item);
-        if (bucketItems !== undefined) {
-          const elemBucket = bucketItems.find(
-            (item) => item.products_id === product.dataValues.id,
-          );
 
-          return Object.assign(product.dataValues, {
-            isProductInBucket: elemBucket ? true : false,
-          });
-        } else {
-          return product;
-        }
+        const favoritesItems = await this.favoritesRepository
+          .findOne({
+            where: {
+              user_id: userId,
+            },
+            include: { model: FavoritesItem },
+          })
+          .then((data) => data?.dataValues.favorites_item);
+
+        const elemBucket = bucketItems?.find(
+          (item) => item.products_id === product.dataValues.id,
+        );
+        const elemFavorites = favoritesItems?.find(
+          (item) => item.products_id === product.dataValues.id,
+        );
+
+        return Object.assign(product.dataValues, {
+          isProductInBucket: elemBucket ? true : false,
+          isProductInFavorites: elemFavorites ? true : false,
+        });
       }
     } catch (error) {
       console.log(error);

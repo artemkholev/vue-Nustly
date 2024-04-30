@@ -22,7 +22,16 @@
           </p>
         </div>
         <div>
-          <icon-base style="cursor: pointer;" width="30" height="30" :iconColor="elemProduct.isProductInFavorites ? 'red' : 'gray'" iconName="понравилось"><heart-icon/></icon-base>
+          <icon-base 
+            @click="handlerActionFavoritesProduct"
+            style="cursor: pointer;" 
+            width="30" 
+            height="30" 
+            :iconColor="elemProduct.isProductInFavorites ? 'red' : 'gray'" 
+            iconName="понравилось"
+          >
+            <heart-icon/>
+          </icon-base>
         </div>
       </div>
       <div v-if="isAuth" class="card__bottom__bucket_add">
@@ -82,7 +91,7 @@ const { postCreateBucketObject, postRemoveBucketObject } = bucketStore;
 
 //favorites store
 const favoritesStore = FavoritesModel.useFavoritesStore();
-const { postCreateFavoritesObject, postRemoveFavoritesObject } = bucketStore;
+const { postCreateFavoritesObject, postRemoveFavoritesObject } = favoritesStore;
 
 const handlerActionBucketProduct = async () => {
   let isActionWasGood = false;
@@ -96,6 +105,21 @@ const handlerActionBucketProduct = async () => {
   isActionWasGood = await postCreateBucketObject(props.elemProduct.id, quantityProducts.value);
   if (isActionWasGood) {
     props.elemProduct.isProductInBucket = true;
+  }
+}
+
+const handlerActionFavoritesProduct = async () => {
+  let isActionWasGood = false;
+  if (props.elemProduct.isProductInFavorites) {
+    isActionWasGood = await postRemoveFavoritesObject(props.elemProduct.id);
+    if (isActionWasGood) {
+      props.elemProduct.isProductInFavorites = false;
+    }
+    return;
+  }
+  isActionWasGood = await postCreateFavoritesObject(props.elemProduct.id, quantityProducts.value);
+  if (isActionWasGood) {
+    props.elemProduct.isProductInFavorites = true;
   }
 }
 

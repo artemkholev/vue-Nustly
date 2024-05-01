@@ -28,7 +28,7 @@ import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @ApiOperation({ summary: 'Создание категории' })
+  @ApiOperation({ summary: 'Создание продукта' })
   @ApiResponse({ status: 201 })
   @Post('/products/createProduct')
   @UseGuards(AdminGuard)
@@ -49,6 +49,14 @@ export class ProductsController {
       JSON.parse(productDto.data),
       file,
     );
+  }
+
+  @ApiOperation({ summary: 'Удаление продукта' })
+  @ApiResponse({ status: 201 })
+  @UseGuards(AdminGuard)
+  @Post('/products/delete/:productId')
+  deleteProduct(@Param('productId') productId: string): Promise<boolean> {
+    return this.productsService.deleteProduct(productId);
   }
 
   @ApiOperation({ summary: 'Получение товаров по категории' })

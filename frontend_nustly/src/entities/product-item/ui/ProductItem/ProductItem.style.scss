@@ -16,6 +16,26 @@
     flex: 0 0 220px; 
     position: relative;
     overflow: hidden;
+    &__delete {
+      position: absolute;
+      right: 0;
+      display: flex;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      font-size: 50px;
+      color: white;
+      background-color: transparent;
+      border: none;
+    }
+    &__delete:hover {
+      color: $main-color;
+      transition: 0.5s;
+    }
+
     &__image {
       display: block;
       position: absolute;

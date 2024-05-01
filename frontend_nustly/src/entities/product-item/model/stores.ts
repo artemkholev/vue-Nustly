@@ -76,10 +76,9 @@ export const useProductsStore = defineStore('products', () => {
     }
   }, { deep: true })
 
-  const postRemoveProduct = async () => {
+  const postRemoveProduct = async (productId: string) => {
     try {
-      await apiAxios.delete('/workplaces/' + route.params.id_w);
-      router.go(-1);
+      await apiAxios.post(`${API_URL_PRODUCTS}/delete/${productId}`);
       errorMessage.value = '';
     } catch (error: any) {
       errorMessage.value = error;

@@ -142,5 +142,14 @@ export class ProductsService {
     return product;
   }
 
-  async deleteProduct() {}
+  async deleteProduct(productId: string) {
+    try {
+      await this.productsRepository.destroy({
+        where: { id: productId },
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

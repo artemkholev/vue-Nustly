@@ -1,12 +1,21 @@
 <template>
   <div :class="cardClasses">
-    <div class="card__top">
+    <div class="card__top"> 
+      <button 
+        v-if="role == 'ADMIN'" 
+        type="button" 
+        class="card__top__delete"
+        @click="handlerDeleteProduct"
+      >
+        ×
+      </button>
       <div class="card__top__image">
         <img
           @click="handlerShowProduct"
           :src="elemProduct.photo"
           alt="товар"
         />
+       
       </div>
       <!-- <div class="card__top__label">-{{ elemProduct.discountPercentage }}%</div> -->
     </div>
@@ -57,6 +66,7 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/shared/stores/theme';
 import { useAuthStore } from '@/shared/stores/auth';
+import { useProductsStore } from '../../model';
 import { BucketModel } from '@/entities/bucket-item'
 import { FavoritesModel } from '@/entities/favorites-item';
 import { storeToRefs } from 'pinia';
@@ -123,13 +133,22 @@ const handlerActionFavoritesProduct = async () => {
   }
 }
 
+const productsStore = useProductsStore();
+const { products } = storeToRefs(productsStore);
+const { postRemoveProduct } = productsStore;
+
+const handlerDeleteProduct = () => {
+  postRemoveProduct(props.elemProduct.id);
+  products.value = products.value.filter(elem => elem.id !== props.elemProduct.id);
+}
+
 const handlerShowProduct = () => {
   props.getProduct(props.elemProduct.id);
   props.handlerShowProductDialogVisible()
 }
 
 const authStore = useAuthStore();
-const { isAuth } = storeToRefs(authStore);
+const { isAuth, role } = storeToRefs(authStore);
 
 const themeStore = useThemeStore();
 const { isDarkTheme } = storeToRefs(themeStore);

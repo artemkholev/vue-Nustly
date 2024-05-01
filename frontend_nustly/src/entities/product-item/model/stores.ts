@@ -63,7 +63,6 @@ export const useProductsStore = defineStore('products', () => {
   };
 
   const filtersMinMaxPrice = (minPrice: number, maxPrice: number) => {
-    console.log(minPrice, maxPrice)
     productsFilter.value = productsFilter.value.filter((elem: IProducts) => {
       return elem.price >= minPrice && elem.price <= maxPrice
     })

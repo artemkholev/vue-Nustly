@@ -11,7 +11,7 @@ interface ValidationErrors {
   field_errors: Record<string, string>
 }
 
-const API_URL_BUCKET = '/favorites';
+const API_URL_FAVORITES = '/favorites';
 
 export const useFavoritesStore = defineStore('favorites', () => {
   const router = useRouter();
@@ -43,17 +43,16 @@ export const useFavoritesStore = defineStore('favorites', () => {
     favoritesObjects.value = favoritesObjects.value.filter((elemFavorites) => elemFavorites.id !== idFavoritesElem);
   } 
 
-  const postRemoveFavoritesObject = async (productId: string, idBucketElem: string = '') => {
+  const postRemoveFavoritesObject = async (productId: string, idFavoritesElem: string = '') => {
      try {
-      const response = await apiAxios.post(`${API_URL_BUCKET}/remove`, {
+      const response = await apiAxios.post(`${API_URL_FAVORITES}/remove`, {
         productId: productId,
         quantity: 0,
       });
       errorMessageFavoritesPage.value = '';
       
-      if (idBucketElem.length)
-        deleteFavoritesObject(idBucketElem);
-      console.log(favoritesObjects.value)
+      if (idFavoritesElem.length)
+        deleteFavoritesObject(idFavoritesElem);
       return response.data ?? false;
     } catch (err: any) {
       const error: AxiosError<ValidationErrors> = err;
@@ -66,7 +65,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
 
   const postCreateFavoritesObject = async (productId: string, quantity: number) => {
     try {
-      const response = await apiAxios.post(`${API_URL_BUCKET}/add`, {
+      const response = await apiAxios.post(`${API_URL_FAVORITES}/add`, {
         productId: productId,
         quantity: quantity,
       });
@@ -84,7 +83,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
   const getFavoritesObjects = async () => {
     isLoading.value = true;
     try {
-      const responce = await apiAxios.get(`${API_URL_BUCKET}`, {
+      const responce = await apiAxios.get(`${API_URL_FAVORITES}`, {
         params: {
           _page: page.value,
           _limit: limit.value

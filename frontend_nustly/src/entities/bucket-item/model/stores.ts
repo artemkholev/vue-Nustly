@@ -57,7 +57,6 @@ export const useBucketStore = defineStore('bucket', () => {
       
       if (idBucketElem.length)
         deleteBucketObject(idBucketElem);
-      console.log(bucketObjects.value)
       return response.data ?? false;
     } catch (err: any) {
       const error: AxiosError<ValidationErrors> = err;

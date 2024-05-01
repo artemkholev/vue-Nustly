@@ -25,6 +25,7 @@
             :icon="null"
           />
           <button-elem
+            v-if="route.name !== 'FavoritesPage'"
             :clName="null"
             :title="product?.isProductInFavorites ? 'Убрать из избранного' : 'В избранное'"
             :handler="handlerActionFavoritesProduct"
@@ -89,14 +90,20 @@ const { postCreateBucketObject, postRemoveBucketObject } = bucketStore;
 //favorites store
 const favoritesStore = FavoritesModel.useFavoritesStore();
 const { postCreateFavoritesObject, postRemoveFavoritesObject } = favoritesStore;
+const { favoritesObjects } = storeToRefs(favoritesStore);
 
 //placing order store 
 const placingOrderStore = PlacingOrderModel.usePlacingOrderStore();
 const { addToPlacingPrders } = placingOrderStore;
 
-const findProductChangeInBucket = (productId: string, isProductInBucket: boolean) => {
-  const index = products.value.findIndex((product) => product.id == productId);
-  products.value[index].isProductInBucket = isProductInBucket;
+const findProductChangeInBucket = (products: any, productId: string, isProductInBucket: boolean) => {
+  const index = products.findIndex((product: any) => product.id == productId);
+  products[index].isProductInBucket = isProductInBucket;
+}
+
+const findProductChangeInFavoritesBucket = (products: any, productId: string, isProductInBucket: boolean) => {
+  const index = products.findIndex((product: any) => product.products.id == productId);
+  products[index].isProductInBucket = isProductInBucket;
 }
 
 const findProductChangeInFavorites = (productId: string, isProductInFavorites: boolean) => {
@@ -115,14 +122,22 @@ const handlerActionBucketProduct = async () => {
     isActionWasGood = await postRemoveBucketObject(product.value.id, '');
     if (isActionWasGood) {
       product.value.isProductInBucket = false;
-      findProductChangeInBucket(product.value.id, false);
+      if (route.name === 'FavoritesPage') {
+        findProductChangeInFavoritesBucket(favoritesObjects.value, product.value.id, false);
+      } else {
+        findProductChangeInBucket(products.value, product.value.id, false);
+      }
     }
     return;
   }
   isActionWasGood = await postCreateBucketObject(product.value!.id, 1);
   if (isActionWasGood) {
     product.value!.isProductInBucket = true;
-    findProductChangeInBucket(product.value!.id, true);
+    if (route.name === 'FavoritesPage') {
+      findProductChangeInFavoritesBucket(favoritesObjects.value, product.value!.id, true);
+    } else {
+      findProductChangeInBucket(products.value, product.value!.id, true);
+    }
   }
 }
 

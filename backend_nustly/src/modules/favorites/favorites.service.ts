@@ -11,12 +11,15 @@ import { User } from '../users/users.model';
 import { FavoritesItem } from './models/favoritesItem.model';
 import { infoProductDto } from './dto/infoProduct.dto';
 import { Response } from 'express';
+import { Bucket } from '../bucket/models/bucket.model';
+import { BucketItem } from '../bucket/models/bucketItem.model';
 
 @Injectable()
 export class FavoritesService {
   constructor(
     @InjectModel(Favorites) private favoritesRepository: typeof Favorites,
     @InjectModel(Products) private productRepository: typeof Products,
+    @InjectModel(Bucket) private bucketRepository: typeof Bucket,
     @InjectModel(FavoritesItem)
     private favoritesItemRepository: typeof FavoritesItem,
     @InjectModel(User) private userRepository: typeof User,
@@ -112,9 +115,27 @@ export class FavoritesService {
         include: { model: Products },
       });
 
+      const bucketItems = await this.bucketRepository
+        .findOne({
+          where: {
+            user_id: userId,
+          },
+          include: { model: BucketItem },
+        })
+        .then((data) => data?.dataValues.bucket_item);
+
+      const favoritesWithElemOptions = favoritesItems.map((favorit) => {
+        const elemBucket = bucketItems?.find(
+          (item) => item.products_id === favorit.dataValues.products_id,
+        );
+        return Object.assign(favorit.dataValues, {
+          isProductInBucket: elemBucket ? true : false,
+        });
+      });
+
       response.set('Access-Control-Expose-Headers', 'X-Total-Count');
-      response.set('X-Total-Count', favoritesItems.length.toString());
-      response.send(favoritesItems);
+      response.set('X-Total-Count', favoritesWithElemOptions.length.toString());
+      response.send(favoritesWithElemOptions);
     }
   }
 

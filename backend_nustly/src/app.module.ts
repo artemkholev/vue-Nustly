@@ -22,7 +22,7 @@ import { OrderDetails } from './modules/orders/models/orderDetails.model';
 import { OrderModule } from './modules/orders/order.module';
 import { Favorites } from './modules/favorites/models/favorites.model';
 import { FavoritesItem } from './modules/favorites/models/favoritesItem.model';
-import { FavoritesModule } from './modules/favorites/favorites.model';
+import { FavoritesModule } from './modules/favorites/favorites.module';
 
 @Module({
   controllers: [],

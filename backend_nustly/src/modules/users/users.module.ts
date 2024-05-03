@@ -12,6 +12,7 @@ import { Products } from '../products/products.model';
 import { Bucket } from '../bucket/models/bucket.model';
 import { Order } from '../orders/models/order.model';
 import { OrderModule } from '../orders/order.module';
+import { Favorites } from '../favorites/models/favorites.model';
 
 @Module({
   providers: [UsersService],
@@ -24,6 +25,7 @@ import { OrderModule } from '../orders/order.module';
       Tokens,
       Products,
       Bucket,
+      Favorites,
       Order,
     ]),
     RolesModule,

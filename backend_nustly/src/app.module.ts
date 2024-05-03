@@ -20,6 +20,9 @@ import { BucketItem } from './modules/bucket/models/bucketItem.model';
 import { Order } from './modules/orders/models/order.model';
 import { OrderDetails } from './modules/orders/models/orderDetails.model';
 import { OrderModule } from './modules/orders/order.module';
+import { Favorites } from './modules/favorites/models/favorites.model';
+import { FavoritesItem } from './modules/favorites/models/favoritesItem.model';
+import { FavoritesModule } from './modules/favorites/favorites.module';
 
 @Module({
   controllers: [],
@@ -44,6 +47,8 @@ import { OrderModule } from './modules/orders/order.module';
         Products,
         Bucket,
         BucketItem,
+        Favorites,
+        FavoritesItem,
         Order,
         OrderDetails,
       ],
@@ -56,6 +61,7 @@ import { OrderModule } from './modules/orders/order.module';
     FilesModule,
     ProductsModule,
     BucketModule,
+    FavoritesModule,
     OrderModule,
   ],
 })

@@ -15,6 +15,8 @@ import { route as registr } from './registr';
 import { route as vacancy } from './vacancy';
 import { route as account } from './account';
 import { route as placingOrder } from './placing-order';
+import { route as error } from './error';
+import { route as success } from './success';
 
 export const routes: readonly RouteRecordRaw[] = [
   account,
@@ -32,4 +34,6 @@ export const routes: readonly RouteRecordRaw[] = [
   registr,
   vacancy,
   placingOrder,
+  error,
+  success,
 ] as const

@@ -15,6 +15,7 @@ import { Tokens } from 'src/modules/tokens/tokens.model';
 import { randomUUID } from 'crypto';
 import { Bucket } from '../bucket/models/bucket.model';
 import { Order } from '../orders/models/order.model';
+import { Favorites } from '../favorites/models/favorites.model';
 
 interface UserCreationAttrs {
   email: string;
@@ -56,6 +57,9 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @HasOne(() => Bucket)
   bucket: Bucket;
+
+  @HasOne(() => Favorites)
+  favorites: Favorites;
 
   @HasOne(() => Tokens)
   tokens: Tokens;

@@ -9,6 +9,7 @@ import { User } from '../users/users.model';
 import { JwtService } from '@nestjs/jwt';
 import { Bucket } from '../bucket/models/bucket.model';
 import { OrderDetails } from '../orders/models/orderDetails.model';
+import { Favorites } from '../favorites/models/favorites.model';
 
 @Module({
   providers: [ProductsService, JwtService],
@@ -19,6 +20,7 @@ import { OrderDetails } from '../orders/models/orderDetails.model';
       User,
       Products,
       Bucket,
+      Favorites,
       OrderDetails,
     ]),
   ],

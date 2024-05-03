@@ -63,7 +63,6 @@ export const useProductsStore = defineStore('products', () => {
   };
 
   const filtersMinMaxPrice = (minPrice: number, maxPrice: number) => {
-    console.log(minPrice, maxPrice)
     productsFilter.value = productsFilter.value.filter((elem: IProducts) => {
       return elem.price >= minPrice && elem.price <= maxPrice
     })
@@ -77,10 +76,9 @@ export const useProductsStore = defineStore('products', () => {
     }
   }, { deep: true })
 
-  const postRemoveProduct = async () => {
+  const postRemoveProduct = async (productId: string) => {
     try {
-      await apiAxios.delete('/workplaces/' + route.params.id_w);
-      router.go(-1);
+      await apiAxios.post(`${API_URL_PRODUCTS}/delete/${productId}`);
       errorMessage.value = '';
     } catch (error: any) {
       errorMessage.value = error;

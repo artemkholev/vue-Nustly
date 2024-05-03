@@ -6,7 +6,9 @@ import { Response } from 'express';
 import { CreateProductDto } from './dto/create-products.dto';
 import { Bucket } from '../bucket/models/bucket.model';
 import { BucketItem } from '../bucket/models/bucketItem.model';
+import { FavoritesItem } from '../favorites/models/favoritesItem.model';
 import { Categories } from '../categories/categories.model';
+import { Favorites } from '../favorites/models/favorites.model';
 
 @Injectable()
 export class ProductsService {
@@ -14,6 +16,7 @@ export class ProductsService {
     @InjectModel(Products) private productsRepository: typeof Products,
     @InjectModel(Bucket) private bucketRepository: typeof Bucket,
     @InjectModel(Categories) private categoriesRepository: typeof Categories,
+    @InjectModel(Favorites) private favoritesRepository: typeof Favorites,
   ) {}
 
   async getProducts(
@@ -23,7 +26,7 @@ export class ProductsService {
     page: number,
     limit: number,
   ) {
-    let productsWithBucketElem = null;
+    let productsWithElemOptions = null;
     try {
       const products = await this.productsRepository.findAll({
         where: { id_categories: categoryId },
@@ -41,16 +44,27 @@ export class ProductsService {
             include: { model: BucketItem },
           })
           .then((data) => data?.dataValues.bucket_item);
-        if (bucketItems !== undefined) {
-          productsWithBucketElem = products.map((product) => {
-            const elemBucket = bucketItems.find(
-              (item) => item.products_id === product.dataValues.id,
-            );
-            return Object.assign(product.dataValues, {
-              isProductInBucket: elemBucket ? true : false,
-            });
+        const favoritesItems = await this.favoritesRepository
+          .findOne({
+            where: {
+              user_id: userId,
+            },
+            include: { model: FavoritesItem },
+          })
+          .then((data) => data?.dataValues.favorites_item);
+
+        productsWithElemOptions = products.map((product) => {
+          const elemBucket = bucketItems?.find(
+            (item) => item.products_id === product.dataValues.id,
+          );
+          const elemFavorites = favoritesItems?.find(
+            (item) => item.products_id === product.dataValues.id,
+          );
+          return Object.assign(product.dataValues, {
+            isProductInBucket: elemBucket ? true : false,
+            isProductInFavorites: elemFavorites ? true : false,
           });
-        }
+        });
       }
 
       const category = await this.categoriesRepository.findOne({
@@ -61,7 +75,7 @@ export class ProductsService {
       response.set('X-Total-Count', products.length.toString());
       const sendProducts = {
         category: category,
-        products: productsWithBucketElem ? productsWithBucketElem : products,
+        products: productsWithElemOptions ? productsWithElemOptions : products,
       };
       response.send(sendProducts);
     } catch (error) {
@@ -84,17 +98,27 @@ export class ProductsService {
             include: { model: BucketItem },
           })
           .then((data) => data?.dataValues.bucket_item);
-        if (bucketItems !== undefined) {
-          const elemBucket = bucketItems.find(
-            (item) => item.products_id === product.dataValues.id,
-          );
 
-          return Object.assign(product.dataValues, {
-            isProductInBucket: elemBucket ? true : false,
-          });
-        } else {
-          return product;
-        }
+        const favoritesItems = await this.favoritesRepository
+          .findOne({
+            where: {
+              user_id: userId,
+            },
+            include: { model: FavoritesItem },
+          })
+          .then((data) => data?.dataValues.favorites_item);
+
+        const elemBucket = bucketItems?.find(
+          (item) => item.products_id === product.dataValues.id,
+        );
+        const elemFavorites = favoritesItems?.find(
+          (item) => item.products_id === product.dataValues.id,
+        );
+
+        return Object.assign(product.dataValues, {
+          isProductInBucket: elemBucket ? true : false,
+          isProductInFavorites: elemFavorites ? true : false,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -118,5 +142,14 @@ export class ProductsService {
     return product;
   }
 
-  async deleteProduct() {}
+  async deleteProduct(productId: string) {
+    try {
+      await this.productsRepository.destroy({
+        where: { id: productId },
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

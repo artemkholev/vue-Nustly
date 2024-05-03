@@ -13,6 +13,7 @@ import { routeName as registr } from './routes/registr';
 import { routeName as vacancy } from './routes/vacancy';
 import { routeName as account } from './routes/account';
 import { routeName as error } from './routes/error';
+import { routeName as success } from './routes/success';
 
 export const pages = {
   account,
@@ -30,4 +31,5 @@ export const pages = {
   registr,
   vacancy,
   error,
+  success,
 } as const

@@ -1,0 +1,12 @@
+@import '@/app/styles/vars.scss';
+
+.container {
+  width: 100%;
+  border: 1px solid $main-color;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}

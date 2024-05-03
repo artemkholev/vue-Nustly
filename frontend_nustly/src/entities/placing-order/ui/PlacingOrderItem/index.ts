@@ -1,0 +1,1 @@
+export { default as PlacingOrderItem } from './PlacingOrderItem.vue'

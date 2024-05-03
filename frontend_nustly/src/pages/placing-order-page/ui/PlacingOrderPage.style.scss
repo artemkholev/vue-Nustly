@@ -1,0 +1,16 @@
+.order-container {
+  &__header {
+    margin: 20px;
+  }
+  &__action {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  } 
+  &__footer {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+  }
+}

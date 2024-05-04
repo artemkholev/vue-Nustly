@@ -104,6 +104,11 @@ export class BucketService {
       });
 
     if (bucketId) {
+      const totalCount = await this.bucketItemRepository
+        .findAll({
+          where: { bucket_id: bucketId },
+        })
+        .then((products) => products.length);
       const bucketItems = await this.bucketItemRepository.findAll({
         where: { bucket_id: bucketId },
         limit: limit,
@@ -112,7 +117,7 @@ export class BucketService {
       });
 
       response.set('Access-Control-Expose-Headers', 'X-Total-Count');
-      response.set('X-Total-Count', bucketItems.length.toString());
+      response.set('X-Total-Count', totalCount.toString());
       response.send(bucketItems);
     }
   }

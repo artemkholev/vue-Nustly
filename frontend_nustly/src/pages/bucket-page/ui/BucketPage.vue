@@ -155,6 +155,12 @@ watch([bucketObjects, findProductElemString], () => {
   filterProducts();
 })
 
+watch(page, async () => {
+  await getBucketObjects();
+  if (bucketObjects.value.length)
+    productsFilter.value = [...bucketObjects.value];
+})
+
 onMounted(async () => {
   orders.value = [];
   await getBucketObjects();

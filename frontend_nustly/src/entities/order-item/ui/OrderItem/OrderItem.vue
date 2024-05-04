@@ -4,7 +4,7 @@
       <h3>{{ product?.title }}</h3>
       <div>
         <p><strong>Цена: </strong>{{ product?.price }}₽</p>
-        <p><strong>Количество: </strong>{{ productOrder?.order_details.quantity }}</p>
+        <p><strong>Количество: </strong>{{ productOrder?.order_details?.quantity }}</p>
       </div>
     </div>
     <div>
@@ -30,10 +30,11 @@ const props = defineProps({
   }
 })
 
-const id_product = ref(props.productOrder?.order_details.id_product)
+const id_product = ref(props.productOrder?.order_details?.id_product)
 
 onMounted(() => {
-  getProduct(id_product.value)
+  if (id_product)
+    getProduct(id_product.value)
 })
 </script>
 

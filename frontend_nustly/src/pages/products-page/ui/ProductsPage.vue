@@ -154,6 +154,12 @@ watch(products, () => {
   filterProducts(paramsFilter.value.input);
 })
 
+watch(page, async () => {
+  await getProducts(categoryId);
+  if (products.value.length)
+    productsFilter.value = [...products.value];
+})
+
 onBeforeMount(async () => {
   await getProducts(categoryId);
   if (products.value.length)

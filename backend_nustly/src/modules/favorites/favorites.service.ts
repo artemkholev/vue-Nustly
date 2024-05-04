@@ -108,6 +108,12 @@ export class FavoritesService {
       });
 
     if (favoritesId) {
+      const totalCount = await this.favoritesItemRepository
+        .findAll({
+          where: { favorites_id: favoritesId },
+        })
+        .then((products) => products.length);
+
       const favoritesItems = await this.favoritesItemRepository.findAll({
         where: { favorites_id: favoritesId },
         limit: limit,
@@ -134,7 +140,7 @@ export class FavoritesService {
       });
 
       response.set('Access-Control-Expose-Headers', 'X-Total-Count');
-      response.set('X-Total-Count', favoritesWithElemOptions.length.toString());
+      response.set('X-Total-Count', totalCount.toString());
       response.send(favoritesWithElemOptions);
     }
   }
@@ -168,16 +174,4 @@ export class FavoritesService {
 
     return true;
   }
-
-  //   async deleteBasket(id: number): Promise<boolean> {
-  //     await this.basketDetailsRepository.delete({ basket: { id } });
-
-  //     const basket = await this.basketRepository.delete({ id });
-
-  //     if (basket.affected === 0) {
-  //       throw new ForbiddenException('Не удалось очистить корзину!');
-  //     }
-
-  //     return true;
-  //   }
 }

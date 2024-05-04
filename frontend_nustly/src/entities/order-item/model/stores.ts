@@ -1,6 +1,6 @@
 import { apiAxios } from '@/shared/api';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 interface ValidationErrors {
   message: string
@@ -8,42 +8,72 @@ interface ValidationErrors {
 }
 
 const API_URL_ORDERS = '/orders';
+const API_URL_PRODUCT = '/categories/product';
 
-export const useOrdersStore = defineStore('order', () => {
-  const orders = ref<any[]>([]);
-  const order = ref<any>();
+export const useOrdersStore = defineStore('orders', () => {
+  const orders = ref([]);
+  const order = ref();
 
   const isLoading = ref<boolean>(false);
   const errorMessage = ref<string>('');
 
-  const page = ref(1);
-  const limit = ref(10);
-  const totalPages = ref(0);
+  const selectOptions = reactive([
+    {
+      name: 'ожидание',
+      value:  'ожидание'
+    },
+    {
+      name: 'сборка',
+      value:  'сборка'
+    },
+    {
+      name: 'доставка',
+      value: 'доставка'
+    },
+    {
+      name: 'доставлено',
+      value: 'доставлено'
+    }
+  ]);
 
   const getOrders = async () => {
-    console.log('!!!')
-    // isLoading.value = true;
-    // try {
-    //   const responce = await apiAxios.get(`${API_URL_ORDERS}}`, {
-    //     params: {
-    //       _page: page.value,
-    //       _limit: limit.value
-    //     }
-    //   });
-    //   orders.value = responce.data;
-    //   totalPages.value = Math.ceil(responce.headers['x-total-count'] / limit.value);
-    //   errorMessage.value = '';
-    // } catch (error: any) {
-    //   errorMessage.value = error;
-    //   console.error(error);
-    // } finally {
-    //   isLoading.value = false;
-    // }
+    isLoading.value = true;
+    try {
+      const responce = await apiAxios.get(`${API_URL_ORDERS}`);
+      orders.value = responce.data;
+      errorMessage.value = '';
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
-  const postEditStatusOrder = () => {
-
+  const getProduct = async (productId: string) => {
+    try {
+      const responce = await apiAxios.get(`${API_URL_PRODUCT}/${productId}`);
+      errorMessage.value = '';
+      return responce.data;
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    }
   }
 
-  return { getOrders, postEditStatusOrder, orders, isLoading, errorMessage, totalPages, page }
+  const postEditStatusOrder = async (order_id: string, status: string) => {
+    try {
+      const responce = await apiAxios.post(`${API_URL_ORDERS}/changeStatus`, {
+        order_id: order_id,
+        status: status,
+      });
+      errorMessage.value = '';
+      return responce.data;
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    }
+  }
+
+  return { getOrders, postEditStatusOrder, getProduct, orders, isLoading, errorMessage, selectOptions}
 });

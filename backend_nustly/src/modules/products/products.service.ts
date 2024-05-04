@@ -28,6 +28,11 @@ export class ProductsService {
   ) {
     let productsWithElemOptions = null;
     try {
+      const totalCount = await this.productsRepository
+        .findAll({
+          where: { id_categories: categoryId },
+        })
+        .then((products) => products.length);
       const products = await this.productsRepository.findAll({
         where: { id_categories: categoryId },
         attributes: { exclude: ['categories'] },
@@ -72,7 +77,7 @@ export class ProductsService {
       });
 
       response.set('Access-Control-Expose-Headers', 'X-Total-Count');
-      response.set('X-Total-Count', products.length.toString());
+      response.set('X-Total-Count', totalCount.toString());
       const sendProducts = {
         category: category,
         products: productsWithElemOptions ? productsWithElemOptions : products,

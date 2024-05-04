@@ -1,0 +1,20 @@
+@import '@/app/styles/vars.scss';
+
+.container {
+  width: 100%;
+  border: 1px solid $main-color;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 20px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+}

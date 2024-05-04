@@ -113,6 +113,12 @@ watch([favoritesObjects, findProductElemString], () => {
   filterProducts();
 })
 
+watch(page, async () => {
+  await getFavoritesObjects();
+  if (favoritesObjects.value.length)
+    productsFilter.value = [...favoritesObjects.value];
+})
+
 onMounted(async () => {
   await getFavoritesObjects();
   if (favoritesObjects.value.length)

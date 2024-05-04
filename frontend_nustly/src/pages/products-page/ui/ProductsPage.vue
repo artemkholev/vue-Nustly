@@ -120,7 +120,7 @@ const categoryId = route.params.category_id;
 //products store
 const productsStore = ProductModel.useProductsStore();
 const { isLoading, errorMessage, products, totalPages, page, nameCategory, productsFilter, paramsFilter } = storeToRefs(productsStore);
-const { getProducts, getProduct, postCreateProduct, filterProducts, filtersMinMaxPrice } = productsStore;
+const { getProducts, getProduct, postCreateProduct, filterProducts } = productsStore;
 
 //bucket store
 const bucketStore = BucketModel.useBucketStore();
@@ -152,6 +152,12 @@ const handlerShowProductDialogVisible = () => {
 
 watch(products, () => {
   filterProducts(paramsFilter.value.input);
+})
+
+watch(page, async () => {
+  await getProducts(categoryId);
+  if (products.value.length)
+    productsFilter.value = [...products.value];
 })
 
 onBeforeMount(async () => {

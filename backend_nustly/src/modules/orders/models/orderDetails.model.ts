@@ -28,6 +28,16 @@ export class OrderDetails extends Model<OrderDetails> {
   })
   quantity: number;
 
+  @Column({
+    type: DataType.STRING,
+  })
+  title: string;
+
+  @Column({
+    type: DataType.INTEGER,
+  })
+  price: number;
+
   //connection
   @ForeignKey(() => Products)
   @Column({

@@ -4,9 +4,6 @@
     @change="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" 
     class="selectElem"
   >
-    <option disabled value="">
-      Выберите сортировку
-    </option>
     <option v-for="option in options" 
       :key="option.value"
       :value="option.value"
@@ -17,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { selectOption } from './SelectElem.types'
+import type { selectOption } from '../model'
 
 defineProps({
   modelValue: {

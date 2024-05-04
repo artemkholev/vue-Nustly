@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id';
 import { OrderDto } from './dto/order.dto';
 import { GetCurrentUserRole } from 'src/common/decorators/get-current-user-role';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AdminGuard } from 'src/common/guards/admin.guard';
 
 @Controller('orders')
 export class OrderController {
@@ -42,9 +43,9 @@ export class OrderController {
   //   return this.orderService.deleteOrder(id);
   // }
 
-  // changeStatusOrder(
-  //   @Args('changeStatus') changeStatus: ChangeStatusInput,
-  // ): Promise<boolean> {
-  //   return this.orderService.changeStatusOrder(changeStatus);
-  // }
+  @Post('/changeStatus')
+  @UseGuards(AdminGuard)
+  changeStatusOrder(@Body() changeStatus): Promise<boolean> {
+    return this.orderService.changeStatusOrder(changeStatus);
+  }
 }

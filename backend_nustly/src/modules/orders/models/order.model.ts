@@ -3,7 +3,7 @@ import {
   Column,
   DataType,
   ForeignKey,
-  HasOne,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
@@ -24,6 +24,7 @@ export class Order extends Model<Order> {
   })
   id: string = randomUUID();
 
+  @ApiProperty({ example: '22.02.2022', description: 'Дата заказа' })
   @Column({
     type: DataType.DATE,
   })
@@ -38,6 +39,11 @@ export class Order extends Model<Order> {
     type: DataType.STRING,
   })
   payment_status: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  status: string;
 
   @Column({
     type: DataType.DATE,
@@ -81,6 +87,6 @@ export class Order extends Model<Order> {
   @BelongsTo(() => User)
   user: User;
 
-  @HasOne(() => OrderDetails)
-  order_details: OrderDetails;
+  @HasMany(() => OrderDetails)
+  order_details: OrderDetails[];
 }

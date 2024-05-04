@@ -38,6 +38,7 @@ export class OrderService {
       region: orderInput.region,
       index: orderInput.index,
       name: orderInput.name,
+      status: orderInput.status,
       id_user: userId,
     });
 
@@ -58,6 +59,8 @@ export class OrderService {
         quantity: 1,
         id_product: el.id,
         id_order: order.id,
+        title: product.title,
+        price: product.price,
       });
 
       if (!addedDetails) {
@@ -89,20 +92,6 @@ export class OrderService {
     return orders;
   }
 
-  // async getUserOrders(id: number): Promise<OrderEntity[]> {
-  //   const order = await this.orderRepository.find({
-  //     where: { user: { id } },
-  //     relations: ['order_detail', 'order_detail.product', 'user'],
-  //     order: { id: 'ASC' },
-  //   });
-
-  //   if (!order) {
-  //     throw new NotFoundException('Заказы не найдены!');
-  //   }
-
-  //   return order;
-  // }
-
   // async getOrder(id: number): Promise<OrderEntity> {
   //   const order = await this.orderRepository.findOne({
   //     where: { id },
@@ -126,25 +115,24 @@ export class OrderService {
   //   return true;
   // }
 
-  // async changeStatusOrder(changeStatus: ChangeStatusInput): Promise<boolean> {
-  //   const order = await this.orderRepository.findOne({
-  //     where: { id: changeStatus.id },
-  //   });
+  async changeStatusOrder(changeStatus): Promise<boolean> {
+    console.log('\n\n\n', changeStatus);
+    const order = await this.orderRepository.findOne({
+      where: { id: changeStatus.order_id },
+    });
 
-  //   if (!order) {
-  //     throw new NotFoundException('Не удалось найти заказ!');
-  //   }
+    if (!order) {
+      throw new NotFoundException('Не удалось найти заказ!');
+    }
 
-  //   order.status = changeStatus.status;
+    order.status = changeStatus.status;
 
-  //   const changesOrder = await this.orderRepository.save({
-  //     ...order,
-  //   });
+    await order.save();
 
-  //   if (!changesOrder) {
-  //     throw new ForbiddenException('Не удалось обновить статус!');
-  //   }
+    if (order.status !== changeStatus.status) {
+      throw new ForbiddenException('Не удалось обновить статус!');
+    }
 
-  //   return true;
-  // }
+    return true;
+  }
 }

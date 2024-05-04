@@ -1,6 +1,6 @@
 import { apiAxios } from '@/shared/api';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 interface ValidationErrors {
   message: string
@@ -8,13 +8,33 @@ interface ValidationErrors {
 }
 
 const API_URL_ORDERS = '/orders';
+const API_URL_PRODUCT = '/categories/product';
 
 export const useOrdersStore = defineStore('orders', () => {
-  const orders = ref<any[]>([]);
-  const order = ref<any>();
+  const orders = ref([]);
+  const order = ref();
 
   const isLoading = ref<boolean>(false);
   const errorMessage = ref<string>('');
+
+  const selectOptions = reactive([
+    {
+      name: 'ожидание',
+      value:  'ожидание'
+    },
+    {
+      name: 'сборка',
+      value:  'сборка'
+    },
+    {
+      name: 'доставка',
+      value: 'доставка'
+    },
+    {
+      name: 'доставлено',
+      value: 'доставлено'
+    }
+  ]);
 
   const getOrders = async () => {
     isLoading.value = true;
@@ -30,9 +50,30 @@ export const useOrdersStore = defineStore('orders', () => {
     }
   }
 
-  const postEditStatusOrder = () => {
-
+  const getProduct = async (productId: string) => {
+    try {
+      const responce = await apiAxios.get(`${API_URL_PRODUCT}/${productId}`);
+      errorMessage.value = '';
+      return responce.data;
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    }
   }
 
-  return { getOrders, postEditStatusOrder, orders, isLoading, errorMessage}
+  const postEditStatusOrder = async (order_id: string, status: string) => {
+    try {
+      const responce = await apiAxios.post(`${API_URL_ORDERS}/changeStatus`, {
+        order_id: order_id,
+        status: status,
+      });
+      errorMessage.value = '';
+      return responce.data;
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+    }
+  }
+
+  return { getOrders, postEditStatusOrder, getProduct, orders, isLoading, errorMessage, selectOptions}
 });

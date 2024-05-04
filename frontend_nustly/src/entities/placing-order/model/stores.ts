@@ -49,6 +49,7 @@ export const usePlacingOrderStore = defineStore('placingOrder', () => {
         city: '',
         region: '',
         index: '',
+        status: 'ожидание',
         name: userName.value,
         orderDetails: orders.value
       }

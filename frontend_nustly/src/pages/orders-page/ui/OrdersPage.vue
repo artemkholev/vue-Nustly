@@ -9,9 +9,9 @@
     <div class="orders__cards" 
       v-if="orders.length"
     >
-      <template v-for="product in orders" :key="product.id">
+      <template v-for="order in orders" :key="order.id">
         <OrderItem 
-          :productOrder="product"
+          :productsOrder="order"
         />
       </template>
     </div>
@@ -28,7 +28,7 @@ import { OrderModel } from '@/entities/order-item';
 import { useThemeStore } from '@/shared/stores/theme';
 import { storeToRefs } from 'pinia';
 import { computed, defineComponent, onMounted } from 'vue';
-import { OrderItem } from '@/entities/order-item';
+import { OrderItem } from '@/features/orders/order-item';
 
 import MagnifierIcon from '@/app/assets/images/icons/MagnifierIcon.vue';
 

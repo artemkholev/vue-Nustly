@@ -58,7 +58,10 @@ export class BucketService {
     }
 
     const bucketItem = await this.bucketItemRepository.findOne({
-      where: { products_id: product.id },
+      where: {
+        products_id: product.id,
+        bucket_id: bucket.id,
+      },
     });
 
     if (bucketItem) {

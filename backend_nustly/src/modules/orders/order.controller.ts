@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id';
 import { OrderDto } from './dto/order.dto';
@@ -47,5 +47,10 @@ export class OrderController {
   @UseGuards(AdminGuard)
   changeStatusOrder(@Body() changeStatus): Promise<boolean> {
     return this.orderService.changeStatusOrder(changeStatus);
+  }
+
+  @Post('/delete/:order_id')
+  deleteOrder(@Param('order_id') order_id: string) {
+    return this.orderService.deleteOrder(order_id);
   }
 }

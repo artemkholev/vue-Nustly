@@ -9,6 +9,7 @@ import { Order } from './models/order.model';
 import { OrderDto } from './dto/order.dto';
 import { User } from '../users/users.model';
 import { Products } from '../products/products.model';
+import sequelize from 'sequelize';
 
 @Injectable()
 export class OrderService {
@@ -76,6 +77,11 @@ export class OrderService {
 
     if (userRole === 'ADMIN') {
       orders = await this.orderRepository.findAll({
+        where: {
+          status: {
+            [sequelize.Op.not]: 'доставлено',
+          },
+        },
         include: { all: true },
       });
     } else {
@@ -115,8 +121,18 @@ export class OrderService {
   //   return true;
   // }
 
+  async deleteOrder(order_id: string) {
+    try {
+      await this.orderRepository.destroy({
+        where: { id: order_id },
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   async changeStatusOrder(changeStatus): Promise<boolean> {
-    console.log('\n\n\n', changeStatus);
     const order = await this.orderRepository.findOne({
       where: { id: changeStatus.order_id },
     });

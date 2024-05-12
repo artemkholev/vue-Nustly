@@ -1,0 +1,75 @@
+version: '3.8'
+services:
+
+  backend:
+    build: ./backend_nustly
+    container_name: backend_nustly
+    ports:
+      - 8888:8888
+    env_file: ./deployment/backend.env
+    volumes:
+    - ./backend:/app
+    links:
+    - postgres_backend_api
+    depends_on:
+    - postgres_backend_api
+    # deploy:
+    #   replicas: 1
+    #   update_config:
+    #     parallelism: 2
+    #     delay: 10s
+    #   restart_policy:
+    #     condition: on-failure
+
+  frontend:
+    build: ./frontend_nustly
+    container_name: frontend_nustly
+    ports:
+      - '3000:3000'
+    env_file: ./deployment/frontend.env
+    volumes:
+    - ./frontend:/app
+    stdin_open: true
+    tty: true
+    # deploy:
+    #   replicas: 2
+    #   update_config:
+    #     parallelism: 2
+    #   restart_policy:
+    #     condition: on-failure
+
+  postgres_backend_api:
+    image: postgres:14.4-alpine
+    container_name: db_postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: Nustly
+    env_file: ./deployment/backend.env
+    ports:
+      - 5435:5432
+    #deploy:
+    #  placement:
+    #    max_replicas_per_node: 1
+    #    constraints:
+    #      - "node.role==manager"
+
+  pgAdmin:
+    image: dpage/pgadmin4:4.22
+    container_name: pgAdmin
+    depends_on:
+      - postgres_backend_api
+    ports:
+      - 16555:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    logging:
+      driver: none
+    # deploy:
+    #   replicas: 2
+    #   update_config:
+    #     parallelism: 2
+    #     delay: 10s
+    #   restart_policy:
+    #     condition: on-failure

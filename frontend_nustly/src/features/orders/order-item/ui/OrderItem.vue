@@ -11,6 +11,13 @@
           :options="selectOptions"
         />
       </div> 
+      <button 
+        v-if="role !== 'ADMIN' && status === 'доставлено'"
+        type="button" 
+        class="container__header__button-delete"
+        @click="handlerDeleteOrder"
+        >×
+      </button>
     </div>
     <div class="container__content">
       <template v-for="product in productsOrder?.order_details" :key="product.id">
@@ -31,8 +38,8 @@ import { ProductItem } from '@/entities/order-item';
 
 //products store
 const ordersStore = OrderModel.useOrdersStore();
-const { postEditStatusOrder } = ordersStore;
-const { selectOptions } = storeToRefs(ordersStore);
+const { postEditStatusOrder, postDeleteOrder } = ordersStore;
+const { selectOptions, orders } = storeToRefs(ordersStore);
 
 //auth store
 const authStore = useAuthStore();
@@ -47,9 +54,15 @@ const props = defineProps({
 const selected = ref<string>(props.productsOrder?.status);
 const status = ref(props.productsOrder?.status)
 
+const handlerDeleteOrder = async () => {
+  const answer = await postDeleteOrder(props.productsOrder?.id);
+  if (answer) {
+    orders.value = orders.value.filter((elem: any) => elem.id !== props.productsOrder?.id)
+  }
+}
+
 watch(selected, async (newSelected, oldSelected) => {
   const answer = await postEditStatusOrder(props.productsOrder?.id, newSelected);
-  console.log(answer, newSelected, oldSelected)
   if (answer) {
     status.value = newSelected;
   } else {

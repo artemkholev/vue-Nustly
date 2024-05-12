@@ -9,7 +9,7 @@
         <router-link to="/about">О компании</router-link>
         <router-link to="/vacancy">Вакансии</router-link>
         <router-link to="/articles">Статьи</router-link>
-        <router-link to="/politics">Моё резюме</router-link>
+        <!-- <router-link to="/politics">Моё резюме</router-link> -->
       </div>
       <div class="footer-container__info__contacts">
         <div class="footer-container__info__contacts__messengers">

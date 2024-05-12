@@ -12,6 +12,14 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    &__button-delete {
+      border: none;
+      background-color: transparent;
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+      cursor: pointer;
+    }
   }
   &__content {
     display: flex;

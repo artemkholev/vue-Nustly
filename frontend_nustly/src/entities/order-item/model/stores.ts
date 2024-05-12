@@ -12,7 +12,6 @@ const API_URL_PRODUCT = '/categories/product';
 
 export const useOrdersStore = defineStore('orders', () => {
   const orders = ref([]);
-  const order = ref();
 
   const isLoading = ref<boolean>(false);
   const errorMessage = ref<string>('');
@@ -72,8 +71,21 @@ export const useOrdersStore = defineStore('orders', () => {
     } catch (error: any) {
       errorMessage.value = error;
       console.error(error);
+      return false;
     }
   }
 
-  return { getOrders, postEditStatusOrder, getProduct, orders, isLoading, errorMessage, selectOptions}
+  const postDeleteOrder = async (order_id: string) => {
+    try {
+      const responce = await apiAxios.post(`${API_URL_ORDERS}/delete/${order_id}`);
+      errorMessage.value = '';
+      return responce.data;
+    } catch (error: any) {
+      errorMessage.value = error;
+      console.error(error);
+      return false;
+    }
+  }
+
+  return { getOrders, postEditStatusOrder, getProduct, postDeleteOrder, orders, isLoading, errorMessage, selectOptions}
 });

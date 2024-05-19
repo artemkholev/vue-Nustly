@@ -3,7 +3,7 @@
     class="container__product"
   >
     <div>
-      <h3>{{ product?.title }}</h3>
+      <p style="font-size: xx-large; font-weight: 600;">{{ product?.title }}</p>
       <div>
         <p><strong>Цена: </strong>{{ product?.price }}₽</p>
         <p><strong>Количество: </strong>{{ product?.quantity }}</p>
@@ -22,6 +22,7 @@ const props = defineProps({
     type: Object,
   }
 })
+
 
 //products store
 const ordersStore = OrderModel.useOrdersStore();

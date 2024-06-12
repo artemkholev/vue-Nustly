@@ -31,3 +31,12 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .product-container {
+    &__header {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

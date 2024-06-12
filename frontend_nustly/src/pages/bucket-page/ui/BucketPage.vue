@@ -12,7 +12,7 @@
           :clName="null"
           :title="selectedAll ? 'Удалить выбранные' : 'Выбрать все'"
           :handler="selectAllProducts"
-          :width="'200px'"
+          :width="'80%'"
           :height="'55px'"
           :background="'#70C05B'"
           :textColor="null"
@@ -22,12 +22,12 @@
           :borderRadius="'5px'"
           :icon="null"
         />
-        <router-link to="/placing-order">
+        <router-link style="width: 100%" to="/placing-order">
           <button-elem
             :clName="null"
             :title="'Оформить выбранные товары'"
             :handler="() => {}"
-            :width="'200px'"
+            :width="'80%'"
             :height="'55px'"
             :background="'#70C05B'"
             :textColor="null"

@@ -22,7 +22,7 @@
     }
   }
   &__input-finder {
-    width: 30%;
+    width: 40%;
     position: relative;
     display: flex;
     margin: 0 auto;
@@ -119,6 +119,10 @@
 
 @media (max-width: 768px) {
   .bucket {
+    &__input-finder {
+      width: 90%;
+    }
+
     &__cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
